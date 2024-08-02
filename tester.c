@@ -241,7 +241,7 @@ void attenteDemarrage(bool *autom, bool *testAct) {
 
             }
 
-            if (1) {
+            if (0) {
 
                 *autom = true;
              
@@ -292,7 +292,7 @@ void attenteDemarrage(bool *autom, bool *testAct) {
             // Réception RX
 
 
-            if (1) {
+            if (0) {
                 *autom = true;
               
 
@@ -365,7 +365,7 @@ bool reponseOperateur(bool automatique) {
 
         while (!repOperateur) {
 
-            if (1) {
+            if (0) {
 
              
 
@@ -526,7 +526,7 @@ void startAlert(void) {
     for (int i = 0; i < 2; i++) {
 
         activerBuzzer();
-        __delay_ms(500);
+        __delay_ms(80);
 
     }
 
@@ -539,7 +539,7 @@ void errorAlert(void) {
         for (int i = 0; i < 4; i++) {
 
             activerBuzzer();
-            __delay_ms(500);
+            __delay_ms(1000);
 
         }
         __delay_ms(500);
@@ -577,7 +577,7 @@ void attenteDemarrage2(bool *autom, bool *testAct) {
             *testAct = true;
         }
 
-        if (1) {
+        if (0) {
 
            
 
@@ -627,14 +627,15 @@ void attenteDemarrage3(bool *autom, bool *testAct, bool *prog) {
 
         if (IN3_GetValue() == 0) {
 
-            printf("-> TEST MANUEL EN COURS\r\n");
+           // if(master){printf("-> TEST MANUEL EN COURS\r\n");}
             repOperateur = true;
             *autom = false;
             *prog = false;
             *testAct = true;
         }
-
-        if (1) {
+        
+        /*
+        if (0) {
 
             //reception = EUSART_Read(); // read a byte for RX
 
@@ -723,6 +724,7 @@ void attenteDemarrage3(bool *autom, bool *testAct, bool *prog) {
 
             }
         }
+        */
     }
 
 }
@@ -743,7 +745,7 @@ void attenteAquittement(bool *autom, bool *testAct) {
             *testAct = false;
         }
 
-        if (1) {
+        if (0) {
 
            
 

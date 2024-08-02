@@ -44,6 +44,10 @@
  
  * 
  * Mode d'emploi:
+ * 
+ * Pour configuration en mode maitre/esclave
+ * affecter les bonnes adresses i2c des afficheurs et recompiler si besoin.
+ * 
  * 1- Sélectionner mode de test des leds (strap = inhibition)
  * 2- Appuyer sur OK, pour lancer la séquence
  * 3- Appuyer sur OK pour valider / sur NOK pour invalider
@@ -107,62 +111,62 @@ void main(void) {
         // Entrée IO4 à 0V: mode esclave activé
         master = false;
         I2C_Slave_Init();
-        // LCD_Init(0x46); // Initialize LCD module with I2C address = 0x46
+       
 
     } else {
 
         // Entrée IO4 à 5V: mode maitre activé
         I2C_Master_Init();
-        /*
-        //LCD_Init(0x4E); // Initialize LCD module with I2C address = 0x4E
-        LCD_Init(0x46);
-        displayManager(TITRE, MODE_SLAVE, BOARD_REQUEST, OK_REQUEST);
-        __delay_ms(100);
 
-        LCD_Init(0x4E);
-        displayManager(TITRE, MODE_MASTER, BOARD_REQUEST, OK_REQUEST);
-        __delay_ms(100);
-         */
+    }
+
+    if (GPIO1_GetValue() == 1) {
+
+        testLeds = true;
+
+    } else {
+
+        testLeds = false;
+
+    }
+
+    if (GPIO2_GetValue() == 0) {
+
+        pap = true;
+
+    } else {
+
+        pap = false;
+    }
+
+    if (master) {
+        REL8_SetLow(); // Coupure alimentation du programmateur STM32
+    } else {
+        REL8_SetHigh();
     }
 
     __delay_ms(1000);
 
 
     while (1) {
-        
-        
-        LCD_Init(0x4E);
-        displayManager(TITRE, MODE_MASTER, BOARD_REQUEST, OK_REQUEST);
-        __delay_ms(100);
 
-        LCD_Init(0x46);
-        displayManager(TITRE, MODE_SLAVE, BOARD_REQUEST, OK_REQUEST);
-        __delay_ms(100);
+       
+        if (master) {
+
+            LCD_Init(0x4E);
+            displayManager(TITRE, MODE_MASTER, BOARD_REQUEST, OK_REQUEST);
+            __delay_ms(100);
+
+            LCD_Init(0x46);
+            displayManager(TITRE, MODE_SLAVE, BOARD_REQUEST, OK_REQUEST);
+            __delay_ms(100);
+
+        }
+
 
         // sélection test individuel des leds
         // le test est inhibé si l'entrée GPIO1 est à zéro
 
-
-        REL8_SetLow();
-
-        if (GPIO1_GetValue() == 1) {
-
-            testLeds = true;
-
-        } else {
-
-            testLeds = false;
-
-        }
-
-        if (GPIO2_GetValue() == 0) {
-
-            pap = true;
-
-        } else {
-
-            pap = false;
-        }
 
 
         // Attente de démarrage
@@ -185,13 +189,9 @@ void main(void) {
         // test I2C vers esclave
 
         __delay_ms(100);
-     
-        LCD_Init(0x46);
-        displayManager(TITRE, "Master en test", BOARD_REQUEST, OK_REQUEST);
-        __delay_ms(100);
-        LCD_Init(0x4E);
-        displayManager("ETAPE 1", "TEST 3 RELAIS ON", LIGNE_VIDE, LIGNE_VIDE);
 
+
+        if(master){displayManager("ETAPE 1", "TEST 3 RELAIS ON", LIGNE_VIDE, LIGNE_VIDE);}
         // Méthode 1
         /*
          
@@ -245,33 +245,34 @@ void main(void) {
         while (SSPCON2bits.PEN); //Attente fin de STOP
         
          */
-        
-        slaveStatus = getSlaveStatus(25);
+
+        //slaveStatus = getSlaveStatus(25);
         //  Résultat de reception
 
+        /*
+                if (slaveStatus == 0x55) {
 
-        if (slaveStatus == 0x55) {
+                    /*
+         * Premier test
+         * 
+                     //C4_SetHigh();
+                     //C2_SetHigh();
+                     //C3_SetHigh();
+                     startAlert();
+                     startAlert();
+                     startAlert();
+                     startAlert();
+                     startAlert();
+                     startAlert();
+                     startAlert();
+                     startAlert();
+                     startAlert();
+             
 
-            /*
-             * Premier test
-             * 
-             //C4_SetHigh();
-             //C2_SetHigh();
-             //C3_SetHigh();
-             startAlert();
-             startAlert();
-             startAlert();
-             startAlert();
-             startAlert();
-             startAlert();
-             startAlert();
-             startAlert();
-             startAlert();
-             */
+                }
+         *  
+         *      */
 
-        }
-
-        __delay_ms(100);
 
         /*
         __delay_ms(10000);
@@ -302,7 +303,10 @@ void main(void) {
 
         if (testR1(true) && testR2(true) && testR3(true)) {
 
+
             printf("-> TEST:1:1");
+
+
 
         } else {
 
@@ -311,7 +315,7 @@ void main(void) {
             pressBP2(false);
             alerteDefaut("ETAPE 1", &testActif, &testVoyants);
             sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-     
+
         }
 
         __delay_ms(1000);
@@ -326,20 +330,26 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 2", "TEST 3 RELAIS OFF", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 2", "TEST 3 RELAIS OFF", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
+
             pressBP1(false);
             pressBP2(false);
             __delay_ms(500);
             if (!testR1(true) && !testR2(true) && !testR3(true)) {
 
+
                 printf("-> TEST:2:1");
+
+
 
             } else {
 
                 testActif = false;
                 alerteDefaut("ETAPE 2", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-      
+
             }
         }
 
@@ -349,20 +359,25 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 3", "TEST LED ROUGE", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 3", "TEST LED ROUGE", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
+
             pressBP1(true);
             __delay_ms(250);
             pressBP1(false);
             if (testLeds) {
 
+
                 printf("Attente validation led rouge\r\n");
+
                 testVoyants = reponseOperateur(automatique);
                 if (!testVoyants) {
 
                     testActif = false;
                     alerteDefaut("ETAPE 3", &testActif, &testVoyants);
                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-        
+
                 } else {
 
                     printf("-> TEST:3:1");
@@ -378,7 +393,10 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 4", "TEST LED BLEUE", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 4", "TEST LED BLEUE", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
+
             pressBP1(true);
             __delay_ms(250);
             pressBP1(false);
@@ -393,7 +411,9 @@ void main(void) {
 
                 } else {
 
+
                     printf("-> TEST:4:1");
+
                 }
             }
 
@@ -406,7 +426,10 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 5", "TEST LED VERTE", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 5", "TEST LED VERTE", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
+
             pressBP1(true);
             __delay_ms(250);
             pressBP1(false);
@@ -421,7 +444,9 @@ void main(void) {
 
                 } else {
 
+
                     printf("-> TEST:5:1");
+
                 }
             }
 
@@ -435,7 +460,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 6", "TEST R1 ON", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 6", "TEST R1 ON", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             pressBP1(true);
             __delay_ms(1000);
             pressBP1(false);
@@ -444,14 +471,16 @@ void main(void) {
 
             if (testR1(true)) {
 
+
                 printf("-> TEST:6:1");
+
 
             } else {
 
                 testActif = false;
                 alerteDefaut("ETAPE 6", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-     
+
             }
 
         }
@@ -462,7 +491,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 7", "TEST R1 OFF - R2 ON", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 7", "TEST R1 OFF - R2 ON", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             pressBP1(true);
             __delay_ms(1000);
             pressBP1(false);
@@ -471,7 +502,9 @@ void main(void) {
 
             if (testR1(false) && testR2(true)) {
 
+
                 printf("-> TEST:7:1");
+
 
             } else {
 
@@ -487,7 +520,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 8", "TEST R2 OFF - R3 ON", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 8", "TEST R2 OFF - R3 ON", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             pressBP1(true);
             __delay_ms(1000);
             pressBP1(false);
@@ -496,7 +531,9 @@ void main(void) {
 
             if (testR2(false) && testR3(true)) {
 
+
                 printf("-> TEST:8:1");
+
 
             } else {
 
@@ -512,7 +549,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 9", "TEST LED CLAVIER", "CLAVIER ECLAIRE?", LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 9", "TEST LED CLAVIER", "CLAVIER ECLAIRE?", LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             pressBP1(true);
             __delay_ms(250);
             pressBP1(false);
@@ -526,13 +565,17 @@ void main(void) {
             if (lectureAN1 < LIM_H) {
 
 
-                REL8_SetHigh();
+
+
                 printf("-> TEST:9:1");
+
 
             } else {
 
                 alerteDefaut("ETAPE 9", &testActif, &testVoyants);
-                displayManager("ETAPE 9", "TEST LED CLAVIER", slectureAN1, LIGNE_VIDE); // Ligne de test: affichage valeur de mesure analogique
+                if (master) {
+                    displayManager("ETAPE 9", "TEST LED CLAVIER", slectureAN1, LIGNE_VIDE);
+                }else{ __delay_ms(100);}// Ligne de test: affichage valeur de mesure analogique
                 REL8_SetLow();
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 
@@ -548,7 +591,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 10", "TEST LED CLAVIER", "CLAVIER ETEINT?", LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 10", "TEST LED CLAVIER", "CLAVIER ETEINT?", LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             pressBP1(true);
             __delay_ms(250);
             pressBP1(false);
@@ -563,16 +608,20 @@ void main(void) {
             if (lectureAN1 < LIM_L) {
 
 
-                REL8_SetLow();
+
+
                 printf("-> TEST:10:1");
+
 
             } else {
 
                 alerteDefaut("ETAPE 10", &testActif, &testVoyants);
-                displayManager("ETAPE 10", "TEST LED CLAVIER", slectureAN1, LIGNE_VIDE); // Ligne de test: affichage valeur de mesure analogique
+                if (master) {
+                    displayManager("ETAPE 10", "TEST LED CLAVIER", slectureAN1, LIGNE_VIDE);
+                }else{ __delay_ms(100);} // Ligne de test: affichage valeur de mesure analogique
                 REL8_SetHigh();
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-  
+
             }
             __delay_ms(2000);
 
@@ -585,7 +634,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 12", "TEST SFLASH", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 12", "TEST SFLASH", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             __delay_ms(500);
             pressBP1(true);
             __delay_ms(250);
@@ -602,6 +653,7 @@ void main(void) {
 
                 printf("-> TEST:12:1");
 
+
             } else {
 
                 testActif = false;
@@ -609,7 +661,7 @@ void main(void) {
                 pressBP2(false);
                 alerteDefaut("ETAPE 12", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-             
+
             }
 
             __delay_ms(1000);
@@ -625,22 +677,28 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 13", "TEST LEDS CARTE", "LEDS ALLUMEES", "PRESSER OK / NOK");
+            if (master) {
+                displayManager("ETAPE 13", "TEST LEDS CARTE", "LEDS ALLUMEES", "PRESSER OK / NOK");
+            }else{ __delay_ms(100);}
             pressBP1(true);
             __delay_ms(250);
             pressBP1(false);
 
+
             printf("ATTENTE VALIDATION LEDS\r\n");
+
             testVoyants = reponseOperateur(automatique);
             if (!testVoyants) {
 
                 testActif = false;
                 alerteDefaut("ETAPE 13", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-               
+
             } else {
 
+
                 printf("-> TEST:13:1");
+
             }
         }
 
@@ -649,7 +707,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 14", "TEST BP2", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 14", "TEST BP2", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             pressBP2(true);
             __delay_ms(250);
             pressBP2(false);
@@ -657,14 +717,16 @@ void main(void) {
 
             if (testR1(true) && testR2(true) && testR3(true)) {
 
+
                 printf("-> TEST:14:1");
+
 
             } else {
 
                 testActif = false;
                 alerteDefaut("ETAPE 14", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-             
+
             }
 
         }
@@ -675,7 +737,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 15", "TEST HORLOGE", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 15", "TEST HORLOGE", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             setHorloge(true);
             __delay_ms(250);
             setHorloge(false);
@@ -683,14 +747,16 @@ void main(void) {
 
             if (testR1(false) && testR2(false) && testR3(false)) {
 
+
                 printf("-> TEST:15:1");
+
 
             } else {
 
                 testActif = false;
                 alerteDefaut("ETAPE 15", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-            
+
             }
 
         }
@@ -700,7 +766,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 16", "TEST P1", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 16", "TEST P1", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             setP1(true);
             __delay_ms(1200); // 1200 pour D925ED2
 
@@ -708,12 +776,14 @@ void main(void) {
             __delay_ms(500);
             if (testR1(true) && testR2(true) && testR3(true)) {
 
+
                 printf("-> TEST:16:1");
+
 
             } else {
 
                 alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation);
-               
+
             }
 
         }
@@ -724,7 +794,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 17", "TEST P2", LIGNE_VIDE, LIGNE_VIDE);
+            if (master) {
+                displayManager("ETAPE 17", "TEST P2", LIGNE_VIDE, LIGNE_VIDE);
+            }else{ __delay_ms(100);}
             setP2(true);
             __delay_ms(1200);
             setP2(false);
@@ -732,14 +804,16 @@ void main(void) {
 
             if (testR1(false) && testR2(false) && testR3(false)) {
 
+
                 printf("-> TEST:17:1");
+
 
             } else {
 
                 testActif = false;
                 alerteDefaut("ETAPE 17", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-            
+
             }
 
         }
@@ -751,7 +825,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("ETAPE 18", "TEST BLUETOOTH", "VOIR APPLI", "PRESSER OK / NOK");
+            if (master) {
+                displayManager("ETAPE 18", "TEST BLUETOOTH", "VOIR APPLI", "PRESSER OK / NOK");
+            }else{ __delay_ms(100);}
             activerTouche();
             //printf("ATTENTE VALIDATION BLUETOOTH\r\n");
             testVoyants = reponseOperateur(automatique);
@@ -764,7 +840,9 @@ void main(void) {
                 __delay_ms(2000);
             } else {
 
+
                 printf("-> TEST:18:1");
+
             }
         }
 
@@ -773,7 +851,9 @@ void main(void) {
 
         if (testActif) {
 
-            displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", ACQ);
+            if (master) {
+                displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", ACQ);
+            }else{ __delay_ms(100);}
             ledConforme(true);
             alimenter(false);
             okAlert();
@@ -793,92 +873,92 @@ void main(void) {
  End of File
  */
 
+
 void __interrupt() I2C_Slave_Read_Write() {
 
-    REL1_SetLow();
-    REL2_SetLow();
-    REL3_SetLow();
-    REL4_SetLow();
-    REL5_SetLow();
-    REL6_SetLow();
-    REL7_SetLow();
-    //REL8_SetLow();
 
-    REL8_SetHigh(); // entrée en interruption
+    // entrée en interruption
 
     if (SSPIF) {
 
         SSPIF = 0;
-
+        
+        //-------------------------------------------------------------------------------
+        // Gestion des collisions
         if (SSPOV || WCOL) {
             SSPOV = 0; // Clear the overflow flag
             WCOL = 0; // Clear the collision flag
             return;
         }
-
+        
+        //-------------------------------------------------------------------------------
+        // Adresse + écriture (R/W=0)
         if (!D_nA && !R_nW) // If last byte was an address + Write
         {
-            REL7_SetHigh(); // Adresse + écriture (R/W=0)
+            
             unsigned char temp = SSPBUF; // Read the buffer to clear BF
             CKP = 1; // Release the clock
-
-
+        //-------------------------------------------------------------------------------
+        // adresse + lecture (R/W=1)
         } else if (!D_nA && R_nW) // If last byte was an address + Read
         {
-            REL6_SetHigh(); // adresse + lecture (R/W=1)
+           
             unsigned char temp = SSPBUF; // Read the buffer to clear BF
             //SSPBUF = 0x55; // Load the buffer with the data to be sent11111
-            if(ordre == 25){
-                
+            if (ordre == 25) {
+
                 SSPBUF = 0x55; // Load the buffer with the data to be sent11111
             }
             CKP = 1; // Release the clock
 
+        //-------------------------------------------------------------------------------
+        // Donnée + écriture R/W=0
         } else if (D_nA && !R_nW) // If data byte + Write
         {
-            REL5_SetHigh(); // Donnée + écriture 
+            
             unsigned char temp = SSPBUF; // Read the buffer to clear BF
 
             CKP = 1; // Release the clock
             if (temp == 88) {
 
-                REL1_SetHigh();
+
             }
 
             if (temp == 77) {
 
-                REL2_SetHigh();
+
             }
 
             if (temp == 25) {
 
                 ordre = 25;
-                REL2_SetHigh();
-            }
 
+            }
+        
+         //-------------------------------------------------------------------------------
+         // Donnée + ecriture R/W=1
+         // Traitement des ordres 
+            
         } else if (D_nA && R_nW) // If data byte + lecture
         {
-            REL3_SetHigh(); // Donnée + ecriture
+           
             unsigned char temp = SSPBUF; // Read the buffer to clear BF
             //SSPBUF = 0x55; // Load the buffer with the data to be sent2222
             CKP = 1; // Release the clock
             if (temp == 88) {
 
-                REL1_SetHigh();
                 SSPBUF = 0x22; // Load the buffer with the data to be sent
                 //CKP = 1; // Release the clock
             }
 
             if (temp == 77) {
 
-                REL2_SetHigh();
                 SSPBUF = 0x99; // Load the buffer with the data to be sent
                 //CKP = 1; // Release the clock
             }
 
             if (temp == 25) {
 
-                REL2_SetHigh();
                 //SSPBUF = 0x55; // Load the buffer with the data to be sent
                 //CKP = 1; // Release the clock
             }

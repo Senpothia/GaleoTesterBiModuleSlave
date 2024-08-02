@@ -27,7 +27,7 @@ channel_Temp 29
 channel_DAC 30
 channel_FVR 31
 ]
-"523 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\main.c
+"559 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\main.c
 [e E3374 . `uc
 AN3 8
 AN4 9
@@ -77,8 +77,6 @@ channel_FVR 31
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "7 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\display.c
 [v _displayManager displayManager `(v  1 e 1 0 ]
-"5 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\I2C-tester.c
-[v _getSlaveStatus getSlaveStatus `(uc  1 e 1 0 ]
 "9 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\I2C_LCD.c
 [v _I2C_Master_Init I2C_Master_Init `(v  1 e 1 0 ]
 "19
@@ -109,7 +107,7 @@ channel_FVR 31
 [v _I2C_Slave_Init I2C_Slave_Init `(v  1 e 1 0 ]
 "71 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\main.c
 [v _main main `(v  1 e 1 0 ]
-"795
+"873
 [v _I2C_Slave_Read_Write I2C_Slave_Read_Write `II(v  1 e 1 0 ]
 "67 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\mcc_generated_files/adc.c
 [v _ADC_Initialize ADC_Initialize `(v  1 e 1 0 ]
@@ -185,11 +183,11 @@ channel_FVR 31
 [v _okAlert okAlert `(v  1 e 1 0 ]
 "620
 [v _attenteDemarrage3 attenteDemarrage3 `(v  1 e 1 0 ]
-"730
+"732
 [v _attenteAquittement attenteAquittement `(v  1 e 1 0 ]
-"774
+"776
 [v _sortieErreur sortieErreur `(v  1 e 1 0 ]
-"782
+"784
 [v _alerteDefautEtape16 alerteDefautEtape16 `(v  1 e 1 0 ]
 [s S319 . 1 `uc 1 IOCIF 1 0 :1:0 
 `uc 1 INTF 1 0 :1:1 
@@ -220,7 +218,7 @@ channel_FVR 31
 "571
 [u S448 . 1 `S439 1 . 1 0 ]
 [v _PORTCbits PORTCbits `VES448  1 e 1 @14 ]
-[s S916 . 1 `uc 1 RD0 1 0 :1:0 
+[s S907 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
 `uc 1 RD3 1 0 :1:3 
@@ -230,8 +228,8 @@ channel_FVR 31
 `uc 1 RD7 1 0 :1:7 
 ]
 "633
-[u S925 . 1 `S916 1 . 1 0 ]
-[v _PORTDbits PORTDbits `VES925  1 e 1 @15 ]
+[u S916 . 1 `S907 1 . 1 0 ]
+[v _PORTDbits PORTDbits `VES916  1 e 1 @15 ]
 "1314
 [v _TRISA TRISA `VEuc  1 e 1 @140 ]
 "1376
@@ -296,7 +294,7 @@ channel_FVR 31
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @158 ]
 "2358
 [v _LATA LATA `VEuc  1 e 1 @268 ]
-[s S483 . 1 `uc 1 LATA0 1 0 :1:0 
+[s S468 . 1 `uc 1 LATA0 1 0 :1:0 
 `uc 1 LATA1 1 0 :1:1 
 `uc 1 LATA2 1 0 :1:2 
 `uc 1 LATA3 1 0 :1:3 
@@ -306,11 +304,11 @@ channel_FVR 31
 `uc 1 LATA7 1 0 :1:7 
 ]
 "2375
-[u S492 . 1 `S483 1 . 1 0 ]
-[v _LATAbits LATAbits `VES492  1 e 1 @268 ]
+[u S477 . 1 `S468 1 . 1 0 ]
+[v _LATAbits LATAbits `VES477  1 e 1 @268 ]
 "2420
 [v _LATB LATB `VEuc  1 e 1 @269 ]
-[s S964 . 1 `uc 1 LATB0 1 0 :1:0 
+[s S955 . 1 `uc 1 LATB0 1 0 :1:0 
 `uc 1 LATB1 1 0 :1:1 
 `uc 1 LATB2 1 0 :1:2 
 `uc 1 LATB3 1 0 :1:3 
@@ -320,22 +318,22 @@ channel_FVR 31
 `uc 1 LATB7 1 0 :1:7 
 ]
 "2437
-[u S973 . 1 `S964 1 . 1 0 ]
-[v _LATBbits LATBbits `VES973  1 e 1 @269 ]
+[u S964 . 1 `S955 1 . 1 0 ]
+[v _LATBbits LATBbits `VES964  1 e 1 @269 ]
 "2482
 [v _LATC LATC `VEuc  1 e 1 @270 ]
 "2544
 [v _LATD LATD `VEuc  1 e 1 @271 ]
 "2614
 [v _LATE LATE `VEuc  1 e 1 @272 ]
-[s S937 . 1 `uc 1 LATE0 1 0 :1:0 
+[s S928 . 1 `uc 1 LATE0 1 0 :1:0 
 `uc 1 LATE1 1 0 :1:1 
 `uc 1 LATE2 1 0 :1:2 
 `uc 1 LATE3 1 0 :1:3 
 ]
 "2627
-[u S942 . 1 `S937 1 . 1 0 ]
-[v _LATEbits LATEbits `VES942  1 e 1 @272 ]
+[u S933 . 1 `S928 1 . 1 0 ]
+[v _LATEbits LATEbits `VES933  1 e 1 @272 ]
 "2924
 [v _BORCON BORCON `VEuc  1 e 1 @278 ]
 "3273
@@ -380,7 +378,7 @@ channel_FVR 31
 [v _SSPADD SSPADD `VEuc  1 e 1 @530 ]
 "4215
 [v _SSPSTAT SSPSTAT `VEuc  1 e 1 @532 ]
-[s S1216 . 1 `uc 1 BF 1 0 :1:0 
+[s S1180 . 1 `uc 1 BF 1 0 :1:0 
 `uc 1 UA 1 0 :1:1 
 `uc 1 R_nW 1 0 :1:2 
 `uc 1 S 1 0 :1:3 
@@ -390,13 +388,13 @@ channel_FVR 31
 `uc 1 SMP 1 0 :1:7 
 ]
 "4232
-[u S1225 . 1 `S1216 1 . 1 0 ]
-[v _SSPSTATbits SSPSTATbits `VES1225  1 e 1 @532 ]
+[u S1189 . 1 `S1180 1 . 1 0 ]
+[v _SSPSTATbits SSPSTATbits `VES1189  1 e 1 @532 ]
 "4282
 [v _SSPCON SSPCON `VEuc  1 e 1 @533 ]
 "4415
 [v _SSPCON2 SSPCON2 `VEuc  1 e 1 @534 ]
-[s S1194 . 1 `uc 1 SEN 1 0 :1:0 
+[s S1158 . 1 `uc 1 SEN 1 0 :1:0 
 `uc 1 RSEN 1 0 :1:1 
 `uc 1 PEN 1 0 :1:2 
 `uc 1 RCEN 1 0 :1:3 
@@ -406,8 +404,8 @@ channel_FVR 31
 `uc 1 GCEN 1 0 :1:7 
 ]
 "4432
-[u S1203 . 1 `S1194 1 . 1 0 ]
-[v _SSPCON2bits SSPCON2bits `VES1203  1 e 1 @534 ]
+[u S1167 . 1 `S1158 1 . 1 0 ]
+[v _SSPCON2bits SSPCON2bits `VES1167  1 e 1 @534 ]
 "7823
 [v _ACKDT ACKDT `VEb  1 e 0 @4277 ]
 "7826
@@ -463,37 +461,37 @@ channel_FVR 31
 "71
 [v _main main `(v  1 e 1 0 ]
 {
+"602
+[v main@buffer_760 buffer `i  1 a 2 57 ]
 "560
-[v main@buffer_769 buffer `i  1 a 2 57 ]
-"524
 [v main@buffer buffer `i  1 a 2 55 ]
 "94
-[v main@slectureAN1 slectureAN1 `[5]uc  1 a 5 60 ]
+[v main@slectureAN1 slectureAN1 `[5]uc  1 a 5 59 ]
 "93
-[v main@lectureAN1 lectureAN1 `i  1 a 2 67 ]
+[v main@lectureAN1 lectureAN1 `i  1 a 2 66 ]
 "91
 [v main@testActif testActif `a  1 a 1 72 ]
 "92
 [v main@testVoyants testVoyants `a  1 a 1 71 ]
 "96
 [v main@automatique automatique `a  1 a 1 70 ]
-"98
-[v main@programmation programmation `a  1 a 1 69 ]
-"95
-[v main@testLeds testLeds `a  1 a 1 66 ]
-"100
-[v main@slaveStatus slaveStatus `uc  1 a 1 65 ]
 "99
-[v main@master master `a  1 a 1 59 ]
-"789
+[v main@master master `a  1 a 1 69 ]
+"98
+[v main@programmation programmation `a  1 a 1 68 ]
+"95
+[v main@testLeds testLeds `a  1 a 1 65 ]
+"97
+[v main@pap pap `a  1 a 1 64 ]
+"866
 } 0
 "9 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\nf_sprintf.c
 [v _sprintf sprintf `(i  1 e 2 0 ]
 {
 [v sprintf@s s `*.4uc  1 a 1 wreg ]
-[s S1685 _IO_FILE 5 `*.4uc 1 buffer 1 0 `i 1 count 2 1 `i 1 limit 2 3 ]
+[s S1649 _IO_FILE 5 `*.4uc 1 buffer 1 0 `i 1 count 2 1 `i 1 limit 2 3 ]
 "13
-[v sprintf@f f `S1685  1 a 5 11 ]
+[v sprintf@f f `S1649  1 a 5 11 ]
 "11
 [v sprintf@ret ret `i  1 a 2 7 ]
 "12
@@ -528,53 +526,39 @@ channel_FVR 31
 [v startAlert@i i `i  1 a 2 0 ]
 "533
 } 0
-"5 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\I2C-tester.c
-[v _getSlaveStatus getSlaveStatus `(uc  1 e 1 0 ]
-{
-[v getSlaveStatus@code code `uc  1 a 1 wreg ]
-"7
-[v getSlaveStatus@slaveResponse slaveResponse `uc  1 a 1 5 ]
-"5
-[v getSlaveStatus@code code `uc  1 a 1 wreg ]
-"9
-[v getSlaveStatus@code code `uc  1 a 1 4 ]
-"33
-} 0
-"620 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\tester.c
+"620
 [v _attenteDemarrage3 attenteDemarrage3 `(v  1 e 1 0 ]
 {
 [v attenteDemarrage3@autom autom `*.4a  1 a 1 wreg ]
 "623
-[v attenteDemarrage3@repOperateur repOperateur `a  1 a 1 10 ]
-"622
-[v attenteDemarrage3@reception reception `uc  1 a 1 9 ]
+[v attenteDemarrage3@repOperateur repOperateur `a  1 a 1 6 ]
 "620
 [v attenteDemarrage3@autom autom `*.4a  1 a 1 wreg ]
-[v attenteDemarrage3@testAct testAct `*.4a  1 p 1 5 ]
-[v attenteDemarrage3@prog prog `*.4a  1 p 1 6 ]
+[v attenteDemarrage3@testAct testAct `*.4a  1 p 1 3 ]
+[v attenteDemarrage3@prog prog `*.4a  1 p 1 4 ]
 "623
-[v attenteDemarrage3@autom autom `*.4a  1 a 1 11 ]
-"728
+[v attenteDemarrage3@autom autom `*.4a  1 a 1 5 ]
+"730
 } 0
-"782
+"784
 [v _alerteDefautEtape16 alerteDefautEtape16 `(v  1 e 1 0 ]
 {
-"784
+"786
 [v alerteDefautEtape16@error error `[20]uc  1 a 20 10 ]
-"785
+"787
 [v alerteDefautEtape16@eol eol `[10]uc  1 a 10 0 ]
-"794
+"796
 [v alerteDefautEtape16@reponse reponse `a  1 a 1 32 ]
-"782
+"784
 [v alerteDefautEtape16@etape etape `*.25uc  1 p 2 42 ]
 [v alerteDefautEtape16@testAct testAct `*.4a  1 p 1 44 ]
 [v alerteDefautEtape16@testVoy testVoy `*.4a  1 p 1 45 ]
 [v alerteDefautEtape16@autom autom `*.4a  1 p 1 46 ]
 [v alerteDefautEtape16@prog prog `*.4a  1 p 1 47 ]
 [v alerteDefautEtape16@F3763 F3763 `[20]uc  1 s 20 F3763 ]
-"784
+"786
 [v alerteDefautEtape16@F3765 F3765 `[10]uc  1 s 10 F3765 ]
-"829
+"831
 } 0
 "103
 [v _testR3 testR3 `(a  1 e 1 0 ]
@@ -612,7 +596,7 @@ channel_FVR 31
 [v testR1@active active `a  1 a 1 4 ]
 "79
 } 0
-"774
+"776
 [v _sortieErreur sortieErreur `(v  1 e 1 0 ]
 {
 [v sortieErreur@autom autom `*.4a  1 a 1 wreg ]
@@ -620,9 +604,9 @@ channel_FVR 31
 [v sortieErreur@testAct testAct `*.4a  1 p 1 13 ]
 [v sortieErreur@testVoy testVoy `*.4a  1 p 1 14 ]
 [v sortieErreur@prog prog `*.4a  1 p 1 15 ]
-"776
+"778
 [v sortieErreur@autom autom `*.4a  1 a 1 24 ]
-"780
+"782
 } 0
 "476
 [v _initialConditions initialConditions `(v  1 e 1 0 ]
@@ -669,32 +653,28 @@ channel_FVR 31
 [v pressBP1@active active `a  1 a 1 3 ]
 "35
 } 0
-"730
+"732
 [v _attenteAquittement attenteAquittement `(v  1 e 1 0 ]
 {
-"733
-[v attenteAquittement@repOperateur repOperateur `a  1 a 1 12 ]
+"735
+[v attenteAquittement@repOperateur repOperateur `a  1 a 1 9 ]
 "732
-[v attenteAquittement@reception reception `uc  1 a 1 11 ]
-"730
 [v attenteAquittement@autom autom `*.39a  1 p 2 5 ]
 [v attenteAquittement@testAct testAct `*.39a  1 p 2 7 ]
-"772
+"774
 } 0
 "358
 [v _reponseOperateur reponseOperateur `(a  1 e 1 0 ]
 {
 [v reponseOperateur@automatique automatique `a  1 a 1 wreg ]
 "361
-[v reponseOperateur@repOperateur repOperateur `a  1 a 1 3 ]
+[v reponseOperateur@repOperateur repOperateur `a  1 a 1 7 ]
 "360
-[v reponseOperateur@reponse reponse `a  1 a 1 2 ]
-"362
-[v reponseOperateur@reception reception `uc  1 a 1 0 ]
+[v reponseOperateur@reponse reponse `a  1 a 1 6 ]
 "358
 [v reponseOperateur@automatique automatique `a  1 a 1 wreg ]
 "360
-[v reponseOperateur@automatique automatique `a  1 a 1 1 ]
+[v reponseOperateur@automatique automatique `a  1 a 1 5 ]
 "452
 } 0
 "126
@@ -768,42 +748,42 @@ channel_FVR 31
 "1390 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\doprnt.c
 [v _vfprintf vfprintf `(i  1 e 2 0 ]
 {
-[s S1711 _IO_FILE 0 ]
-[v vfprintf@fp fp `*.4S1711  1 a 1 wreg ]
+[s S1675 _IO_FILE 0 ]
+[v vfprintf@fp fp `*.4S1675  1 a 1 wreg ]
 "1393
 [v vfprintf@cfmt cfmt `*.26uc  1 a 2 1 ]
 "1390
-[v vfprintf@fp fp `*.4S1711  1 a 1 wreg ]
+[v vfprintf@fp fp `*.4S1675  1 a 1 wreg ]
 [v vfprintf@fmt fmt `*.26DCuc  1 p 2 73 ]
 [v vfprintf@ap ap `*.4*.4v  1 p 1 75 ]
 "1395
 "1390
-[v vfprintf@fp fp `*.4S1711  1 a 1 0 ]
+[v vfprintf@fp fp `*.4S1675  1 a 1 0 ]
 "1404
 } 0
 "692
 [v _vfpfcnvrt vfpfcnvrt `(i  1 s 2 vfpfcnvrt ]
 {
-[s S1711 _IO_FILE 0 ]
-[v vfpfcnvrt@fp fp `*.4S1711  1 a 1 wreg ]
+[s S1675 _IO_FILE 0 ]
+[v vfpfcnvrt@fp fp `*.4S1675  1 a 1 wreg ]
 "696
 [v vfpfcnvrt@ll ll `o  1 a 8 63 ]
 "699
 [v vfpfcnvrt@vp vp `*.4v  1 a 1 71 ]
 "692
-[v vfpfcnvrt@fp fp `*.4S1711  1 a 1 wreg ]
+[v vfpfcnvrt@fp fp `*.4S1675  1 a 1 wreg ]
 [v vfpfcnvrt@fmt fmt `*.4*.26uc  1 p 1 56 ]
 [v vfpfcnvrt@ap ap `*.4*.4v  1 p 1 57 ]
 "702
 "692
-[v vfpfcnvrt@fp fp `*.4S1711  1 a 1 72 ]
+[v vfpfcnvrt@fp fp `*.4S1675  1 a 1 72 ]
 "1387
 } 0
 "287
 [v _dtoa dtoa `(i  1 s 2 dtoa ]
 {
-[s S1711 _IO_FILE 0 ]
-[v dtoa@fp fp `*.4S1711  1 a 1 wreg ]
+[s S1675 _IO_FILE 0 ]
+[v dtoa@fp fp `*.4S1675  1 a 1 wreg ]
 "290
 [v dtoa@n n `o  1 a 8 46 ]
 "289
@@ -812,28 +792,28 @@ channel_FVR 31
 [v dtoa@w w `i  1 a 2 42 ]
 [v dtoa@p p `i  1 a 2 40 ]
 "287
-[v dtoa@fp fp `*.4S1711  1 a 1 wreg ]
+[v dtoa@fp fp `*.4S1675  1 a 1 wreg ]
 [v dtoa@d d `o  1 p 8 26 ]
 "293
 "287
-[v dtoa@fp fp `*.4S1711  1 a 1 37 ]
+[v dtoa@fp fp `*.4S1675  1 a 1 37 ]
 "328
 } 0
 "72
 [v _pad pad `(i  1 s 2 pad ]
 {
-[s S1711 _IO_FILE 0 ]
-[v pad@fp fp `*.4S1711  1 a 1 wreg ]
+[s S1675 _IO_FILE 0 ]
+[v pad@fp fp `*.4S1675  1 a 1 wreg ]
 "74
 [v pad@w w `i  1 a 2 18 ]
 [v pad@i i `i  1 a 2 16 ]
 "72
-[v pad@fp fp `*.4S1711  1 a 1 wreg ]
+[v pad@fp fp `*.4S1675  1 a 1 wreg ]
 [v pad@buf buf `*.5uc  1 p 1 13 ]
 [v pad@p p `i  1 p 2 14 ]
 "77
 "72
-[v pad@fp fp `*.4S1711  1 a 1 20 ]
+[v pad@fp fp `*.4S1675  1 a 1 20 ]
 "95
 } 0
 "5 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\strlen.c
@@ -855,8 +835,8 @@ channel_FVR 31
 [v fputs@c c `uc  1 a 1 9 ]
 "8
 [v fputs@s s `*.5DCuc  1 a 1 wreg ]
-[s S1685 _IO_FILE 5 `*.4uc 1 buffer 1 0 `i 1 count 2 1 `i 1 limit 2 3 ]
-[v fputs@fp fp `*.4S1685  1 p 1 5 ]
+[s S1649 _IO_FILE 5 `*.4uc 1 buffer 1 0 `i 1 count 2 1 `i 1 limit 2 3 ]
+[v fputs@fp fp `*.4S1649  1 p 1 5 ]
 "13
 [v fputs@s s `*.5DCuc  1 a 1 12 ]
 "19
@@ -865,8 +845,8 @@ channel_FVR 31
 [v _fputc fputc `(i  1 e 2 0 ]
 {
 [v fputc@c c `i  1 p 2 3 ]
-[s S1685 _IO_FILE 5 `*.4uc 1 buffer 1 0 `i 1 count 2 1 `i 1 limit 2 3 ]
-[v fputc@fp fp `*.4S1685  1 p 1 5 ]
+[s S1649 _IO_FILE 5 `*.4uc 1 buffer 1 0 `i 1 count 2 1 `i 1 limit 2 3 ]
+[v fputc@fp fp `*.4S1649  1 p 1 5 ]
 "24
 } 0
 "7 C:\Program Files\Microchip\xc8\v2.32\pic\sources\c99\common\putch.c
@@ -1106,12 +1086,12 @@ channel_FVR 31
 [v ADC_GetConversion@channel channel `E2947  1 a 1 6 ]
 "133
 } 0
-"795 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\main.c
+"873 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\main.c
 [v _I2C_Slave_Read_Write I2C_Slave_Read_Write `II(v  1 e 1 0 ]
 {
-"861
-[v I2C_Slave_Read_Write@temp_831 temp `uc  1 a 1 2 ]
-"839
-[v I2C_Slave_Read_Write@temp_830 temp `uc  1 a 1 1 ]
-"887
+"931
+[v I2C_Slave_Read_Write@temp_822 temp `uc  1 a 1 2 ]
+"909
+[v I2C_Slave_Read_Write@temp_821 temp `uc  1 a 1 1 ]
+"954
 } 0

@@ -6065,7 +6065,7 @@ void attenteDemarrage(_Bool *autom, _Bool *testAct) {
 
             }
 
-            if (1) {
+            if (0) {
 
                 *autom = 1;
 
@@ -6116,7 +6116,7 @@ void attenteDemarrage(_Bool *autom, _Bool *testAct) {
 
 
 
-            if (1) {
+            if (0) {
                 *autom = 1;
 
 
@@ -6189,7 +6189,7 @@ _Bool reponseOperateur(_Bool automatique) {
 
         while (!repOperateur) {
 
-            if (1) {
+            if (0) {
 
 
 
@@ -6333,7 +6333,7 @@ void startAlert(void) {
     for (int i = 0; i < 2; i++) {
 
         activerBuzzer();
-        _delay((unsigned long)((500)*(16000000/4000.0)));
+        _delay((unsigned long)((80)*(16000000/4000.0)));
 
     }
 
@@ -6346,7 +6346,7 @@ void errorAlert(void) {
         for (int i = 0; i < 4; i++) {
 
             activerBuzzer();
-            _delay((unsigned long)((500)*(16000000/4000.0)));
+            _delay((unsigned long)((1000)*(16000000/4000.0)));
 
         }
         _delay((unsigned long)((500)*(16000000/4000.0)));
@@ -6384,7 +6384,7 @@ void attenteDemarrage2(_Bool *autom, _Bool *testAct) {
             *testAct = 1;
         }
 
-        if (1) {
+        if (0) {
 
 
 
@@ -6434,102 +6434,13 @@ void attenteDemarrage3(_Bool *autom, _Bool *testAct, _Bool *prog) {
 
         if (PORTDbits.RD2 == 0) {
 
-            printf("-> TEST MANUEL EN COURS\r\n");
+
             repOperateur = 1;
             *autom = 0;
             *prog = 0;
             *testAct = 1;
         }
-
-        if (1) {
-
-
-
-            switch (reception)
-            {
-
-                case '0':
-                {
-                    __asm("reset");
-
-                }
-
-                case '1':
-                {
-                    printf("-> TEST ON\r\n");
-                    *autom = 1;
-                    *testAct = 1;
-                    *prog = 0;
-                    _delay((unsigned long)((50)*(16000000/4000.0)));
-                    repOperateur = 1;
-                    break;
-                }
-
-                   case '6':
-                {
-                    printf("-> ERREUR PROGRAMMATION\r\n");
-                    displayManager("TEST CARTE D925ED4", "", "ERREUR PROGRAMMATION", "");
-                    *autom = 1;
-                    _delay((unsigned long)((50)*(16000000/4000.0)));
-                    repOperateur = 1;
-                    *testAct = 0;
-                    do { LATAbits.LATA7 = 0; } while(0);
-                    break;
-                }
-
-                case '7':
-                {
-                    printf("-> PROGRAMMATION EN COURS\r\n");
-                    displayManager("TEST CARTE D925ED4", "", "PROGRAMMATION", "");
-                    *autom = 1;
-                    *testAct = 0;
-                    *prog = 0;
-                    _delay((unsigned long)((50)*(16000000/4000.0)));
-                    repOperateur = 1;
-                    do { LATAbits.LATA7 = 1; } while(0);
-                    break;
-                }
-
-                case '9':
-                {
-                    printf("-> PROGRAMMATION TERMINEE\r\n");
-                    displayManager("TEST CARTE D925ED4", "", "FIN PROGRAMMATION", "");
-                    *autom = 1;
-                    _delay((unsigned long)((50)*(16000000/4000.0)));
-                    repOperateur = 1;
-                    *testAct = 0;
-                    do { LATAbits.LATA7 = 0; } while(0);
-                    break;
-                }
-
-                case '8':
-                {
-                    printf("-> EFFACEMENT EN COURS\r\n");
-                    displayManager("TEST CARTE D925ED4", "", "EFFACEMENT", "");
-                    *autom = 1;
-                    *testAct = 0;
-                    *prog = 1;
-                    _delay((unsigned long)((50)*(16000000/4000.0)));
-                    repOperateur = 1;
-                    do { LATAbits.LATA7 = 1; } while(0);
-                    break;
-                }
-
-                case '5':
-                {
-                    printf("-> EFFACEMENT TERMINE\r\n");
-                    displayManager("TEST CARTE D925ED4", "", "FIN EFFACEMENT", "");
-                    *autom = 1;
-                    *testAct = 0;
-                    *prog = 1;
-                    _delay((unsigned long)((50)*(16000000/4000.0)));
-                    repOperateur = 1;
-                    do { LATAbits.LATA7 = 0; } while(0);
-                    break;
-                }
-
-            }
-        }
+# 728 "tester.c"
     }
 
 }
@@ -6550,7 +6461,7 @@ void attenteAquittement(_Bool *autom, _Bool *testAct) {
             *testAct = 0;
         }
 
-        if (1) {
+        if (0) {
 
 
 

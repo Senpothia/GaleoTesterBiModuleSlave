@@ -21,16 +21,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "99
 [; ;./I2C_LCD.h: 99: void I2C_Master_Init();
 [v _I2C_Master_Init `(v ~T0 @X0 0 e? ]
-[v F183 `(v ~T0 @X0 1 tf1`ul ]
-"12 C:\Program Files\Microchip\xc8\v2.32\pic\include\builtins.h
-[v __delay `JF183 ~T0 @X0 0 e ]
-[p i __delay ]
-"111 ./I2C_LCD.h
-[; ;./I2C_LCD.h: 111: void LCD_Init(unsigned char I2C_Add);
-[v _LCD_Init `(v ~T0 @X0 0 ef1`uc ]
-"23 ./display.h
-[; ;./display.h: 23: void displayManager(char s1[], char s2[], char s3[], char s4[]);
-[v _displayManager `(v ~T0 @X0 0 ef4`*uc`*uc`*uc`*uc ]
 "2364 C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h
 [; ;C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h: 2364:     struct {
 [s S119 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -42,6 +32,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 "2375
 [; ;C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h: 2375: extern volatile LATAbits_t LATAbits __attribute__((address(0x10C)));
 [v _LATAbits `VS118 ~T0 @X0 0 e@268 ]
+[v F183 `(v ~T0 @X0 1 tf1`ul ]
+"12 C:\Program Files\Microchip\xc8\v2.32\pic\include\builtins.h
+[v __delay `JF183 ~T0 @X0 0 e ]
+[p i __delay ]
+"111 ./I2C_LCD.h
+[; ;./I2C_LCD.h: 111: void LCD_Init(unsigned char I2C_Add);
+[v _LCD_Init `(v ~T0 @X0 0 ef1`uc ]
+"23 ./display.h
+[; ;./display.h: 23: void displayManager(char s1[], char s2[], char s3[], char s4[]);
+[v _displayManager `(v ~T0 @X0 0 ef4`*uc`*uc`*uc`*uc ]
 "30 ./tester.h
 [; ;./tester.h: 30: void attenteDemarrage3(_Bool *, _Bool *, _Bool *);
 [v _attenteDemarrage3 `(v ~T0 @X0 0 ef3`*a`*a`*a ]
@@ -57,10 +57,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "15
 [; ;./tester.h: 15: void ledProgession(_Bool active);
 [v _ledProgession `(v ~T0 @X0 0 ef1`a ]
-"3 ./I2C-tester.h
-[; ;./I2C-tester.h: 3: char getSlaveStatus(char code);
-[v _getSlaveStatus `(uc ~T0 @X0 0 ef1`uc ]
-"5 ./tester.h
+"5
 [; ;./tester.h: 5: void pressBP1(_Bool active);
 [v _pressBP1 `(v ~T0 @X0 0 ef1`a ]
 "6
@@ -89,8 +86,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "19
 [; ;./tester.h: 19: _Bool reponseOperateur(_Bool automatique);
 [v _reponseOperateur `(a ~T0 @X0 0 ef1`a ]
-"523 main.c
-[; ;main.c: 523:             lectureAN1 = ADC_GetConversion(VIN1);
+"559 main.c
+[; ;main.c: 559:             lectureAN1 = ADC_GetConversion(VIN1);
 [c E3374 8 9 10 12 29 30 31 .. ]
 [n E3374 . AN3 AN4 AN2 VIN1 channel_Temp channel_DAC channel_FVR  ]
 "291 ./mcc_generated_files/adc.h
@@ -742,651 +739,689 @@ Version 4.0 HI-TECH Software Intermediate Code
 "115
 [; ;main.c: 115:         I2C_Master_Init();
 [e ( _I2C_Master_Init ..  ]
-"126
-[; ;main.c: 126:     }
+"117
+[; ;main.c: 117:     }
 }
 [e :U 384 ]
-"128
-[; ;main.c: 128:     _delay((unsigned long)((1000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"131
-[; ;main.c: 131:     while (1) {
-[e :U 386 ]
+"119
+[; ;main.c: 119:     if (PORTCbits.RC0 == 1) {
+[e $ ! == -> . . _PORTCbits 0 0 `i -> 1 `i 385  ]
 {
+"121
+[; ;main.c: 121:         testLeds = 1;
+[e = _testLeds -> -> 1 `i `a ]
+"123
+[; ;main.c: 123:     } else {
+}
+[e $U 386  ]
+[e :U 385 ]
+{
+"125
+[; ;main.c: 125:         testLeds = 0;
+[e = _testLeds -> -> 0 `i `a ]
+"127
+[; ;main.c: 127:     }
+}
+[e :U 386 ]
+"129
+[; ;main.c: 129:     if (PORTCbits.RC1 == 0) {
+[e $ ! == -> . . _PORTCbits 0 1 `i -> 0 `i 387  ]
+{
+"131
+[; ;main.c: 131:         pap = 1;
+[e = _pap -> -> 1 `i `a ]
 "133
-[; ;main.c: 133:         LCD_Init(0x4E);
-[e ( _LCD_Init (1 -> -> 78 `i `uc ]
-"134
-[; ;main.c: 134:         displayManager("TEST CARTE D925ED4", "MODULE MAITRE", "POSITIONNER CARTE", "APPUYER SUR OK");
-[e ( _displayManager (4 , , , :s 1C :s 2C :s 3C :s 4C ]
+[; ;main.c: 133:     } else {
+}
+[e $U 388  ]
+[e :U 387 ]
+{
 "135
-[; ;main.c: 135:         _delay((unsigned long)((100)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"137
-[; ;main.c: 137:         LCD_Init(0x46);
-[e ( _LCD_Init (1 -> -> 70 `i `uc ]
+[; ;main.c: 135:         pap = 0;
+[e = _pap -> -> 0 `i `a ]
+"136
+[; ;main.c: 136:     }
+}
+[e :U 388 ]
 "138
-[; ;main.c: 138:         displayManager("TEST CARTE D925ED4", "MODULE ESCLAVE", "POSITIONNER CARTE", "APPUYER SUR OK");
-[e ( _displayManager (4 , , , :s 5C :s 6C :s 7C :s 8C ]
+[; ;main.c: 138:     if (master) {
+[e $ ! != -> _master `i -> 0 `i 389  ]
+{
 "139
-[; ;main.c: 139:         _delay((unsigned long)((100)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"145
-[; ;main.c: 145:         do { LATAbits.LATA7 = 0; } while(0);
-[e :U 390 ]
+[; ;main.c: 139:         do { LATAbits.LATA7 = 0; } while(0);
+[e :U 392 ]
 {
 [e = . . _LATAbits 0 7 -> -> 0 `i `uc ]
 }
-[e :U 389 ]
-"147
-[; ;main.c: 147:         if (PORTCbits.RC0 == 1) {
-[e $ ! == -> . . _PORTCbits 0 0 `i -> 1 `i 391  ]
-{
-"149
-[; ;main.c: 149:             testLeds = 1;
-[e = _testLeds -> -> 1 `i `a ]
-"151
-[; ;main.c: 151:         } else {
-}
-[e $U 392  ]
 [e :U 391 ]
-{
-"153
-[; ;main.c: 153:             testLeds = 0;
-[e = _testLeds -> -> 0 `i `a ]
-"155
-[; ;main.c: 155:         }
+"140
+[; ;main.c: 140:     } else {
 }
-[e :U 392 ]
-"157
-[; ;main.c: 157:         if (PORTCbits.RC1 == 0) {
-[e $ ! == -> . . _PORTCbits 0 1 `i -> 0 `i 393  ]
+[e $U 393  ]
+[e :U 389 ]
 {
-"159
-[; ;main.c: 159:             pap = 1;
-[e = _pap -> -> 1 `i `a ]
-"161
-[; ;main.c: 161:         } else {
-}
-[e $U 394  ]
-[e :U 393 ]
-{
-"163
-[; ;main.c: 163:             pap = 0;
-[e = _pap -> -> 0 `i `a ]
-"164
-[; ;main.c: 164:         }
-}
-[e :U 394 ]
-"170
-[; ;main.c: 170:         while (!testActif) {
-[e $U 395  ]
+"141
+[; ;main.c: 141:         do { LATAbits.LATA7 = 1; } while(0);
 [e :U 396 ]
 {
-"172
-[; ;main.c: 172:             attenteDemarrage3(&automatique, &testActif, &programmation);
-[e ( _attenteDemarrage3 (3 , , &U _automatique &U _testActif &U _programmation ]
-"173
-[; ;main.c: 173:         }
+[e = . . _LATAbits 0 7 -> -> 1 `i `uc ]
 }
 [e :U 395 ]
-"170
-[; ;main.c: 170:         while (!testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 396  ]
-[e :U 397 ]
-"176
-[; ;main.c: 176:         programmation = 0;
-[e = _programmation -> -> 0 `i `a ]
-"177
-[; ;main.c: 177:         startAlert();
-[e ( _startAlert ..  ]
-"178
-[; ;main.c: 178:         testActif = 1;
-[e = _testActif -> -> 1 `i `a ]
-"179
-[; ;main.c: 179:         ledConforme(0);
-[e ( _ledConforme (1 -> -> 0 `i `a ]
-"180
-[; ;main.c: 180:         ledNonConforme(0);
-[e ( _ledNonConforme (1 -> -> 0 `i `a ]
-"181
-[; ;main.c: 181:         ledProgession(1);
-[e ( _ledProgession (1 -> -> 1 `i `a ]
-"186
-[; ;main.c: 186:         _delay((unsigned long)((100)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"188
-[; ;main.c: 188:         LCD_Init(0x46);
-[e ( _LCD_Init (1 -> -> 70 `i `uc ]
-"189
-[; ;main.c: 189:         displayManager("TEST CARTE D925ED4", "Master en test", "POSITIONNER CARTE", "APPUYER SUR OK");
-[e ( _displayManager (4 , , , :s 9C :s 10C :s 11C :s 12C ]
-"190
-[; ;main.c: 190:         _delay((unsigned long)((100)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"191
-[; ;main.c: 191:         LCD_Init(0x4E);
-[e ( _LCD_Init (1 -> -> 78 `i `uc ]
-"192
-[; ;main.c: 192:         displayManager("ETAPE 1", "TEST 3 RELAIS ON", "", "");
-[e ( _displayManager (4 , , , :s 13C :s 14C :s 15C :s 16C ]
-"248
-[; ;main.c: 248:         slaveStatus = getSlaveStatus(25);
-[e = _slaveStatus ( _getSlaveStatus (1 -> -> 25 `i `uc ]
-"252
-[; ;main.c: 252:         if (slaveStatus == 0x55) {
-[e $ ! == -> _slaveStatus `i -> 85 `i 398  ]
-{
-"271
-[; ;main.c: 271:         }
+"142
+[; ;main.c: 142:     }
 }
-[e :U 398 ]
-"273
-[; ;main.c: 273:         _delay((unsigned long)((100)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"294
-[; ;main.c: 294:         pressBP1(1);
-[e ( _pressBP1 (1 -> -> 1 `i `a ]
-"295
-[; ;main.c: 295:         pressBP2(1);
-[e ( _pressBP2 (1 -> -> 1 `i `a ]
-"296
-[; ;main.c: 296:         _delay((unsigned long)((1000)*(16000000/4000.0)));
+[e :U 393 ]
+"144
+[; ;main.c: 144:     _delay((unsigned long)((1000)*(16000000/4000.0)));
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"297
-[; ;main.c: 297:         alimenter(1);
-[e ( _alimenter (1 -> -> 1 `i `a ]
-"298
-[; ;main.c: 298:         _delay((unsigned long)((2000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"302
-[; ;main.c: 302:         if (testR1(1) && testR2(1) && testR3(1)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 399  ]
+"147
+[; ;main.c: 147:     while (1) {
+[e :U 398 ]
 {
-"304
-[; ;main.c: 304:             printf("-> TEST:1:1");
-[e ( _printf :s 17C ]
-"306
-[; ;main.c: 306:         } else {
-}
-[e $U 400  ]
-[e :U 399 ]
+"150
+[; ;main.c: 150:         if (master) {
+[e $ ! != -> _master `i -> 0 `i 400  ]
 {
-"308
-[; ;main.c: 308:             testActif = 0;
-[e = _testActif -> -> 0 `i `a ]
-"309
-[; ;main.c: 309:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"310
-[; ;main.c: 310:             pressBP2(0);
-[e ( _pressBP2 (1 -> -> 0 `i `a ]
-"311
-[; ;main.c: 311:             alerteDefaut("ETAPE 1", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 18C &U _testActif &U _testVoyants ]
-"312
-[; ;main.c: 312:             sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"314
-[; ;main.c: 314:         }
+"152
+[; ;main.c: 152:             LCD_Init(0x4E);
+[e ( _LCD_Init (1 -> -> 78 `i `uc ]
+"153
+[; ;main.c: 153:             displayManager("TEST CARTE D925ED4", "MODULE MAITRE", "POSITIONNER CARTE", "APPUYER SUR OK");
+[e ( _displayManager (4 , , , :s 1C :s 2C :s 3C :s 4C ]
+"154
+[; ;main.c: 154:             _delay((unsigned long)((100)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"156
+[; ;main.c: 156:             LCD_Init(0x46);
+[e ( _LCD_Init (1 -> -> 70 `i `uc ]
+"157
+[; ;main.c: 157:             displayManager("TEST CARTE D925ED4", "MODULE ESCLAVE", "POSITIONNER CARTE", "APPUYER SUR OK");
+[e ( _displayManager (4 , , , :s 5C :s 6C :s 7C :s 8C ]
+"158
+[; ;main.c: 158:             _delay((unsigned long)((100)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"160
+[; ;main.c: 160:         }
 }
 [e :U 400 ]
-"316
-[; ;main.c: 316:         _delay((unsigned long)((1000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"319
-[; ;main.c: 319:         pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"320
-[; ;main.c: 320:         pressBP2(0);
-[e ( _pressBP2 (1 -> -> 0 `i `a ]
-"326
-[; ;main.c: 326:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 401  ]
-{
-"328
-[; ;main.c: 328:             displayManager("ETAPE 2", "TEST 3 RELAIS OFF", "", "");
-[e ( _displayManager (4 , , , :s 19C :s 20C :s 21C :s 22C ]
-"329
-[; ;main.c: 329:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"330
-[; ;main.c: 330:             pressBP2(0);
-[e ( _pressBP2 (1 -> -> 0 `i `a ]
-"331
-[; ;main.c: 331:             _delay((unsigned long)((500)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"332
-[; ;main.c: 332:             if (!testR1(1) && !testR2(1) && !testR3(1)) {
-[e $ ! && && ! != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i ! != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i ! != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 402  ]
-{
-"334
-[; ;main.c: 334:                 printf("-> TEST:2:1");
-[e ( _printf :s 23C ]
-"336
-[; ;main.c: 336:             } else {
-}
-[e $U 403  ]
+"171
+[; ;main.c: 171:         while (!testActif) {
+[e $U 401  ]
 [e :U 402 ]
 {
-"338
-[; ;main.c: 338:                 testActif = 0;
-[e = _testActif -> -> 0 `i `a ]
-"339
-[; ;main.c: 339:                 alerteDefaut("ETAPE 2", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 24C &U _testActif &U _testVoyants ]
-"340
-[; ;main.c: 340:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"342
-[; ;main.c: 342:             }
-}
-[e :U 403 ]
-"343
-[; ;main.c: 343:         }
+"173
+[; ;main.c: 173:             attenteDemarrage3(&automatique, &testActif, &programmation);
+[e ( _attenteDemarrage3 (3 , , &U _automatique &U _testActif &U _programmation ]
+"174
+[; ;main.c: 174:         }
 }
 [e :U 401 ]
-"349
-[; ;main.c: 349:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 404  ]
+"171
+[; ;main.c: 171:         while (!testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 402  ]
+[e :U 403 ]
+"177
+[; ;main.c: 177:         programmation = 0;
+[e = _programmation -> -> 0 `i `a ]
+"178
+[; ;main.c: 178:         startAlert();
+[e ( _startAlert ..  ]
+"179
+[; ;main.c: 179:         testActif = 1;
+[e = _testActif -> -> 1 `i `a ]
+"180
+[; ;main.c: 180:         ledConforme(0);
+[e ( _ledConforme (1 -> -> 0 `i `a ]
+"181
+[; ;main.c: 181:         ledNonConforme(0);
+[e ( _ledNonConforme (1 -> -> 0 `i `a ]
+"182
+[; ;main.c: 182:         ledProgession(1);
+[e ( _ledProgession (1 -> -> 1 `i `a ]
+"187
+[; ;main.c: 187:         _delay((unsigned long)((100)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"190
+[; ;main.c: 190:         if(master){displayManager("ETAPE 1", "TEST 3 RELAIS ON", "", "");}
+[e $ ! != -> _master `i -> 0 `i 404  ]
 {
-"351
-[; ;main.c: 351:             displayManager("ETAPE 3", "TEST LED ROUGE", "", "");
-[e ( _displayManager (4 , , , :s 25C :s 26C :s 27C :s 28C ]
-"352
-[; ;main.c: 352:             pressBP1(1);
-[e ( _pressBP1 (1 -> -> 1 `i `a ]
-"353
-[; ;main.c: 353:             _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"354
-[; ;main.c: 354:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"355
-[; ;main.c: 355:             if (testLeds) {
-[e $ ! != -> _testLeds `i -> 0 `i 405  ]
-{
-"357
-[; ;main.c: 357:                 printf("Attente validation led rouge\r\n");
-[e ( _printf :s 29C ]
-"358
-[; ;main.c: 358:                 testVoyants = reponseOperateur(automatique);
-[e = _testVoyants ( _reponseOperateur (1 _automatique ]
-"359
-[; ;main.c: 359:                 if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 406  ]
-{
-"361
-[; ;main.c: 361:                     testActif = 0;
-[e = _testActif -> -> 0 `i `a ]
-"362
-[; ;main.c: 362:                     alerteDefaut("ETAPE 3", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 30C &U _testActif &U _testVoyants ]
-"363
-[; ;main.c: 363:                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"365
-[; ;main.c: 365:                 } else {
-}
-[e $U 407  ]
-[e :U 406 ]
-{
-"367
-[; ;main.c: 367:                     printf("-> TEST:3:1");
-[e ( _printf :s 31C ]
-"368
-[; ;main.c: 368:                 }
-}
-[e :U 407 ]
-"369
-[; ;main.c: 369:             }
-}
-[e :U 405 ]
-"372
-[; ;main.c: 372:         }
+[e ( _displayManager (4 , , , :s 9C :s 10C :s 11C :s 12C ]
 }
 [e :U 404 ]
-"378
-[; ;main.c: 378:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 408  ]
-{
-"380
-[; ;main.c: 380:             displayManager("ETAPE 4", "TEST LED BLEUE", "", "");
-[e ( _displayManager (4 , , , :s 32C :s 33C :s 34C :s 35C ]
-"381
-[; ;main.c: 381:             pressBP1(1);
+"292
+[; ;main.c: 292:         pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
-"382
-[; ;main.c: 382:             _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"383
-[; ;main.c: 383:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"384
-[; ;main.c: 384:             if (testLeds) {
-[e $ ! != -> _testLeds `i -> 0 `i 409  ]
+"293
+[; ;main.c: 293:         pressBP2(1);
+[e ( _pressBP2 (1 -> -> 1 `i `a ]
+"294
+[; ;main.c: 294:         _delay((unsigned long)((1000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"295
+[; ;main.c: 295:         alimenter(1);
+[e ( _alimenter (1 -> -> 1 `i `a ]
+"296
+[; ;main.c: 296:         _delay((unsigned long)((2000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"300
+[; ;main.c: 300:         if (testR1(1) && testR2(1) && testR3(1)) {
+[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 405  ]
 {
-"386
-[; ;main.c: 386:                 testVoyants = reponseOperateur(automatique);
-[e = _testVoyants ( _reponseOperateur (1 _automatique ]
-"387
-[; ;main.c: 387:                 if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 410  ]
+"303
+[; ;main.c: 303:             printf("-> TEST:1:1");
+[e ( _printf :s 13C ]
+"307
+[; ;main.c: 307:         } else {
+}
+[e $U 406  ]
+[e :U 405 ]
 {
-"389
-[; ;main.c: 389:                     testActif = 0;
+"309
+[; ;main.c: 309:             testActif = 0;
 [e = _testActif -> -> 0 `i `a ]
-"390
-[; ;main.c: 390:                     alerteDefaut("ETAPE 4", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 36C &U _testActif &U _testVoyants ]
-"391
-[; ;main.c: 391:                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+"310
+[; ;main.c: 310:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"311
+[; ;main.c: 311:             pressBP2(0);
+[e ( _pressBP2 (1 -> -> 0 `i `a ]
+"312
+[; ;main.c: 312:             alerteDefaut("ETAPE 1", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 14C &U _testActif &U _testVoyants ]
+"313
+[; ;main.c: 313:             sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 [e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"393
-[; ;main.c: 393:                 } else {
+"315
+[; ;main.c: 315:         }
+}
+[e :U 406 ]
+"317
+[; ;main.c: 317:         _delay((unsigned long)((1000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"320
+[; ;main.c: 320:         pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"321
+[; ;main.c: 321:         pressBP2(0);
+[e ( _pressBP2 (1 -> -> 0 `i `a ]
+"327
+[; ;main.c: 327:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 407  ]
+{
+"329
+[; ;main.c: 329:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 408  ]
+{
+"330
+[; ;main.c: 330:                 displayManager("ETAPE 2", "TEST 3 RELAIS OFF", "", "");
+[e ( _displayManager (4 , , , :s 15C :s 16C :s 17C :s 18C ]
+"331
+[; ;main.c: 331:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 409  ]
+[e :U 408 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 409 ]
+"333
+[; ;main.c: 333:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"334
+[; ;main.c: 334:             pressBP2(0);
+[e ( _pressBP2 (1 -> -> 0 `i `a ]
+"335
+[; ;main.c: 335:             _delay((unsigned long)((500)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"336
+[; ;main.c: 336:             if (!testR1(1) && !testR2(1) && !testR3(1)) {
+[e $ ! && && ! != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i ! != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i ! != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 410  ]
+{
+"339
+[; ;main.c: 339:                 printf("-> TEST:2:1");
+[e ( _printf :s 19C ]
+"343
+[; ;main.c: 343:             } else {
 }
 [e $U 411  ]
 [e :U 410 ]
 {
-"395
-[; ;main.c: 395:                     printf("-> TEST:4:1");
-[e ( _printf :s 37C ]
-"396
-[; ;main.c: 396:                 }
+"345
+[; ;main.c: 345:                 testActif = 0;
+[e = _testActif -> -> 0 `i `a ]
+"346
+[; ;main.c: 346:                 alerteDefaut("ETAPE 2", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 20C &U _testActif &U _testVoyants ]
+"347
+[; ;main.c: 347:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"349
+[; ;main.c: 349:             }
 }
 [e :U 411 ]
-"397
-[; ;main.c: 397:             }
+"350
+[; ;main.c: 350:         }
 }
-[e :U 409 ]
-"400
-[; ;main.c: 400:         }
-}
-[e :U 408 ]
-"406
-[; ;main.c: 406:         if (testActif) {
+[e :U 407 ]
+"356
+[; ;main.c: 356:         if (testActif) {
 [e $ ! != -> _testActif `i -> 0 `i 412  ]
 {
-"408
-[; ;main.c: 408:             displayManager("ETAPE 5", "TEST LED VERTE", "", "");
-[e ( _displayManager (4 , , , :s 38C :s 39C :s 40C :s 41C ]
-"409
-[; ;main.c: 409:             pressBP1(1);
-[e ( _pressBP1 (1 -> -> 1 `i `a ]
-"410
-[; ;main.c: 410:             _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"411
-[; ;main.c: 411:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"412
-[; ;main.c: 412:             if (testLeds) {
-[e $ ! != -> _testLeds `i -> 0 `i 413  ]
+"358
+[; ;main.c: 358:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 413  ]
 {
-"414
-[; ;main.c: 414:                 testVoyants = reponseOperateur(automatique);
-[e = _testVoyants ( _reponseOperateur (1 _automatique ]
-"415
-[; ;main.c: 415:                 if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 414  ]
-{
-"417
-[; ;main.c: 417:                     testActif = 0;
-[e = _testActif -> -> 0 `i `a ]
-"418
-[; ;main.c: 418:                     alerteDefaut("ETAPE 5", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 42C &U _testActif &U _testVoyants ]
-"419
-[; ;main.c: 419:                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"421
-[; ;main.c: 421:                 } else {
+"359
+[; ;main.c: 359:                 displayManager("ETAPE 3", "TEST LED ROUGE", "", "");
+[e ( _displayManager (4 , , , :s 21C :s 22C :s 23C :s 24C ]
+"360
+[; ;main.c: 360:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
 }
-[e $U 415  ]
-[e :U 414 ]
+[e $U 414  ]
+[e :U 413 ]
 {
-"423
-[; ;main.c: 423:                     printf("-> TEST:5:1");
-[e ( _printf :s 43C ]
-"424
-[; ;main.c: 424:                 }
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 414 ]
+"362
+[; ;main.c: 362:             pressBP1(1);
+[e ( _pressBP1 (1 -> -> 1 `i `a ]
+"363
+[; ;main.c: 363:             _delay((unsigned long)((250)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"364
+[; ;main.c: 364:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"365
+[; ;main.c: 365:             if (testLeds) {
+[e $ ! != -> _testLeds `i -> 0 `i 415  ]
+{
+"368
+[; ;main.c: 368:                 printf("Attente validation led rouge\r\n");
+[e ( _printf :s 25C ]
+"370
+[; ;main.c: 370:                 testVoyants = reponseOperateur(automatique);
+[e = _testVoyants ( _reponseOperateur (1 _automatique ]
+"371
+[; ;main.c: 371:                 if (!testVoyants) {
+[e $ ! ! != -> _testVoyants `i -> 0 `i 416  ]
+{
+"373
+[; ;main.c: 373:                     testActif = 0;
+[e = _testActif -> -> 0 `i `a ]
+"374
+[; ;main.c: 374:                     alerteDefaut("ETAPE 3", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 26C &U _testActif &U _testVoyants ]
+"375
+[; ;main.c: 375:                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"377
+[; ;main.c: 377:                 } else {
+}
+[e $U 417  ]
+[e :U 416 ]
+{
+"379
+[; ;main.c: 379:                     printf("-> TEST:3:1");
+[e ( _printf :s 27C ]
+"380
+[; ;main.c: 380:                 }
+}
+[e :U 417 ]
+"381
+[; ;main.c: 381:             }
 }
 [e :U 415 ]
-"425
-[; ;main.c: 425:             }
-}
-[e :U 413 ]
-"427
-[; ;main.c: 427:         }
+"384
+[; ;main.c: 384:         }
 }
 [e :U 412 ]
-"435
-[; ;main.c: 435:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 416  ]
+"390
+[; ;main.c: 390:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 418  ]
 {
-"437
-[; ;main.c: 437:             displayManager("ETAPE 6", "TEST R1 ON", "", "");
-[e ( _displayManager (4 , , , :s 44C :s 45C :s 46C :s 47C ]
-"438
-[; ;main.c: 438:             pressBP1(1);
-[e ( _pressBP1 (1 -> -> 1 `i `a ]
-"439
-[; ;main.c: 439:             _delay((unsigned long)((1000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"440
-[; ;main.c: 440:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"442
-[; ;main.c: 442:             _delay((unsigned long)((1000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"444
-[; ;main.c: 444:             if (testR1(1)) {
-[e $ ! != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i 417  ]
+"392
+[; ;main.c: 392:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 419  ]
 {
-"446
-[; ;main.c: 446:                 printf("-> TEST:6:1");
-[e ( _printf :s 48C ]
-"448
-[; ;main.c: 448:             } else {
+"393
+[; ;main.c: 393:                 displayManager("ETAPE 4", "TEST LED BLEUE", "", "");
+[e ( _displayManager (4 , , , :s 28C :s 29C :s 30C :s 31C ]
+"394
+[; ;main.c: 394:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
 }
-[e $U 418  ]
-[e :U 417 ]
+[e $U 420  ]
+[e :U 419 ]
 {
-"450
-[; ;main.c: 450:                 testActif = 0;
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 420 ]
+"396
+[; ;main.c: 396:             pressBP1(1);
+[e ( _pressBP1 (1 -> -> 1 `i `a ]
+"397
+[; ;main.c: 397:             _delay((unsigned long)((250)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"398
+[; ;main.c: 398:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"399
+[; ;main.c: 399:             if (testLeds) {
+[e $ ! != -> _testLeds `i -> 0 `i 421  ]
+{
+"401
+[; ;main.c: 401:                 testVoyants = reponseOperateur(automatique);
+[e = _testVoyants ( _reponseOperateur (1 _automatique ]
+"402
+[; ;main.c: 402:                 if (!testVoyants) {
+[e $ ! ! != -> _testVoyants `i -> 0 `i 422  ]
+{
+"404
+[; ;main.c: 404:                     testActif = 0;
 [e = _testActif -> -> 0 `i `a ]
-"451
-[; ;main.c: 451:                 alerteDefaut("ETAPE 6", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 49C &U _testActif &U _testVoyants ]
-"452
-[; ;main.c: 452:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+"405
+[; ;main.c: 405:                     alerteDefaut("ETAPE 4", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 32C &U _testActif &U _testVoyants ]
+"406
+[; ;main.c: 406:                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 [e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"454
-[; ;main.c: 454:             }
+"408
+[; ;main.c: 408:                 } else {
+}
+[e $U 423  ]
+[e :U 422 ]
+{
+"411
+[; ;main.c: 411:                     printf("-> TEST:4:1");
+[e ( _printf :s 33C ]
+"413
+[; ;main.c: 413:                 }
+}
+[e :U 423 ]
+"414
+[; ;main.c: 414:             }
+}
+[e :U 421 ]
+"417
+[; ;main.c: 417:         }
 }
 [e :U 418 ]
-"456
-[; ;main.c: 456:         }
-}
-[e :U 416 ]
-"462
-[; ;main.c: 462:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 419  ]
+"423
+[; ;main.c: 423:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 424  ]
 {
-"464
-[; ;main.c: 464:             displayManager("ETAPE 7", "TEST R1 OFF - R2 ON", "", "");
-[e ( _displayManager (4 , , , :s 50C :s 51C :s 52C :s 53C ]
-"465
-[; ;main.c: 465:             pressBP1(1);
+"425
+[; ;main.c: 425:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 425  ]
+{
+"426
+[; ;main.c: 426:                 displayManager("ETAPE 5", "TEST LED VERTE", "", "");
+[e ( _displayManager (4 , , , :s 34C :s 35C :s 36C :s 37C ]
+"427
+[; ;main.c: 427:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 426  ]
+[e :U 425 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 426 ]
+"429
+[; ;main.c: 429:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
+"430
+[; ;main.c: 430:             _delay((unsigned long)((250)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"431
+[; ;main.c: 431:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"432
+[; ;main.c: 432:             if (testLeds) {
+[e $ ! != -> _testLeds `i -> 0 `i 427  ]
+{
+"434
+[; ;main.c: 434:                 testVoyants = reponseOperateur(automatique);
+[e = _testVoyants ( _reponseOperateur (1 _automatique ]
+"435
+[; ;main.c: 435:                 if (!testVoyants) {
+[e $ ! ! != -> _testVoyants `i -> 0 `i 428  ]
+{
+"437
+[; ;main.c: 437:                     testActif = 0;
+[e = _testActif -> -> 0 `i `a ]
+"438
+[; ;main.c: 438:                     alerteDefaut("ETAPE 5", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 38C &U _testActif &U _testVoyants ]
+"439
+[; ;main.c: 439:                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"441
+[; ;main.c: 441:                 } else {
+}
+[e $U 429  ]
+[e :U 428 ]
+{
+"444
+[; ;main.c: 444:                     printf("-> TEST:5:1");
+[e ( _printf :s 39C ]
+"446
+[; ;main.c: 446:                 }
+}
+[e :U 429 ]
+"447
+[; ;main.c: 447:             }
+}
+[e :U 427 ]
+"449
+[; ;main.c: 449:         }
+}
+[e :U 424 ]
+"457
+[; ;main.c: 457:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 430  ]
+{
+"459
+[; ;main.c: 459:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 431  ]
+{
+"460
+[; ;main.c: 460:                 displayManager("ETAPE 6", "TEST R1 ON", "", "");
+[e ( _displayManager (4 , , , :s 40C :s 41C :s 42C :s 43C ]
+"461
+[; ;main.c: 461:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 432  ]
+[e :U 431 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 432 ]
+"462
+[; ;main.c: 462:             pressBP1(1);
+[e ( _pressBP1 (1 -> -> 1 `i `a ]
+"463
+[; ;main.c: 463:             _delay((unsigned long)((1000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"464
+[; ;main.c: 464:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
 "466
 [; ;main.c: 466:             _delay((unsigned long)((1000)*(16000000/4000.0)));
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"467
-[; ;main.c: 467:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"469
-[; ;main.c: 469:             _delay((unsigned long)((1000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"468
+[; ;main.c: 468:             if (testR1(1)) {
+[e $ ! != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i 433  ]
+{
 "471
-[; ;main.c: 471:             if (testR1(0) && testR2(1)) {
-[e $ ! && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i 420  ]
-{
-"473
-[; ;main.c: 473:                 printf("-> TEST:7:1");
-[e ( _printf :s 54C ]
-"475
-[; ;main.c: 475:             } else {
+[; ;main.c: 471:                 printf("-> TEST:6:1");
+[e ( _printf :s 44C ]
+"474
+[; ;main.c: 474:             } else {
 }
-[e $U 421  ]
-[e :U 420 ]
+[e $U 434  ]
+[e :U 433 ]
 {
-"477
-[; ;main.c: 477:                 testActif = 0;
+"476
+[; ;main.c: 476:                 testActif = 0;
 [e = _testActif -> -> 0 `i `a ]
+"477
+[; ;main.c: 477:                 alerteDefaut("ETAPE 6", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 45C &U _testActif &U _testVoyants ]
 "478
-[; ;main.c: 478:                 alerteDefaut("ETAPE 7", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 55C &U _testActif &U _testVoyants ]
-"479
-[; ;main.c: 479:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[; ;main.c: 478:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 [e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
 "480
 [; ;main.c: 480:             }
 }
-[e :U 421 ]
+[e :U 434 ]
 "482
 [; ;main.c: 482:         }
 }
-[e :U 419 ]
-"487
-[; ;main.c: 487:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 422  ]
+[e :U 430 ]
+"488
+[; ;main.c: 488:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 435  ]
 {
-"489
-[; ;main.c: 489:             displayManager("ETAPE 8", "TEST R2 OFF - R3 ON", "", "");
-[e ( _displayManager (4 , , , :s 56C :s 57C :s 58C :s 59C ]
 "490
-[; ;main.c: 490:             pressBP1(1);
-[e ( _pressBP1 (1 -> -> 1 `i `a ]
+[; ;main.c: 490:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 436  ]
+{
 "491
-[; ;main.c: 491:             _delay((unsigned long)((1000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+[; ;main.c: 491:                 displayManager("ETAPE 7", "TEST R1 OFF - R2 ON", "", "");
+[e ( _displayManager (4 , , , :s 46C :s 47C :s 48C :s 49C ]
 "492
-[; ;main.c: 492:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
+[; ;main.c: 492:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 437  ]
+[e :U 436 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 437 ]
+"493
+[; ;main.c: 493:             pressBP1(1);
+[e ( _pressBP1 (1 -> -> 1 `i `a ]
 "494
 [; ;main.c: 494:             _delay((unsigned long)((1000)*(16000000/4000.0)));
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"496
-[; ;main.c: 496:             if (testR2(0) && testR3(1)) {
-[e $ ! && != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 423  ]
-{
-"498
-[; ;main.c: 498:                 printf("-> TEST:8:1");
-[e ( _printf :s 60C ]
-"500
-[; ;main.c: 500:             } else {
-}
-[e $U 424  ]
-[e :U 423 ]
+"495
+[; ;main.c: 495:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"497
+[; ;main.c: 497:             _delay((unsigned long)((1000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"499
+[; ;main.c: 499:             if (testR1(0) && testR2(1)) {
+[e $ ! && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i 438  ]
 {
 "502
-[; ;main.c: 502:                 testActif = 0;
-[e = _testActif -> -> 0 `i `a ]
-"503
-[; ;main.c: 503:                 alerteDefaut("ETAPE 8", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 61C &U _testActif &U _testVoyants ]
-"504
-[; ;main.c: 504:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+[; ;main.c: 502:                 printf("-> TEST:7:1");
+[e ( _printf :s 50C ]
 "505
-[; ;main.c: 505:             }
+[; ;main.c: 505:             } else {
 }
-[e :U 424 ]
+[e $U 439  ]
+[e :U 438 ]
+{
 "507
-[; ;main.c: 507:         }
-}
-[e :U 422 ]
-"512
-[; ;main.c: 512:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 425  ]
-{
-"514
-[; ;main.c: 514:             displayManager("ETAPE 9", "TEST LED CLAVIER", "CLAVIER ECLAIRE?", "");
-[e ( _displayManager (4 , , , :s 62C :s 63C :s 64C :s 65C ]
-"515
-[; ;main.c: 515:             pressBP1(1);
-[e ( _pressBP1 (1 -> -> 1 `i `a ]
-"516
-[; ;main.c: 516:             _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"517
-[; ;main.c: 517:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"518
-[; ;main.c: 518:             _delay((unsigned long)((500)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"523
-[; ;main.c: 523:             lectureAN1 = ADC_GetConversion(VIN1);
-[e = _lectureAN1 -> ( _ADC_GetConversion (1 . `E3374 3 `i ]
-"524
-[; ;main.c: 524:             int buffer = sprintf(slectureAN1, "%d", lectureAN1);
-[v _buffer `i ~T0 @X0 1 a ]
-[e = _buffer ( _sprintf (1 , (. , &U _slectureAN1 :s 66C _lectureAN1 ]
-"525
-[; ;main.c: 525:             if (lectureAN1 < 800) {
-[e $ ! < _lectureAN1 -> 800 `i 426  ]
-{
-"528
-[; ;main.c: 528:                 do { LATAbits.LATA7 = 1; } while(0);
-[e :U 429 ]
-{
-[e = . . _LATAbits 0 7 -> -> 1 `i `uc ]
-}
-[e :U 428 ]
-"529
-[; ;main.c: 529:                 printf("-> TEST:9:1");
-[e ( _printf :s 67C ]
-"531
-[; ;main.c: 531:             } else {
-}
-[e $U 430  ]
-[e :U 426 ]
-{
-"533
-[; ;main.c: 533:                 alerteDefaut("ETAPE 9", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 68C &U _testActif &U _testVoyants ]
-"534
-[; ;main.c: 534:                 displayManager("ETAPE 9", "TEST LED CLAVIER", slectureAN1, "");
-[e ( _displayManager (4 , , , :s 69C :s 70C &U _slectureAN1 :s 71C ]
-"535
-[; ;main.c: 535:                 do { LATAbits.LATA7 = 0; } while(0);
-[e :U 433 ]
-{
-[e = . . _LATAbits 0 7 -> -> 0 `i `uc ]
-}
-[e :U 432 ]
-"536
-[; ;main.c: 536:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[; ;main.c: 507:                 testActif = 0;
+[e = _testActif -> -> 0 `i `a ]
+"508
+[; ;main.c: 508:                 alerteDefaut("ETAPE 7", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 51C &U _testActif &U _testVoyants ]
+"509
+[; ;main.c: 509:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 [e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"538
-[; ;main.c: 538:             }
+"510
+[; ;main.c: 510:             }
 }
-[e :U 430 ]
-"540
-[; ;main.c: 540:             _delay((unsigned long)((2000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"542
-[; ;main.c: 542:         }
+[e :U 439 ]
+"512
+[; ;main.c: 512:         }
 }
-[e :U 425 ]
-"548
-[; ;main.c: 548:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 434  ]
+[e :U 435 ]
+"517
+[; ;main.c: 517:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 440  ]
 {
+"519
+[; ;main.c: 519:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 441  ]
+{
+"520
+[; ;main.c: 520:                 displayManager("ETAPE 8", "TEST R2 OFF - R3 ON", "", "");
+[e ( _displayManager (4 , , , :s 52C :s 53C :s 54C :s 55C ]
+"521
+[; ;main.c: 521:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 442  ]
+[e :U 441 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 442 ]
+"522
+[; ;main.c: 522:             pressBP1(1);
+[e ( _pressBP1 (1 -> -> 1 `i `a ]
+"523
+[; ;main.c: 523:             _delay((unsigned long)((1000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"524
+[; ;main.c: 524:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"526
+[; ;main.c: 526:             _delay((unsigned long)((1000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"528
+[; ;main.c: 528:             if (testR2(0) && testR3(1)) {
+[e $ ! && != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 443  ]
+{
+"531
+[; ;main.c: 531:                 printf("-> TEST:8:1");
+[e ( _printf :s 56C ]
+"534
+[; ;main.c: 534:             } else {
+}
+[e $U 444  ]
+[e :U 443 ]
+{
+"536
+[; ;main.c: 536:                 testActif = 0;
+[e = _testActif -> -> 0 `i `a ]
+"537
+[; ;main.c: 537:                 alerteDefaut("ETAPE 8", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 57C &U _testActif &U _testVoyants ]
+"538
+[; ;main.c: 538:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"539
+[; ;main.c: 539:             }
+}
+[e :U 444 ]
+"541
+[; ;main.c: 541:         }
+}
+[e :U 440 ]
+"546
+[; ;main.c: 546:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 445  ]
+{
+"548
+[; ;main.c: 548:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 446  ]
+{
+"549
+[; ;main.c: 549:                 displayManager("ETAPE 9", "TEST LED CLAVIER", "CLAVIER ECLAIRE?", "");
+[e ( _displayManager (4 , , , :s 58C :s 59C :s 60C :s 61C ]
 "550
-[; ;main.c: 550:             displayManager("ETAPE 10", "TEST LED CLAVIER", "CLAVIER ETEINT?", "");
-[e ( _displayManager (4 , , , :s 72C :s 73C :s 74C :s 75C ]
+[; ;main.c: 550:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 447  ]
+[e :U 446 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 447 ]
 "551
 [; ;main.c: 551:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -1396,8 +1431,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "553
 [; ;main.c: 553:             pressBP1(0);
 [e ( _pressBP1 (1 -> -> 0 `i `a ]
-"558
-[; ;main.c: 558:             _delay((unsigned long)((500)*(16000000/4000.0)));
+"554
+[; ;main.c: 554:             _delay((unsigned long)((500)*(16000000/4000.0)));
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "559
 [; ;main.c: 559:             lectureAN1 = ADC_GetConversion(VIN1);
@@ -1405,888 +1440,960 @@ Version 4.0 HI-TECH Software Intermediate Code
 "560
 [; ;main.c: 560:             int buffer = sprintf(slectureAN1, "%d", lectureAN1);
 [v _buffer `i ~T0 @X0 1 a ]
-[e = _buffer ( _sprintf (1 , (. , &U _slectureAN1 :s 76C _lectureAN1 ]
-"562
-[; ;main.c: 562:             if (lectureAN1 < 700) {
-[e $ ! < _lectureAN1 -> 700 `i 435  ]
+[e = _buffer ( _sprintf (1 , (. , &U _slectureAN1 :s 62C _lectureAN1 ]
+"561
+[; ;main.c: 561:             if (lectureAN1 < 800) {
+[e $ ! < _lectureAN1 -> 800 `i 448  ]
 {
-"565
-[; ;main.c: 565:                 do { LATAbits.LATA7 = 0; } while(0);
-[e :U 438 ]
-{
-[e = . . _LATAbits 0 7 -> -> 0 `i `uc ]
-}
-[e :U 437 ]
 "566
-[; ;main.c: 566:                 printf("-> TEST:10:1");
-[e ( _printf :s 77C ]
-"568
-[; ;main.c: 568:             } else {
+[; ;main.c: 566:                 printf("-> TEST:9:1");
+[e ( _printf :s 63C ]
+"569
+[; ;main.c: 569:             } else {
 }
-[e $U 439  ]
-[e :U 435 ]
-{
-"570
-[; ;main.c: 570:                 alerteDefaut("ETAPE 10", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 78C &U _testActif &U _testVoyants ]
-"571
-[; ;main.c: 571:                 displayManager("ETAPE 10", "TEST LED CLAVIER", slectureAN1, "");
-[e ( _displayManager (4 , , , :s 79C :s 80C &U _slectureAN1 :s 81C ]
-"572
-[; ;main.c: 572:                 do { LATAbits.LATA7 = 1; } while(0);
-[e :U 442 ]
-{
-[e = . . _LATAbits 0 7 -> -> 1 `i `uc ]
-}
-[e :U 441 ]
-"573
-[; ;main.c: 573:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"575
-[; ;main.c: 575:             }
-}
-[e :U 439 ]
-"576
-[; ;main.c: 576:             _delay((unsigned long)((2000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"578
-[; ;main.c: 578:         }
-}
-[e :U 434 ]
-"585
-[; ;main.c: 585:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 443  ]
-{
-"587
-[; ;main.c: 587:             displayManager("ETAPE 12", "TEST SFLASH", "", "");
-[e ( _displayManager (4 , , , :s 82C :s 83C :s 84C :s 85C ]
-"588
-[; ;main.c: 588:             _delay((unsigned long)((500)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"589
-[; ;main.c: 589:             pressBP1(1);
-[e ( _pressBP1 (1 -> -> 1 `i `a ]
-"590
-[; ;main.c: 590:             _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"591
-[; ;main.c: 591:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"593
-[; ;main.c: 593:             _delay((unsigned long)((3000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 3000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"595
-[; ;main.c: 595:             pressBP1(1);
-[e ( _pressBP1 (1 -> -> 1 `i `a ]
-"596
-[; ;main.c: 596:             _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"597
-[; ;main.c: 597:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"598
-[; ;main.c: 598:             _delay((unsigned long)((750)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 750 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"600
-[; ;main.c: 600:             if (testR1(1) && testR2(1) && testR3(0)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 444  ]
-{
-"602
-[; ;main.c: 602:                 printf("-> TEST:12:1");
-[e ( _printf :s 86C ]
-"604
-[; ;main.c: 604:             } else {
-}
-[e $U 445  ]
-[e :U 444 ]
-{
-"606
-[; ;main.c: 606:                 testActif = 0;
-[e = _testActif -> -> 0 `i `a ]
-"607
-[; ;main.c: 607:                 pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"608
-[; ;main.c: 608:                 pressBP2(0);
-[e ( _pressBP2 (1 -> -> 0 `i `a ]
-"609
-[; ;main.c: 609:                 alerteDefaut("ETAPE 12", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 87C &U _testActif &U _testVoyants ]
-"610
-[; ;main.c: 610:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"612
-[; ;main.c: 612:             }
-}
-[e :U 445 ]
-"614
-[; ;main.c: 614:             _delay((unsigned long)((1000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"616
-[; ;main.c: 616:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"617
-[; ;main.c: 617:             pressBP2(0);
-[e ( _pressBP2 (1 -> -> 0 `i `a ]
-"619
-[; ;main.c: 619:         }
-}
-[e :U 443 ]
-"625
-[; ;main.c: 625:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 446  ]
-{
-"627
-[; ;main.c: 627:             displayManager("ETAPE 13", "TEST LEDS CARTE", "LEDS ALLUMEES", "PRESSER OK / NOK");
-[e ( _displayManager (4 , , , :s 88C :s 89C :s 90C :s 91C ]
-"628
-[; ;main.c: 628:             pressBP1(1);
-[e ( _pressBP1 (1 -> -> 1 `i `a ]
-"629
-[; ;main.c: 629:             _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"630
-[; ;main.c: 630:             pressBP1(0);
-[e ( _pressBP1 (1 -> -> 0 `i `a ]
-"632
-[; ;main.c: 632:             printf("ATTENTE VALIDATION LEDS\r\n");
-[e ( _printf :s 92C ]
-"633
-[; ;main.c: 633:             testVoyants = reponseOperateur(automatique);
-[e = _testVoyants ( _reponseOperateur (1 _automatique ]
-"634
-[; ;main.c: 634:             if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 447  ]
-{
-"636
-[; ;main.c: 636:                 testActif = 0;
-[e = _testActif -> -> 0 `i `a ]
-"637
-[; ;main.c: 637:                 alerteDefaut("ETAPE 13", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 93C &U _testActif &U _testVoyants ]
-"638
-[; ;main.c: 638:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"640
-[; ;main.c: 640:             } else {
-}
-[e $U 448  ]
-[e :U 447 ]
-{
-"642
-[; ;main.c: 642:                 printf("-> TEST:13:1");
-[e ( _printf :s 94C ]
-"643
-[; ;main.c: 643:             }
-}
+[e $U 449  ]
 [e :U 448 ]
-"644
-[; ;main.c: 644:         }
-}
-[e :U 446 ]
-"649
-[; ;main.c: 649:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 449  ]
 {
-"651
-[; ;main.c: 651:             displayManager("ETAPE 14", "TEST BP2", "", "");
-[e ( _displayManager (4 , , , :s 95C :s 96C :s 97C :s 98C ]
-"652
-[; ;main.c: 652:             pressBP2(1);
-[e ( _pressBP2 (1 -> -> 1 `i `a ]
-"653
-[; ;main.c: 653:             _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"654
-[; ;main.c: 654:             pressBP2(0);
-[e ( _pressBP2 (1 -> -> 0 `i `a ]
-"655
-[; ;main.c: 655:             _delay((unsigned long)((500)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"657
-[; ;main.c: 657:             if (testR1(1) && testR2(1) && testR3(1)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 450  ]
+"571
+[; ;main.c: 571:                 alerteDefaut("ETAPE 9", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 64C &U _testActif &U _testVoyants ]
+"572
+[; ;main.c: 572:                 if (master) {
+[e $ ! != -> _master `i -> 0 `i 450  ]
 {
-"659
-[; ;main.c: 659:                 printf("-> TEST:14:1");
-[e ( _printf :s 99C ]
-"661
-[; ;main.c: 661:             } else {
+"573
+[; ;main.c: 573:                     displayManager("ETAPE 9", "TEST LED CLAVIER", slectureAN1, "");
+[e ( _displayManager (4 , , , :s 65C :s 66C &U _slectureAN1 :s 67C ]
+"574
+[; ;main.c: 574:                 }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
 }
 [e $U 451  ]
 [e :U 450 ]
 {
-"663
-[; ;main.c: 663:                 testActif = 0;
-[e = _testActif -> -> 0 `i `a ]
-"664
-[; ;main.c: 664:                 alerteDefaut("ETAPE 14", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 100C &U _testActif &U _testVoyants ]
-"665
-[; ;main.c: 665:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"667
-[; ;main.c: 667:             }
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 }
 [e :U 451 ]
-"669
-[; ;main.c: 669:         }
+"575
+[; ;main.c: 575:                 do { LATAbits.LATA7 = 0; } while(0);
+[e :U 454 ]
+{
+[e = . . _LATAbits 0 7 -> -> 0 `i `uc ]
+}
+[e :U 453 ]
+"576
+[; ;main.c: 576:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"578
+[; ;main.c: 578:             }
 }
 [e :U 449 ]
-"675
-[; ;main.c: 675:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 452  ]
+"580
+[; ;main.c: 580:             _delay((unsigned long)((2000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"582
+[; ;main.c: 582:         }
+}
+[e :U 445 ]
+"588
+[; ;main.c: 588:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 455  ]
+{
+"590
+[; ;main.c: 590:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 456  ]
+{
+"591
+[; ;main.c: 591:                 displayManager("ETAPE 10", "TEST LED CLAVIER", "CLAVIER ETEINT?", "");
+[e ( _displayManager (4 , , , :s 68C :s 69C :s 70C :s 71C ]
+"592
+[; ;main.c: 592:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 457  ]
+[e :U 456 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 457 ]
+"593
+[; ;main.c: 593:             pressBP1(1);
+[e ( _pressBP1 (1 -> -> 1 `i `a ]
+"594
+[; ;main.c: 594:             _delay((unsigned long)((250)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"595
+[; ;main.c: 595:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"600
+[; ;main.c: 600:             _delay((unsigned long)((500)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"601
+[; ;main.c: 601:             lectureAN1 = ADC_GetConversion(VIN1);
+[e = _lectureAN1 -> ( _ADC_GetConversion (1 . `E3374 3 `i ]
+"602
+[; ;main.c: 602:             int buffer = sprintf(slectureAN1, "%d", lectureAN1);
+[v _buffer `i ~T0 @X0 1 a ]
+[e = _buffer ( _sprintf (1 , (. , &U _slectureAN1 :s 72C _lectureAN1 ]
+"604
+[; ;main.c: 604:             if (lectureAN1 < 700) {
+[e $ ! < _lectureAN1 -> 700 `i 458  ]
+{
+"609
+[; ;main.c: 609:                 printf("-> TEST:10:1");
+[e ( _printf :s 73C ]
+"612
+[; ;main.c: 612:             } else {
+}
+[e $U 459  ]
+[e :U 458 ]
+{
+"614
+[; ;main.c: 614:                 alerteDefaut("ETAPE 10", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 74C &U _testActif &U _testVoyants ]
+"615
+[; ;main.c: 615:                 if (master) {
+[e $ ! != -> _master `i -> 0 `i 460  ]
+{
+"616
+[; ;main.c: 616:                     displayManager("ETAPE 10", "TEST LED CLAVIER", slectureAN1, "");
+[e ( _displayManager (4 , , , :s 75C :s 76C &U _slectureAN1 :s 77C ]
+"617
+[; ;main.c: 617:                 }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 461  ]
+[e :U 460 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 461 ]
+"618
+[; ;main.c: 618:                 do { LATAbits.LATA7 = 1; } while(0);
+[e :U 464 ]
+{
+[e = . . _LATAbits 0 7 -> -> 1 `i `uc ]
+}
+[e :U 463 ]
+"619
+[; ;main.c: 619:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"621
+[; ;main.c: 621:             }
+}
+[e :U 459 ]
+"622
+[; ;main.c: 622:             _delay((unsigned long)((2000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"624
+[; ;main.c: 624:         }
+}
+[e :U 455 ]
+"631
+[; ;main.c: 631:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 465  ]
+{
+"633
+[; ;main.c: 633:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 466  ]
+{
+"634
+[; ;main.c: 634:                 displayManager("ETAPE 12", "TEST SFLASH", "", "");
+[e ( _displayManager (4 , , , :s 78C :s 79C :s 80C :s 81C ]
+"635
+[; ;main.c: 635:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 467  ]
+[e :U 466 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 467 ]
+"636
+[; ;main.c: 636:             _delay((unsigned long)((500)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"637
+[; ;main.c: 637:             pressBP1(1);
+[e ( _pressBP1 (1 -> -> 1 `i `a ]
+"638
+[; ;main.c: 638:             _delay((unsigned long)((250)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"639
+[; ;main.c: 639:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"641
+[; ;main.c: 641:             _delay((unsigned long)((3000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 3000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"643
+[; ;main.c: 643:             pressBP1(1);
+[e ( _pressBP1 (1 -> -> 1 `i `a ]
+"644
+[; ;main.c: 644:             _delay((unsigned long)((250)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"645
+[; ;main.c: 645:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"646
+[; ;main.c: 646:             _delay((unsigned long)((750)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 750 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"648
+[; ;main.c: 648:             if (testR1(1) && testR2(1) && testR3(0)) {
+[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 468  ]
+{
+"650
+[; ;main.c: 650:                 printf("-> TEST:12:1");
+[e ( _printf :s 82C ]
+"653
+[; ;main.c: 653:             } else {
+}
+[e $U 469  ]
+[e :U 468 ]
+{
+"655
+[; ;main.c: 655:                 testActif = 0;
+[e = _testActif -> -> 0 `i `a ]
+"656
+[; ;main.c: 656:                 pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"657
+[; ;main.c: 657:                 pressBP2(0);
+[e ( _pressBP2 (1 -> -> 0 `i `a ]
+"658
+[; ;main.c: 658:                 alerteDefaut("ETAPE 12", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 83C &U _testActif &U _testVoyants ]
+"659
+[; ;main.c: 659:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"661
+[; ;main.c: 661:             }
+}
+[e :U 469 ]
+"663
+[; ;main.c: 663:             _delay((unsigned long)((1000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"665
+[; ;main.c: 665:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"666
+[; ;main.c: 666:             pressBP2(0);
+[e ( _pressBP2 (1 -> -> 0 `i `a ]
+"668
+[; ;main.c: 668:         }
+}
+[e :U 465 ]
+"674
+[; ;main.c: 674:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 470  ]
+{
+"676
+[; ;main.c: 676:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 471  ]
 {
 "677
-[; ;main.c: 677:             displayManager("ETAPE 15", "TEST HORLOGE", "", "");
-[e ( _displayManager (4 , , , :s 101C :s 102C :s 103C :s 104C ]
+[; ;main.c: 677:                 displayManager("ETAPE 13", "TEST LEDS CARTE", "LEDS ALLUMEES", "PRESSER OK / NOK");
+[e ( _displayManager (4 , , , :s 84C :s 85C :s 86C :s 87C ]
 "678
-[; ;main.c: 678:             setHorloge(1);
-[e ( _setHorloge (1 -> -> 1 `i `a ]
-"679
-[; ;main.c: 679:             _delay((unsigned long)((250)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"680
-[; ;main.c: 680:             setHorloge(0);
-[e ( _setHorloge (1 -> -> 0 `i `a ]
-"681
-[; ;main.c: 681:             _delay((unsigned long)((500)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"683
-[; ;main.c: 683:             if (testR1(0) && testR2(0) && testR3(0)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 453  ]
-{
-"685
-[; ;main.c: 685:                 printf("-> TEST:15:1");
-[e ( _printf :s 105C ]
-"687
-[; ;main.c: 687:             } else {
+[; ;main.c: 678:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
 }
-[e $U 454  ]
-[e :U 453 ]
+[e $U 472  ]
+[e :U 471 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 472 ]
+"679
+[; ;main.c: 679:             pressBP1(1);
+[e ( _pressBP1 (1 -> -> 1 `i `a ]
+"680
+[; ;main.c: 680:             _delay((unsigned long)((250)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"681
+[; ;main.c: 681:             pressBP1(0);
+[e ( _pressBP1 (1 -> -> 0 `i `a ]
+"684
+[; ;main.c: 684:             printf("ATTENTE VALIDATION LEDS\r\n");
+[e ( _printf :s 88C ]
+"686
+[; ;main.c: 686:             testVoyants = reponseOperateur(automatique);
+[e = _testVoyants ( _reponseOperateur (1 _automatique ]
+"687
+[; ;main.c: 687:             if (!testVoyants) {
+[e $ ! ! != -> _testVoyants `i -> 0 `i 473  ]
 {
 "689
 [; ;main.c: 689:                 testActif = 0;
 [e = _testActif -> -> 0 `i `a ]
 "690
-[; ;main.c: 690:                 alerteDefaut("ETAPE 15", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 106C &U _testActif &U _testVoyants ]
+[; ;main.c: 690:                 alerteDefaut("ETAPE 13", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 89C &U _testActif &U _testVoyants ]
 "691
 [; ;main.c: 691:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 [e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
 "693
-[; ;main.c: 693:             }
+[; ;main.c: 693:             } else {
 }
-[e :U 454 ]
-"695
-[; ;main.c: 695:         }
-}
-[e :U 452 ]
-"700
-[; ;main.c: 700:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 455  ]
+[e $U 474  ]
+[e :U 473 ]
 {
-"702
-[; ;main.c: 702:             displayManager("ETAPE 16", "TEST P1", "", "");
-[e ( _displayManager (4 , , , :s 107C :s 108C :s 109C :s 110C ]
-"703
-[; ;main.c: 703:             setP1(1);
-[e ( _setP1 (1 -> -> 1 `i `a ]
+"696
+[; ;main.c: 696:                 printf("-> TEST:13:1");
+[e ( _printf :s 90C ]
+"698
+[; ;main.c: 698:             }
+}
+[e :U 474 ]
+"699
+[; ;main.c: 699:         }
+}
+[e :U 470 ]
 "704
-[; ;main.c: 704:             _delay((unsigned long)((1200)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 1200 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+[; ;main.c: 704:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 475  ]
+{
 "706
-[; ;main.c: 706:             setP1(0);
-[e ( _setP1 (1 -> -> 0 `i `a ]
+[; ;main.c: 706:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 476  ]
+{
 "707
-[; ;main.c: 707:             _delay((unsigned long)((500)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+[; ;main.c: 707:                 displayManager("ETAPE 14", "TEST BP2", "", "");
+[e ( _displayManager (4 , , , :s 91C :s 92C :s 93C :s 94C ]
 "708
-[; ;main.c: 708:             if (testR1(1) && testR2(1) && testR3(1)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 456  ]
+[; ;main.c: 708:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 477  ]
+[e :U 476 ]
 {
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 477 ]
+"709
+[; ;main.c: 709:             pressBP2(1);
+[e ( _pressBP2 (1 -> -> 1 `i `a ]
 "710
-[; ;main.c: 710:                 printf("-> TEST:16:1");
-[e ( _printf :s 111C ]
+[; ;main.c: 710:             _delay((unsigned long)((250)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"711
+[; ;main.c: 711:             pressBP2(0);
+[e ( _pressBP2 (1 -> -> 0 `i `a ]
 "712
-[; ;main.c: 712:             } else {
-}
-[e $U 457  ]
-[e :U 456 ]
-{
-"714
-[; ;main.c: 714:                 alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation);
-[e ( _alerteDefautEtape16 (4 , , , , :s 112C &U _testActif &U _testVoyants &U _automatique &U _programmation ]
-"716
-[; ;main.c: 716:             }
-}
-[e :U 457 ]
-"718
-[; ;main.c: 718:         }
-}
-[e :U 455 ]
-"724
-[; ;main.c: 724:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 458  ]
-{
-"726
-[; ;main.c: 726:             displayManager("ETAPE 17", "TEST P2", "", "");
-[e ( _displayManager (4 , , , :s 113C :s 114C :s 115C :s 116C ]
-"727
-[; ;main.c: 727:             setP2(1);
-[e ( _setP2 (1 -> -> 1 `i `a ]
-"728
-[; ;main.c: 728:             _delay((unsigned long)((1200)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 1200 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"729
-[; ;main.c: 729:             setP2(0);
-[e ( _setP2 (1 -> -> 0 `i `a ]
-"730
-[; ;main.c: 730:             _delay((unsigned long)((500)*(16000000/4000.0)));
+[; ;main.c: 712:             _delay((unsigned long)((500)*(16000000/4000.0)));
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"732
-[; ;main.c: 732:             if (testR1(0) && testR2(0) && testR3(0)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 459  ]
+"714
+[; ;main.c: 714:             if (testR1(1) && testR2(1) && testR3(1)) {
+[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 478  ]
 {
+"717
+[; ;main.c: 717:                 printf("-> TEST:14:1");
+[e ( _printf :s 95C ]
+"720
+[; ;main.c: 720:             } else {
+}
+[e $U 479  ]
+[e :U 478 ]
+{
+"722
+[; ;main.c: 722:                 testActif = 0;
+[e = _testActif -> -> 0 `i `a ]
+"723
+[; ;main.c: 723:                 alerteDefaut("ETAPE 14", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 96C &U _testActif &U _testVoyants ]
+"724
+[; ;main.c: 724:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"726
+[; ;main.c: 726:             }
+}
+[e :U 479 ]
+"728
+[; ;main.c: 728:         }
+}
+[e :U 475 ]
 "734
-[; ;main.c: 734:                 printf("-> TEST:17:1");
-[e ( _printf :s 117C ]
+[; ;main.c: 734:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 480  ]
+{
 "736
-[; ;main.c: 736:             } else {
-}
-[e $U 460  ]
-[e :U 459 ]
+[; ;main.c: 736:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 481  ]
 {
+"737
+[; ;main.c: 737:                 displayManager("ETAPE 15", "TEST HORLOGE", "", "");
+[e ( _displayManager (4 , , , :s 97C :s 98C :s 99C :s 100C ]
 "738
-[; ;main.c: 738:                 testActif = 0;
-[e = _testActif -> -> 0 `i `a ]
+[; ;main.c: 738:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 482  ]
+[e :U 481 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 482 ]
 "739
-[; ;main.c: 739:                 alerteDefaut("ETAPE 17", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 118C &U _testActif &U _testVoyants ]
+[; ;main.c: 739:             setHorloge(1);
+[e ( _setHorloge (1 -> -> 1 `i `a ]
 "740
-[; ;main.c: 740:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
-[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+[; ;main.c: 740:             _delay((unsigned long)((250)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 250 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"741
+[; ;main.c: 741:             setHorloge(0);
+[e ( _setHorloge (1 -> -> 0 `i `a ]
 "742
-[; ;main.c: 742:             }
-}
-[e :U 460 ]
+[; ;main.c: 742:             _delay((unsigned long)((500)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "744
-[; ;main.c: 744:         }
+[; ;main.c: 744:             if (testR1(0) && testR2(0) && testR3(0)) {
+[e $ ! && && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 483  ]
+{
+"747
+[; ;main.c: 747:                 printf("-> TEST:15:1");
+[e ( _printf :s 101C ]
+"750
+[; ;main.c: 750:             } else {
 }
-[e :U 458 ]
-"751
-[; ;main.c: 751:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 461  ]
+[e $U 484  ]
+[e :U 483 ]
 {
-"753
-[; ;main.c: 753:             displayManager("ETAPE 18", "TEST BLUETOOTH", "VOIR APPLI", "PRESSER OK / NOK");
-[e ( _displayManager (4 , , , :s 119C :s 120C :s 121C :s 122C ]
-"754
-[; ;main.c: 754:             activerTouche();
-[e ( _activerTouche ..  ]
-"756
-[; ;main.c: 756:             testVoyants = reponseOperateur(automatique);
-[e = _testVoyants ( _reponseOperateur (1 _automatique ]
-"757
-[; ;main.c: 757:             if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 462  ]
-{
-"759
-[; ;main.c: 759:                 testActif = 0;
+"752
+[; ;main.c: 752:                 testActif = 0;
 [e = _testActif -> -> 0 `i `a ]
-"760
-[; ;main.c: 760:                 alerteDefaut("ETAPE 18", &testActif, &testVoyants);
-[e ( _alerteDefaut (3 , , :s 123C &U _testActif &U _testVoyants ]
-"761
-[; ;main.c: 761:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+"753
+[; ;main.c: 753:                 alerteDefaut("ETAPE 15", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 102C &U _testActif &U _testVoyants ]
+"754
+[; ;main.c: 754:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 [e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
-"763
-[; ;main.c: 763:                 _delay((unsigned long)((2000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"764
-[; ;main.c: 764:             } else {
+"756
+[; ;main.c: 756:             }
 }
-[e $U 463  ]
-[e :U 462 ]
+[e :U 484 ]
+"758
+[; ;main.c: 758:         }
+}
+[e :U 480 ]
+"763
+[; ;main.c: 763:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 485  ]
+{
+"765
+[; ;main.c: 765:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 486  ]
 {
 "766
-[; ;main.c: 766:                 printf("-> TEST:18:1");
-[e ( _printf :s 124C ]
+[; ;main.c: 766:                 displayManager("ETAPE 16", "TEST P1", "", "");
+[e ( _displayManager (4 , , , :s 103C :s 104C :s 105C :s 106C ]
 "767
-[; ;main.c: 767:             }
+[; ;main.c: 767:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
 }
-[e :U 463 ]
-"768
-[; ;main.c: 768:         }
-}
-[e :U 461 ]
-"773
-[; ;main.c: 773:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 464  ]
+[e $U 487  ]
+[e :U 486 ]
 {
-"775
-[; ;main.c: 775:             displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", "ATTENTE ACQUITTEMENT");
-[e ( _displayManager (4 , , , :s 125C :s 126C :s 127C :s 128C ]
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 487 ]
+"768
+[; ;main.c: 768:             setP1(1);
+[e ( _setP1 (1 -> -> 1 `i `a ]
+"769
+[; ;main.c: 769:             _delay((unsigned long)((1200)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1200 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"771
+[; ;main.c: 771:             setP1(0);
+[e ( _setP1 (1 -> -> 0 `i `a ]
+"772
+[; ;main.c: 772:             _delay((unsigned long)((500)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"773
+[; ;main.c: 773:             if (testR1(1) && testR2(1) && testR3(1)) {
+[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 488  ]
+{
 "776
-[; ;main.c: 776:             ledConforme(1);
-[e ( _ledConforme (1 -> -> 1 `i `a ]
-"777
-[; ;main.c: 777:             alimenter(0);
-[e ( _alimenter (1 -> -> 0 `i `a ]
-"778
-[; ;main.c: 778:             okAlert();
-[e ( _okAlert ..  ]
+[; ;main.c: 776:                 printf("-> TEST:16:1");
+[e ( _printf :s 107C ]
 "779
-[; ;main.c: 779:             attenteAquittement(&automatique, &testActif);
-[e ( _attenteAquittement (2 , &U _automatique &U _testActif ]
-"780
-[; ;main.c: 780:             initialConditions(&testActif, &testVoyants, &automatique, &programmation);
-[e ( _initialConditions (4 , , , &U _testActif &U _testVoyants &U _automatique &U _programmation ]
+[; ;main.c: 779:             } else {
+}
+[e $U 489  ]
+[e :U 488 ]
+{
 "781
-[; ;main.c: 781:             _delay((unsigned long)((2000)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+[; ;main.c: 781:                 alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation);
+[e ( _alerteDefautEtape16 (4 , , , , :s 108C &U _testActif &U _testVoyants &U _automatique &U _programmation ]
 "783
-[; ;main.c: 783:         }
+[; ;main.c: 783:             }
 }
-[e :U 464 ]
+[e :U 489 ]
 "785
-[; ;main.c: 785:     }
+[; ;main.c: 785:         }
 }
-[e :U 385 ]
-[e $U 386  ]
-[e :U 387 ]
-"789
-[; ;main.c: 789: }
+[e :U 485 ]
+"791
+[; ;main.c: 791:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 490  ]
+{
+"793
+[; ;main.c: 793:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 491  ]
+{
+"794
+[; ;main.c: 794:                 displayManager("ETAPE 17", "TEST P2", "", "");
+[e ( _displayManager (4 , , , :s 109C :s 110C :s 111C :s 112C ]
+"795
+[; ;main.c: 795:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 492  ]
+[e :U 491 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 492 ]
+"796
+[; ;main.c: 796:             setP2(1);
+[e ( _setP2 (1 -> -> 1 `i `a ]
+"797
+[; ;main.c: 797:             _delay((unsigned long)((1200)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1200 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"798
+[; ;main.c: 798:             setP2(0);
+[e ( _setP2 (1 -> -> 0 `i `a ]
+"799
+[; ;main.c: 799:             _delay((unsigned long)((500)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"801
+[; ;main.c: 801:             if (testR1(0) && testR2(0) && testR3(0)) {
+[e $ ! && && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 493  ]
+{
+"804
+[; ;main.c: 804:                 printf("-> TEST:17:1");
+[e ( _printf :s 113C ]
+"807
+[; ;main.c: 807:             } else {
+}
+[e $U 494  ]
+[e :U 493 ]
+{
+"809
+[; ;main.c: 809:                 testActif = 0;
+[e = _testActif -> -> 0 `i `a ]
+"810
+[; ;main.c: 810:                 alerteDefaut("ETAPE 17", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 114C &U _testActif &U _testVoyants ]
+"811
+[; ;main.c: 811:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"813
+[; ;main.c: 813:             }
+}
+[e :U 494 ]
+"815
+[; ;main.c: 815:         }
+}
+[e :U 490 ]
+"822
+[; ;main.c: 822:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 495  ]
+{
+"824
+[; ;main.c: 824:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 496  ]
+{
+"825
+[; ;main.c: 825:                 displayManager("ETAPE 18", "TEST BLUETOOTH", "VOIR APPLI", "PRESSER OK / NOK");
+[e ( _displayManager (4 , , , :s 115C :s 116C :s 117C :s 118C ]
+"826
+[; ;main.c: 826:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 497  ]
+[e :U 496 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 497 ]
+"827
+[; ;main.c: 827:             activerTouche();
+[e ( _activerTouche ..  ]
+"829
+[; ;main.c: 829:             testVoyants = reponseOperateur(automatique);
+[e = _testVoyants ( _reponseOperateur (1 _automatique ]
+"830
+[; ;main.c: 830:             if (!testVoyants) {
+[e $ ! ! != -> _testVoyants `i -> 0 `i 498  ]
+{
+"832
+[; ;main.c: 832:                 testActif = 0;
+[e = _testActif -> -> 0 `i `a ]
+"833
+[; ;main.c: 833:                 alerteDefaut("ETAPE 18", &testActif, &testVoyants);
+[e ( _alerteDefaut (3 , , :s 119C &U _testActif &U _testVoyants ]
+"834
+[; ;main.c: 834:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+[e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
+"836
+[; ;main.c: 836:                 _delay((unsigned long)((2000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"837
+[; ;main.c: 837:             } else {
+}
+[e $U 499  ]
+[e :U 498 ]
+{
+"840
+[; ;main.c: 840:                 printf("-> TEST:18:1");
+[e ( _printf :s 120C ]
+"842
+[; ;main.c: 842:             }
+}
+[e :U 499 ]
+"843
+[; ;main.c: 843:         }
+}
+[e :U 495 ]
+"848
+[; ;main.c: 848:         if (testActif) {
+[e $ ! != -> _testActif `i -> 0 `i 500  ]
+{
+"850
+[; ;main.c: 850:             if (master) {
+[e $ ! != -> _master `i -> 0 `i 501  ]
+{
+"851
+[; ;main.c: 851:                 displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", "ATTENTE ACQUITTEMENT");
+[e ( _displayManager (4 , , , :s 121C :s 122C :s 123C :s 124C ]
+"852
+[; ;main.c: 852:             }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+}
+[e $U 502  ]
+[e :U 501 ]
+{
+[e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+}
+[e :U 502 ]
+"853
+[; ;main.c: 853:             ledConforme(1);
+[e ( _ledConforme (1 -> -> 1 `i `a ]
+"854
+[; ;main.c: 854:             alimenter(0);
+[e ( _alimenter (1 -> -> 0 `i `a ]
+"855
+[; ;main.c: 855:             okAlert();
+[e ( _okAlert ..  ]
+"856
+[; ;main.c: 856:             attenteAquittement(&automatique, &testActif);
+[e ( _attenteAquittement (2 , &U _automatique &U _testActif ]
+"857
+[; ;main.c: 857:             initialConditions(&testActif, &testVoyants, &automatique, &programmation);
+[e ( _initialConditions (4 , , , &U _testActif &U _testVoyants &U _automatique &U _programmation ]
+"858
+[; ;main.c: 858:             _delay((unsigned long)((2000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"860
+[; ;main.c: 860:         }
+}
+[e :U 500 ]
+"862
+[; ;main.c: 862:     }
+}
+[e :U 397 ]
+[e $U 398  ]
+[e :U 399 ]
+"866
+[; ;main.c: 866: }
 [e :UE 382 ]
 }
 [v $root$_I2C_Slave_Read_Write `(v ~T0 @X0 0 e ]
-"795
-[; ;main.c: 795: void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
+"873
+[; ;main.c: 873: void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 [v _I2C_Slave_Read_Write `(v ~T1 @X0 1 ef ]
 {
 [e :U _I2C_Slave_Read_Write ]
 [f ]
-"797
-[; ;main.c: 797:     do { LATAbits.LATA0 = 0; } while(0);
-[e :U 468 ]
-{
-[e = . . _LATAbits 0 0 -> -> 0 `i `uc ]
-}
-[e :U 467 ]
-"798
-[; ;main.c: 798:     do { LATAbits.LATA1 = 0; } while(0);
-[e :U 471 ]
-{
-[e = . . _LATAbits 0 1 -> -> 0 `i `uc ]
-}
-[e :U 470 ]
-"799
-[; ;main.c: 799:     do { LATAbits.LATA2 = 0; } while(0);
-[e :U 474 ]
-{
-[e = . . _LATAbits 0 2 -> -> 0 `i `uc ]
-}
-[e :U 473 ]
-"800
-[; ;main.c: 800:     do { LATAbits.LATA3 = 0; } while(0);
-[e :U 477 ]
-{
-[e = . . _LATAbits 0 3 -> -> 0 `i `uc ]
-}
-[e :U 476 ]
-"801
-[; ;main.c: 801:     do { LATAbits.LATA4 = 0; } while(0);
-[e :U 480 ]
-{
-[e = . . _LATAbits 0 4 -> -> 0 `i `uc ]
-}
-[e :U 479 ]
-"802
-[; ;main.c: 802:     do { LATAbits.LATA5 = 0; } while(0);
-[e :U 483 ]
-{
-[e = . . _LATAbits 0 5 -> -> 0 `i `uc ]
-}
-[e :U 482 ]
-"803
-[; ;main.c: 803:     do { LATAbits.LATA6 = 0; } while(0);
-[e :U 486 ]
-{
-[e = . . _LATAbits 0 6 -> -> 0 `i `uc ]
-}
-[e :U 485 ]
-"806
-[; ;main.c: 806:     do { LATAbits.LATA7 = 1; } while(0);
-[e :U 489 ]
-{
-[e = . . _LATAbits 0 7 -> -> 1 `i `uc ]
-}
-[e :U 488 ]
-"808
-[; ;main.c: 808:     if (SSPIF) {
-[e $ ! _SSPIF 490  ]
-{
-"810
-[; ;main.c: 810:         SSPIF = 0;
-[e = _SSPIF -> -> 0 `i `b ]
-"812
-[; ;main.c: 812:         if (SSPOV || WCOL) {
-[e $ ! || _SSPOV _WCOL 491  ]
-{
-"813
-[; ;main.c: 813:             SSPOV = 0;
-[e = _SSPOV -> -> 0 `i `b ]
-"814
-[; ;main.c: 814:             WCOL = 0;
-[e = _WCOL -> -> 0 `i `b ]
-"815
-[; ;main.c: 815:             return;
-[e $UE 465  ]
-"816
-[; ;main.c: 816:         }
-}
-[e :U 491 ]
-"818
-[; ;main.c: 818:         if (!D_nA && !R_nW)
-[e $ ! && ! _D_nA ! _R_nW 492  ]
-"819
-[; ;main.c: 819:         {
-{
-"820
-[; ;main.c: 820:             do { LATAbits.LATA6 = 1; } while(0);
-[e :U 495 ]
-{
-[e = . . _LATAbits 0 6 -> -> 1 `i `uc ]
-}
-[e :U 494 ]
-"821
-[; ;main.c: 821:             unsigned char temp = SSPBUF;
-[v _temp `uc ~T0 @X0 1 a ]
-[e = _temp _SSPBUF ]
-"822
-[; ;main.c: 822:             CKP = 1;
-[e = _CKP -> -> 1 `i `b ]
-"825
-[; ;main.c: 825:         } else if (!D_nA && R_nW)
-}
-[e $U 496  ]
-[e :U 492 ]
-[e $ ! && ! _D_nA _R_nW 497  ]
-"826
-[; ;main.c: 826:         {
-{
-"827
-[; ;main.c: 827:             do { LATAbits.LATA5 = 1; } while(0);
-[e :U 500 ]
-{
-[e = . . _LATAbits 0 5 -> -> 1 `i `uc ]
-}
-[e :U 499 ]
-"828
-[; ;main.c: 828:             unsigned char temp = SSPBUF;
-[v _temp `uc ~T0 @X0 1 a ]
-[e = _temp _SSPBUF ]
-"830
-[; ;main.c: 830:             if(ordre == 25){
-[e $ ! == -> _ordre `i -> 25 `i 501  ]
-{
-"832
-[; ;main.c: 832:                 SSPBUF = 0x55;
-[e = _SSPBUF -> -> 85 `i `uc ]
-"833
-[; ;main.c: 833:             }
-}
-[e :U 501 ]
-"834
-[; ;main.c: 834:             CKP = 1;
-[e = _CKP -> -> 1 `i `b ]
-"836
-[; ;main.c: 836:         } else if (D_nA && !R_nW)
-}
-[e $U 502  ]
-[e :U 497 ]
-[e $ ! && _D_nA ! _R_nW 503  ]
-"837
-[; ;main.c: 837:         {
-{
-"838
-[; ;main.c: 838:             do { LATAbits.LATA4 = 1; } while(0);
-[e :U 506 ]
-{
-[e = . . _LATAbits 0 4 -> -> 1 `i `uc ]
-}
-[e :U 505 ]
-"839
-[; ;main.c: 839:             unsigned char temp = SSPBUF;
-[v _temp `uc ~T0 @X0 1 a ]
-[e = _temp _SSPBUF ]
-"841
-[; ;main.c: 841:             CKP = 1;
-[e = _CKP -> -> 1 `i `b ]
-"842
-[; ;main.c: 842:             if (temp == 88) {
-[e $ ! == -> _temp `i -> 88 `i 507  ]
-{
-"844
-[; ;main.c: 844:                 do { LATAbits.LATA0 = 1; } while(0);
-[e :U 510 ]
-{
-[e = . . _LATAbits 0 0 -> -> 1 `i `uc ]
-}
-[e :U 509 ]
-"845
-[; ;main.c: 845:             }
-}
-[e :U 507 ]
-"847
-[; ;main.c: 847:             if (temp == 77) {
-[e $ ! == -> _temp `i -> 77 `i 511  ]
-{
-"849
-[; ;main.c: 849:                 do { LATAbits.LATA1 = 1; } while(0);
-[e :U 514 ]
-{
-[e = . . _LATAbits 0 1 -> -> 1 `i `uc ]
-}
-[e :U 513 ]
-"850
-[; ;main.c: 850:             }
-}
-[e :U 511 ]
-"852
-[; ;main.c: 852:             if (temp == 25) {
-[e $ ! == -> _temp `i -> 25 `i 515  ]
-{
-"854
-[; ;main.c: 854:                 ordre = 25;
-[e = _ordre -> -> 25 `i `uc ]
-"855
-[; ;main.c: 855:                 do { LATAbits.LATA1 = 1; } while(0);
-[e :U 518 ]
-{
-[e = . . _LATAbits 0 1 -> -> 1 `i `uc ]
-}
-[e :U 517 ]
-"856
-[; ;main.c: 856:             }
-}
-[e :U 515 ]
-"858
-[; ;main.c: 858:         } else if (D_nA && R_nW)
-}
-[e $U 519  ]
-[e :U 503 ]
-[e $ ! && _D_nA _R_nW 520  ]
-"859
-[; ;main.c: 859:         {
-{
-"860
-[; ;main.c: 860:             do { LATAbits.LATA2 = 1; } while(0);
-[e :U 523 ]
-{
-[e = . . _LATAbits 0 2 -> -> 1 `i `uc ]
-}
-[e :U 522 ]
-"861
-[; ;main.c: 861:             unsigned char temp = SSPBUF;
-[v _temp `uc ~T0 @X0 1 a ]
-[e = _temp _SSPBUF ]
-"863
-[; ;main.c: 863:             CKP = 1;
-[e = _CKP -> -> 1 `i `b ]
-"864
-[; ;main.c: 864:             if (temp == 88) {
-[e $ ! == -> _temp `i -> 88 `i 524  ]
-{
-"866
-[; ;main.c: 866:                 do { LATAbits.LATA0 = 1; } while(0);
-[e :U 527 ]
-{
-[e = . . _LATAbits 0 0 -> -> 1 `i `uc ]
-}
-[e :U 526 ]
-"867
-[; ;main.c: 867:                 SSPBUF = 0x22;
-[e = _SSPBUF -> -> 34 `i `uc ]
-"869
-[; ;main.c: 869:             }
-}
-[e :U 524 ]
-"871
-[; ;main.c: 871:             if (temp == 77) {
-[e $ ! == -> _temp `i -> 77 `i 528  ]
-{
-"873
-[; ;main.c: 873:                 do { LATAbits.LATA1 = 1; } while(0);
-[e :U 531 ]
-{
-[e = . . _LATAbits 0 1 -> -> 1 `i `uc ]
-}
-[e :U 530 ]
-"874
-[; ;main.c: 874:                 SSPBUF = 0x99;
-[e = _SSPBUF -> -> 153 `i `uc ]
-"876
-[; ;main.c: 876:             }
-}
-[e :U 528 ]
 "878
-[; ;main.c: 878:             if (temp == 25) {
-[e $ ! == -> _temp `i -> 25 `i 532  ]
+[; ;main.c: 878:     if (SSPIF) {
+[e $ ! _SSPIF 504  ]
 {
 "880
-[; ;main.c: 880:                 do { LATAbits.LATA1 = 1; } while(0);
-[e :U 535 ]
+[; ;main.c: 880:         SSPIF = 0;
+[e = _SSPIF -> -> 0 `i `b ]
+"882
+[; ;main.c: 882:         if (SSPOV || WCOL) {
+[e $ ! || _SSPOV _WCOL 505  ]
 {
-[e = . . _LATAbits 0 1 -> -> 1 `i `uc ]
-}
-[e :U 534 ]
 "883
-[; ;main.c: 883:             }
-}
-[e :U 532 ]
+[; ;main.c: 883:             SSPOV = 0;
+[e = _SSPOV -> -> 0 `i `b ]
+"884
+[; ;main.c: 884:             WCOL = 0;
+[e = _WCOL -> -> 0 `i `b ]
 "885
-[; ;main.c: 885:         }
-}
-[e :U 520 ]
-[e :U 519 ]
-[e :U 502 ]
-[e :U 496 ]
+[; ;main.c: 885:             return;
+[e $UE 503  ]
 "886
-[; ;main.c: 886:     }
+[; ;main.c: 886:         }
 }
-[e :U 490 ]
-"887
-[; ;main.c: 887: }
-[e :UE 465 ]
+[e :U 505 ]
+"888
+[; ;main.c: 888:         if (!D_nA && !R_nW)
+[e $ ! && ! _D_nA ! _R_nW 506  ]
+"889
+[; ;main.c: 889:         {
+{
+"891
+[; ;main.c: 891:             unsigned char temp = SSPBUF;
+[v _temp `uc ~T0 @X0 1 a ]
+[e = _temp _SSPBUF ]
+"892
+[; ;main.c: 892:             CKP = 1;
+[e = _CKP -> -> 1 `i `b ]
+"895
+[; ;main.c: 895:         } else if (!D_nA && R_nW)
+}
+[e $U 507  ]
+[e :U 506 ]
+[e $ ! && ! _D_nA _R_nW 508  ]
+"896
+[; ;main.c: 896:         {
+{
+"898
+[; ;main.c: 898:             unsigned char temp = SSPBUF;
+[v _temp `uc ~T0 @X0 1 a ]
+[e = _temp _SSPBUF ]
+"900
+[; ;main.c: 900:             if (ordre == 25) {
+[e $ ! == -> _ordre `i -> 25 `i 509  ]
+{
+"902
+[; ;main.c: 902:                 SSPBUF = 0x55;
+[e = _SSPBUF -> -> 85 `i `uc ]
+"903
+[; ;main.c: 903:             }
+}
+[e :U 509 ]
+"904
+[; ;main.c: 904:             CKP = 1;
+[e = _CKP -> -> 1 `i `b ]
+"906
+[; ;main.c: 906:         } else if (D_nA && !R_nW)
+}
+[e $U 510  ]
+[e :U 508 ]
+[e $ ! && _D_nA ! _R_nW 511  ]
+"907
+[; ;main.c: 907:         {
+{
+"909
+[; ;main.c: 909:             unsigned char temp = SSPBUF;
+[v _temp `uc ~T0 @X0 1 a ]
+[e = _temp _SSPBUF ]
+"911
+[; ;main.c: 911:             CKP = 1;
+[e = _CKP -> -> 1 `i `b ]
+"912
+[; ;main.c: 912:             if (temp == 88) {
+[e $ ! == -> _temp `i -> 88 `i 512  ]
+{
+"915
+[; ;main.c: 915:             }
+}
+[e :U 512 ]
+"917
+[; ;main.c: 917:             if (temp == 77) {
+[e $ ! == -> _temp `i -> 77 `i 513  ]
+{
+"920
+[; ;main.c: 920:             }
+}
+[e :U 513 ]
+"922
+[; ;main.c: 922:             if (temp == 25) {
+[e $ ! == -> _temp `i -> 25 `i 514  ]
+{
+"924
+[; ;main.c: 924:                 ordre = 25;
+[e = _ordre -> -> 25 `i `uc ]
+"926
+[; ;main.c: 926:             }
+}
+[e :U 514 ]
+"928
+[; ;main.c: 928:         } else if (D_nA && R_nW)
+}
+[e $U 515  ]
+[e :U 511 ]
+[e $ ! && _D_nA _R_nW 516  ]
+"929
+[; ;main.c: 929:         {
+{
+"931
+[; ;main.c: 931:             unsigned char temp = SSPBUF;
+[v _temp `uc ~T0 @X0 1 a ]
+[e = _temp _SSPBUF ]
+"933
+[; ;main.c: 933:             CKP = 1;
+[e = _CKP -> -> 1 `i `b ]
+"934
+[; ;main.c: 934:             if (temp == 88) {
+[e $ ! == -> _temp `i -> 88 `i 517  ]
+{
+"936
+[; ;main.c: 936:                 SSPBUF = 0x22;
+[e = _SSPBUF -> -> 34 `i `uc ]
+"938
+[; ;main.c: 938:             }
+}
+[e :U 517 ]
+"940
+[; ;main.c: 940:             if (temp == 77) {
+[e $ ! == -> _temp `i -> 77 `i 518  ]
+{
+"942
+[; ;main.c: 942:                 SSPBUF = 0x99;
+[e = _SSPBUF -> -> 153 `i `uc ]
+"944
+[; ;main.c: 944:             }
+}
+[e :U 518 ]
+"946
+[; ;main.c: 946:             if (temp == 25) {
+[e $ ! == -> _temp `i -> 25 `i 519  ]
+{
+"950
+[; ;main.c: 950:             }
+}
+[e :U 519 ]
+"952
+[; ;main.c: 952:         }
+}
+[e :U 516 ]
+[e :U 515 ]
+[e :U 510 ]
+[e :U 507 ]
+"953
+[; ;main.c: 953:     }
+}
+[e :U 504 ]
+"954
+[; ;main.c: 954: }
+[e :UE 503 ]
 }
 [p f _printf 8388608 ]
 [p f _sprintf 8388736 ]
-[a 10C 77 97 115 116 101 114 32 101 110 32 116 101 115 116 0 ]
-[a 66C 37 100 0 ]
-[a 76C 37 100 0 ]
-[a 125C 70 73 78 32 68 69 32 84 69 83 84 0 ]
-[a 128C 65 84 84 69 78 84 69 32 65 67 81 85 73 84 84 69 77 69 78 84 0 ]
-[a 90C 76 69 68 83 32 65 76 76 85 77 69 69 83 0 ]
-[a 63C 84 69 83 84 32 76 69 68 32 67 76 65 86 73 69 82 0 ]
-[a 70C 84 69 83 84 32 76 69 68 32 67 76 65 86 73 69 82 0 ]
-[a 73C 84 69 83 84 32 76 69 68 32 67 76 65 86 73 69 82 0 ]
-[a 80C 84 69 83 84 32 76 69 68 32 67 76 65 86 73 69 82 0 ]
-[a 14C 84 69 83 84 32 51 32 82 69 76 65 73 83 32 79 78 0 ]
-[a 57C 84 69 83 84 32 82 50 32 79 70 70 32 45 32 82 51 32 79 78 0 ]
-[a 51C 84 69 83 84 32 82 49 32 79 70 70 32 45 32 82 50 32 79 78 0 ]
-[a 45C 84 69 83 84 32 82 49 32 79 78 0 ]
-[a 91C 80 82 69 83 83 69 82 32 79 75 32 47 32 78 79 75 0 ]
-[a 122C 80 82 69 83 83 69 82 32 79 75 32 47 32 78 79 75 0 ]
+[a 62C 37 100 0 ]
+[a 72C 37 100 0 ]
+[a 121C 70 73 78 32 68 69 32 84 69 83 84 0 ]
+[a 124C 65 84 84 69 78 84 69 32 65 67 81 85 73 84 84 69 77 69 78 84 0 ]
+[a 86C 76 69 68 83 32 65 76 76 85 77 69 69 83 0 ]
+[a 59C 84 69 83 84 32 76 69 68 32 67 76 65 86 73 69 82 0 ]
+[a 66C 84 69 83 84 32 76 69 68 32 67 76 65 86 73 69 82 0 ]
+[a 69C 84 69 83 84 32 76 69 68 32 67 76 65 86 73 69 82 0 ]
+[a 76C 84 69 83 84 32 76 69 68 32 67 76 65 86 73 69 82 0 ]
+[a 10C 84 69 83 84 32 51 32 82 69 76 65 73 83 32 79 78 0 ]
+[a 53C 84 69 83 84 32 82 50 32 79 70 70 32 45 32 82 51 32 79 78 0 ]
+[a 47C 84 69 83 84 32 82 49 32 79 70 70 32 45 32 82 50 32 79 78 0 ]
+[a 41C 84 69 83 84 32 82 49 32 79 78 0 ]
+[a 87C 80 82 69 83 83 69 82 32 79 75 32 47 32 78 79 75 0 ]
+[a 118C 80 82 69 83 83 69 82 32 79 75 32 47 32 78 79 75 0 ]
 [a 4C 65 80 80 85 89 69 82 32 83 85 82 32 79 75 0 ]
 [a 8C 65 80 80 85 89 69 82 32 83 85 82 32 79 75 0 ]
-[a 12C 65 80 80 85 89 69 82 32 83 85 82 32 79 75 0 ]
-[a 121C 86 79 73 82 32 65 80 80 76 73 0 ]
-[a 120C 84 69 83 84 32 66 76 85 69 84 79 79 84 72 0 ]
-[a 83C 84 69 83 84 32 83 70 76 65 83 72 0 ]
-[a 20C 84 69 83 84 32 51 32 82 69 76 65 73 83 32 79 70 70 0 ]
+[a 117C 86 79 73 82 32 65 80 80 76 73 0 ]
+[a 116C 84 69 83 84 32 66 76 85 69 84 79 79 84 72 0 ]
+[a 79C 84 69 83 84 32 83 70 76 65 83 72 0 ]
+[a 16C 84 69 83 84 32 51 32 82 69 76 65 73 83 32 79 70 70 0 ]
 [a 6C 77 79 68 85 76 69 32 69 83 67 76 65 86 69 0 ]
-[a 33C 84 69 83 84 32 76 69 68 32 66 76 69 85 69 0 ]
-[a 39C 84 69 83 84 32 76 69 68 32 86 69 82 84 69 0 ]
-[a 89C 84 69 83 84 32 76 69 68 83 32 67 65 82 84 69 0 ]
-[a 127C 82 69 84 73 82 69 82 32 67 65 82 84 69 0 ]
+[a 29C 84 69 83 84 32 76 69 68 32 66 76 69 85 69 0 ]
+[a 35C 84 69 83 84 32 76 69 68 32 86 69 82 84 69 0 ]
+[a 85C 84 69 83 84 32 76 69 68 83 32 67 65 82 84 69 0 ]
+[a 123C 82 69 84 73 82 69 82 32 67 65 82 84 69 0 ]
 [a 3C 80 79 83 73 84 73 79 78 78 69 82 32 67 65 82 84 69 0 ]
 [a 7C 80 79 83 73 84 73 79 78 78 69 82 32 67 65 82 84 69 0 ]
-[a 11C 80 79 83 73 84 73 79 78 78 69 82 32 67 65 82 84 69 0 ]
 [a 2C 77 79 68 85 76 69 32 77 65 73 84 82 69 0 ]
-[a 126C 67 79 78 70 79 82 77 69 0 ]
-[a 26C 84 69 83 84 32 76 69 68 32 82 79 85 71 69 0 ]
-[a 102C 84 69 83 84 32 72 79 82 76 79 71 69 0 ]
-[a 74C 67 76 65 86 73 69 82 32 69 84 69 73 78 84 63 0 ]
-[a 64C 67 76 65 86 73 69 82 32 69 67 76 65 73 82 69 63 0 ]
-[a 62C 69 84 65 80 69 32 57 0 ]
-[a 68C 69 84 65 80 69 32 57 0 ]
-[a 69C 69 84 65 80 69 32 57 0 ]
+[a 122C 67 79 78 70 79 82 77 69 0 ]
+[a 22C 84 69 83 84 32 76 69 68 32 82 79 85 71 69 0 ]
+[a 98C 84 69 83 84 32 72 79 82 76 79 71 69 0 ]
+[a 70C 67 76 65 86 73 69 82 32 69 84 69 73 78 84 63 0 ]
+[a 60C 67 76 65 86 73 69 82 32 69 67 76 65 73 82 69 63 0 ]
+[a 58C 69 84 65 80 69 32 57 0 ]
+[a 64C 69 84 65 80 69 32 57 0 ]
+[a 65C 69 84 65 80 69 32 57 0 ]
+[a 115C 69 84 65 80 69 32 49 56 0 ]
 [a 119C 69 84 65 80 69 32 49 56 0 ]
-[a 123C 69 84 65 80 69 32 49 56 0 ]
-[a 56C 69 84 65 80 69 32 56 0 ]
-[a 61C 69 84 65 80 69 32 56 0 ]
-[a 113C 69 84 65 80 69 32 49 55 0 ]
-[a 118C 69 84 65 80 69 32 49 55 0 ]
-[a 50C 69 84 65 80 69 32 55 0 ]
-[a 55C 69 84 65 80 69 32 55 0 ]
-[a 107C 69 84 65 80 69 32 49 54 0 ]
-[a 112C 69 84 65 80 69 32 49 54 0 ]
-[a 44C 69 84 65 80 69 32 54 0 ]
-[a 49C 69 84 65 80 69 32 54 0 ]
-[a 101C 69 84 65 80 69 32 49 53 0 ]
-[a 106C 69 84 65 80 69 32 49 53 0 ]
+[a 52C 69 84 65 80 69 32 56 0 ]
+[a 57C 69 84 65 80 69 32 56 0 ]
+[a 109C 69 84 65 80 69 32 49 55 0 ]
+[a 114C 69 84 65 80 69 32 49 55 0 ]
+[a 46C 69 84 65 80 69 32 55 0 ]
+[a 51C 69 84 65 80 69 32 55 0 ]
+[a 103C 69 84 65 80 69 32 49 54 0 ]
+[a 108C 69 84 65 80 69 32 49 54 0 ]
+[a 40C 69 84 65 80 69 32 54 0 ]
+[a 45C 69 84 65 80 69 32 54 0 ]
+[a 97C 69 84 65 80 69 32 49 53 0 ]
+[a 102C 69 84 65 80 69 32 49 53 0 ]
+[a 34C 69 84 65 80 69 32 53 0 ]
 [a 38C 69 84 65 80 69 32 53 0 ]
-[a 42C 69 84 65 80 69 32 53 0 ]
 [a 1C 84 69 83 84 32 67 65 82 84 69 32 68 57 50 53 69 68 52 0 ]
 [a 5C 84 69 83 84 32 67 65 82 84 69 32 68 57 50 53 69 68 52 0 ]
-[a 9C 84 69 83 84 32 67 65 82 84 69 32 68 57 50 53 69 68 52 0 ]
-[a 95C 69 84 65 80 69 32 49 52 0 ]
-[a 100C 69 84 65 80 69 32 49 52 0 ]
+[a 91C 69 84 65 80 69 32 49 52 0 ]
+[a 96C 69 84 65 80 69 32 49 52 0 ]
+[a 28C 69 84 65 80 69 32 52 0 ]
 [a 32C 69 84 65 80 69 32 52 0 ]
-[a 36C 69 84 65 80 69 32 52 0 ]
-[a 88C 69 84 65 80 69 32 49 51 0 ]
-[a 93C 69 84 65 80 69 32 49 51 0 ]
-[a 25C 69 84 65 80 69 32 51 0 ]
-[a 30C 69 84 65 80 69 32 51 0 ]
-[a 96C 84 69 83 84 32 66 80 50 0 ]
-[a 114C 84 69 83 84 32 80 50 0 ]
-[a 82C 69 84 65 80 69 32 49 50 0 ]
-[a 87C 69 84 65 80 69 32 49 50 0 ]
-[a 19C 69 84 65 80 69 32 50 0 ]
-[a 24C 69 84 65 80 69 32 50 0 ]
-[a 108C 84 69 83 84 32 80 49 0 ]
-[a 67C 45 62 32 84 69 83 84 58 57 58 49 0 ]
-[a 60C 45 62 32 84 69 83 84 58 56 58 49 0 ]
-[a 124C 45 62 32 84 69 83 84 58 49 56 58 49 0 ]
-[a 54C 45 62 32 84 69 83 84 58 55 58 49 0 ]
-[a 117C 45 62 32 84 69 83 84 58 49 55 58 49 0 ]
-[a 48C 45 62 32 84 69 83 84 58 54 58 49 0 ]
-[a 111C 45 62 32 84 69 83 84 58 49 54 58 49 0 ]
-[a 43C 45 62 32 84 69 83 84 58 53 58 49 0 ]
-[a 105C 45 62 32 84 69 83 84 58 49 53 58 49 0 ]
-[a 37C 45 62 32 84 69 83 84 58 52 58 49 0 ]
-[a 99C 45 62 32 84 69 83 84 58 49 52 58 49 0 ]
-[a 31C 45 62 32 84 69 83 84 58 51 58 49 0 ]
-[a 94C 45 62 32 84 69 83 84 58 49 51 58 49 0 ]
-[a 23C 45 62 32 84 69 83 84 58 50 58 49 0 ]
-[a 86C 45 62 32 84 69 83 84 58 49 50 58 49 0 ]
-[a 17C 45 62 32 84 69 83 84 58 49 58 49 0 ]
-[a 77C 45 62 32 84 69 83 84 58 49 48 58 49 0 ]
-[a 13C 69 84 65 80 69 32 49 0 ]
-[a 18C 69 84 65 80 69 32 49 0 ]
-[a 72C 69 84 65 80 69 32 49 48 0 ]
-[a 78C 69 84 65 80 69 32 49 48 0 ]
-[a 79C 69 84 65 80 69 32 49 48 0 ]
-[a 29C 65 116 116 101 110 116 101 32 118 97 108 105 100 97 116 105 111 110 32 108 101 100 32 114 111 117 103 101 13 10 0 ]
-[a 92C 65 84 84 69 78 84 69 32 86 65 76 73 68 65 84 73 79 78 32 76 69 68 83 13 10 0 ]
-[a 15C 0 ]
-[a 16C 0 ]
-[a 21C 0 ]
-[a 22C 0 ]
-[a 27C 0 ]
-[a 28C 0 ]
-[a 34C 0 ]
-[a 35C 0 ]
-[a 40C 0 ]
-[a 41C 0 ]
-[a 46C 0 ]
-[a 47C 0 ]
-[a 52C 0 ]
-[a 53C 0 ]
-[a 58C 0 ]
-[a 59C 0 ]
-[a 65C 0 ]
+[a 84C 69 84 65 80 69 32 49 51 0 ]
+[a 89C 69 84 65 80 69 32 49 51 0 ]
+[a 21C 69 84 65 80 69 32 51 0 ]
+[a 26C 69 84 65 80 69 32 51 0 ]
+[a 92C 84 69 83 84 32 66 80 50 0 ]
+[a 110C 84 69 83 84 32 80 50 0 ]
+[a 78C 69 84 65 80 69 32 49 50 0 ]
+[a 83C 69 84 65 80 69 32 49 50 0 ]
+[a 15C 69 84 65 80 69 32 50 0 ]
+[a 20C 69 84 65 80 69 32 50 0 ]
+[a 104C 84 69 83 84 32 80 49 0 ]
+[a 63C 45 62 32 84 69 83 84 58 57 58 49 0 ]
+[a 56C 45 62 32 84 69 83 84 58 56 58 49 0 ]
+[a 120C 45 62 32 84 69 83 84 58 49 56 58 49 0 ]
+[a 50C 45 62 32 84 69 83 84 58 55 58 49 0 ]
+[a 113C 45 62 32 84 69 83 84 58 49 55 58 49 0 ]
+[a 44C 45 62 32 84 69 83 84 58 54 58 49 0 ]
+[a 107C 45 62 32 84 69 83 84 58 49 54 58 49 0 ]
+[a 39C 45 62 32 84 69 83 84 58 53 58 49 0 ]
+[a 101C 45 62 32 84 69 83 84 58 49 53 58 49 0 ]
+[a 33C 45 62 32 84 69 83 84 58 52 58 49 0 ]
+[a 95C 45 62 32 84 69 83 84 58 49 52 58 49 0 ]
+[a 27C 45 62 32 84 69 83 84 58 51 58 49 0 ]
+[a 90C 45 62 32 84 69 83 84 58 49 51 58 49 0 ]
+[a 19C 45 62 32 84 69 83 84 58 50 58 49 0 ]
+[a 82C 45 62 32 84 69 83 84 58 49 50 58 49 0 ]
+[a 13C 45 62 32 84 69 83 84 58 49 58 49 0 ]
+[a 73C 45 62 32 84 69 83 84 58 49 48 58 49 0 ]
+[a 9C 69 84 65 80 69 32 49 0 ]
+[a 14C 69 84 65 80 69 32 49 0 ]
+[a 68C 69 84 65 80 69 32 49 48 0 ]
+[a 74C 69 84 65 80 69 32 49 48 0 ]
+[a 75C 69 84 65 80 69 32 49 48 0 ]
+[a 25C 65 116 116 101 110 116 101 32 118 97 108 105 100 97 116 105 111 110 32 108 101 100 32 114 111 117 103 101 13 10 0 ]
+[a 88C 65 84 84 69 78 84 69 32 86 65 76 73 68 65 84 73 79 78 32 76 69 68 83 13 10 0 ]
+[a 11C 0 ]
+[a 12C 0 ]
+[a 17C 0 ]
+[a 18C 0 ]
+[a 23C 0 ]
+[a 24C 0 ]
+[a 30C 0 ]
+[a 31C 0 ]
+[a 36C 0 ]
+[a 37C 0 ]
+[a 42C 0 ]
+[a 43C 0 ]
+[a 48C 0 ]
+[a 49C 0 ]
+[a 54C 0 ]
+[a 55C 0 ]
+[a 61C 0 ]
+[a 67C 0 ]
 [a 71C 0 ]
-[a 75C 0 ]
+[a 77C 0 ]
+[a 80C 0 ]
 [a 81C 0 ]
-[a 84C 0 ]
-[a 85C 0 ]
-[a 97C 0 ]
-[a 98C 0 ]
-[a 103C 0 ]
-[a 104C 0 ]
-[a 109C 0 ]
-[a 110C 0 ]
-[a 115C 0 ]
-[a 116C 0 ]
+[a 93C 0 ]
+[a 94C 0 ]
+[a 99C 0 ]
+[a 100C 0 ]
+[a 105C 0 ]
+[a 106C 0 ]
+[a 111C 0 ]
+[a 112C 0 ]
