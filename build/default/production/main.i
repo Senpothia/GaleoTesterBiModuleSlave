@@ -7,7 +7,7 @@
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "main.c" 2
-# 56 "main.c"
+# 60 "main.c"
 # 1 "./mcc_generated_files/mcc.h" 1
 # 49 "./mcc_generated_files/mcc.h"
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.32\\pic\\include\\xc.h" 1 3
@@ -5699,7 +5699,7 @@ void SYSTEM_Initialize(void);
 void OSCILLATOR_Initialize(void);
 # 98 "./mcc_generated_files/mcc.h"
 void WDT_Initialize(void);
-# 56 "main.c" 2
+# 60 "main.c" 2
 
 # 1 "./I2C_LCD.h" 1
 # 99 "./I2C_LCD.h"
@@ -5729,7 +5729,7 @@ void LCD_SL();
 void LCD_Clear();
 
 void I2C_Slave_Init();
-# 57 "main.c" 2
+# 61 "main.c" 2
 
 # 1 "./tester.h" 1
 
@@ -5760,20 +5760,20 @@ void activerTouche(void);
 void startAlert(void);
 void errorAlert(void);
 void okAlert(void);
-void attenteDemarrage2(_Bool *, _Bool *);
 void attenteDemarrage3(_Bool *, _Bool *, _Bool *);
+void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order);
 void attenteAquittement(_Bool *, _Bool *);
 void sortieErreur(_Bool *, _Bool *, _Bool *, _Bool *);
 void marchePAP();
-# 58 "main.c" 2
+# 62 "main.c" 2
 
 # 1 "./display.h" 1
 # 23 "./display.h"
 void displayManager(char s1[], char s2[], char s3[], char s4[]);
-# 59 "main.c" 2
+# 63 "main.c" 2
 
 # 1 "./I2C_tester.h" 1
-# 60 "main.c" 2
+# 64 "main.c" 2
 
 
 
@@ -5782,7 +5782,7 @@ void displayManager(char s1[], char s2[], char s3[], char s4[]);
 
 char getSlaveStatus(char code);
 void writeSlave(char code);
-# 63 "main.c" 2
+# 67 "main.c" 2
 
 
 
@@ -5794,7 +5794,7 @@ char ordre;
 void main(void) {
 
     SYSTEM_Initialize();
-# 91 "main.c"
+# 95 "main.c"
     _Bool testActif = 0;
     _Bool testVoyants = 0;
     int lectureAN1;
@@ -5865,10 +5865,10 @@ void main(void) {
             _delay((unsigned long)((100)*(16000000/4000.0)));
 
         }
-# 171 "main.c"
+# 175 "main.c"
         while (!testActif) {
 
-            attenteDemarrage3(&automatique, &testActif, &programmation);
+            attenteDemarrageSlave(&automatique, &testActif, &programmation, &ordre);
         }
 
 
@@ -5885,8 +5885,12 @@ void main(void) {
         _delay((unsigned long)((100)*(16000000/4000.0)));
 
 
-        if(master){displayManager("ETAPE 1", "TEST 3 RELAIS ON", "", "");}
-# 292 "main.c"
+        if (master) {
+            displayManager("ETAPE 1", "TEST 3 RELAIS ON", "", "");
+        } else {
+            _delay((unsigned long)((100)*(16000000/4000.0)));
+        }
+# 300 "main.c"
         pressBP1(1);
         pressBP2(1);
         _delay((unsigned long)((1000)*(16000000/4000.0)));
@@ -5926,7 +5930,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 2", "TEST 3 RELAIS OFF", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
 
             pressBP1(0);
             pressBP2(0);
@@ -5955,7 +5961,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 3", "TEST LED ROUGE", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
 
             pressBP1(1);
             _delay((unsigned long)((250)*(16000000/4000.0)));
@@ -5989,7 +5997,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 4", "TEST LED BLEUE", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
 
             pressBP1(1);
             _delay((unsigned long)((250)*(16000000/4000.0)));
@@ -6022,7 +6032,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 5", "TEST LED VERTE", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
 
             pressBP1(1);
             _delay((unsigned long)((250)*(16000000/4000.0)));
@@ -6056,7 +6068,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 6", "TEST R1 ON", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             pressBP1(1);
             _delay((unsigned long)((1000)*(16000000/4000.0)));
             pressBP1(0);
@@ -6087,7 +6101,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 7", "TEST R1 OFF - R2 ON", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             pressBP1(1);
             _delay((unsigned long)((1000)*(16000000/4000.0)));
             pressBP1(0);
@@ -6116,7 +6132,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 8", "TEST R2 OFF - R3 ON", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             pressBP1(1);
             _delay((unsigned long)((1000)*(16000000/4000.0)));
             pressBP1(0);
@@ -6145,7 +6163,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 9", "TEST LED CLAVIER", "CLAVIER ECLAIRE?", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             pressBP1(1);
             _delay((unsigned long)((250)*(16000000/4000.0)));
             pressBP1(0);
@@ -6169,7 +6189,9 @@ void main(void) {
                 alerteDefaut("ETAPE 9", &testActif, &testVoyants);
                 if (master) {
                     displayManager("ETAPE 9", "TEST LED CLAVIER", slectureAN1, "");
-                }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+                } else {
+                    _delay((unsigned long)((100)*(16000000/4000.0)));
+                }
                 do { LATAbits.LATA7 = 0; } while(0);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 
@@ -6187,7 +6209,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 10", "TEST LED CLAVIER", "CLAVIER ETEINT?", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             pressBP1(1);
             _delay((unsigned long)((250)*(16000000/4000.0)));
             pressBP1(0);
@@ -6212,7 +6236,9 @@ void main(void) {
                 alerteDefaut("ETAPE 10", &testActif, &testVoyants);
                 if (master) {
                     displayManager("ETAPE 10", "TEST LED CLAVIER", slectureAN1, "");
-                }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+                } else {
+                    _delay((unsigned long)((100)*(16000000/4000.0)));
+                }
                 do { LATAbits.LATA7 = 1; } while(0);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 
@@ -6230,7 +6256,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 12", "TEST SFLASH", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             _delay((unsigned long)((500)*(16000000/4000.0)));
             pressBP1(1);
             _delay((unsigned long)((250)*(16000000/4000.0)));
@@ -6273,7 +6301,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 13", "TEST LEDS CARTE", "LEDS ALLUMEES", "PRESSER OK / NOK");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             pressBP1(1);
             _delay((unsigned long)((250)*(16000000/4000.0)));
             pressBP1(0);
@@ -6303,7 +6333,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 14", "TEST BP2", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             pressBP2(1);
             _delay((unsigned long)((250)*(16000000/4000.0)));
             pressBP2(0);
@@ -6333,7 +6365,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 15", "TEST HORLOGE", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             setHorloge(1);
             _delay((unsigned long)((250)*(16000000/4000.0)));
             setHorloge(0);
@@ -6362,7 +6396,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 16", "TEST P1", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             setP1(1);
             _delay((unsigned long)((1200)*(16000000/4000.0)));
 
@@ -6390,7 +6426,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 17", "TEST P2", "", "");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             setP2(1);
             _delay((unsigned long)((1200)*(16000000/4000.0)));
             setP2(0);
@@ -6421,7 +6459,9 @@ void main(void) {
 
             if (master) {
                 displayManager("ETAPE 18", "TEST BLUETOOTH", "VOIR APPLI", "PRESSER OK / NOK");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             activerTouche();
 
             testVoyants = reponseOperateur(automatique);
@@ -6447,7 +6487,9 @@ void main(void) {
 
             if (master) {
                 displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", "ATTENTE ACQUITTEMENT");
-            }else{ _delay((unsigned long)((100)*(16000000/4000.0)));}
+            } else {
+                _delay((unsigned long)((100)*(16000000/4000.0)));
+            }
             ledConforme(1);
             alimenter(0);
             okAlert();
@@ -6472,16 +6514,21 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
 
 
+    do { LATAbits.LATA7 = 1; } while(0);
 
     if (SSPIF) {
 
         SSPIF = 0;
+
+
 
         if (SSPOV || WCOL) {
             SSPOV = 0;
             WCOL = 0;
             return;
         }
+
+
 
         if (!D_nA && !R_nW)
         {
@@ -6490,8 +6537,12 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
             CKP = 1;
 
 
+
         } else if (!D_nA && R_nW)
         {
+
+
+
 
             unsigned char temp = SSPBUF;
 
@@ -6499,7 +6550,18 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
                 SSPBUF = 0x55;
             }
+
+
+            if (ordre == 'a') {
+
+                SSPBUF = 'x';
+            }
+
             CKP = 1;
+
+
+
+
 
         } else if (D_nA && !R_nW)
         {
@@ -6509,7 +6571,6 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
             CKP = 1;
             if (temp == 88) {
 
-
             }
 
             if (temp == 77) {
@@ -6517,11 +6578,23 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
             }
 
+
             if (temp == 25) {
 
                 ordre = 25;
 
             }
+
+            if (temp == 'a') {
+
+                ordre = 'a';
+
+            }
+
+
+
+
+
 
         } else if (D_nA && R_nW)
         {
@@ -6546,7 +6619,7 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
 
             }
-
+# 1037 "main.c"
         }
     }
 }

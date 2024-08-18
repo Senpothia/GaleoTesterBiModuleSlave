@@ -26,11 +26,12 @@ void activerTouche(void);
 void startAlert(void);
 void errorAlert(void);
 void okAlert(void);
-void attenteDemarrage2(bool *, bool *);
 void attenteDemarrage3(bool *, bool *, bool *);
+void attenteDemarrageSlave(bool *autom, bool *testAct, bool *prog, char *order);
 void attenteAquittement(bool *, bool *);
 void sortieErreur(bool *, bool *, bool *, bool *);
 void marchePAP();
+
 
 
 

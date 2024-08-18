@@ -5767,8 +5767,8 @@ void activerTouche(void);
 void startAlert(void);
 void errorAlert(void);
 void okAlert(void);
-void attenteDemarrage2(_Bool *, _Bool *);
 void attenteDemarrage3(_Bool *, _Bool *, _Bool *);
+void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order);
 void attenteAquittement(_Bool *, _Bool *);
 void sortieErreur(_Bool *, _Bool *, _Bool *, _Bool *);
 void marchePAP();
@@ -6368,62 +6368,6 @@ void okAlert(void) {
 
 }
 
-void attenteDemarrage2(_Bool *autom, _Bool *testAct) {
-
-    unsigned char reception;
-    _Bool repOperateur = 0;
-
-    while (!repOperateur) {
-
-
-        if (PORTDbits.RD2 == 0) {
-
-            printf("-> TEST MANUEL EN COURS\r\n");
-            repOperateur = 1;
-            *autom = 0;
-            *testAct = 1;
-        }
-
-        if (0) {
-
-
-
-            switch (reception)
-            {
-
-                case '0':
-                {
-                    __asm("reset");
-
-                }
-
-                case '1':
-                {
-                    printf("-> TEST ON\r\n");
-                    *autom = 1;
-                    _delay((unsigned long)((50)*(16000000/4000.0)));
-                    repOperateur = 1;
-                    *testAct = 1;
-                    break;
-                }
-
-                case '9':
-                {
-                    printf("-> PROGRAMMATION TERMINEE\r\n");
-                    displayManager("TEST CARTE D925ED4", "", "FIN PROGRAMMATION", "");
-                    *autom = 1;
-                    _delay((unsigned long)((50)*(16000000/4000.0)));
-                    repOperateur = 1;
-                    *testAct = 0;
-                    do { LATAbits.LATA7 = 0; } while(0);
-                    break;
-                }
-            }
-        }
-    }
-
-}
-
 void attenteDemarrage3(_Bool *autom, _Bool *testAct, _Bool *prog) {
 
     unsigned char reception;
@@ -6440,7 +6384,38 @@ void attenteDemarrage3(_Bool *autom, _Bool *testAct, _Bool *prog) {
             *prog = 0;
             *testAct = 1;
         }
-# 728 "tester.c"
+# 672 "tester.c"
+    }
+
+}
+
+void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order) {
+
+
+    _Bool repOperateur = 0;
+
+    while (!repOperateur) {
+
+
+        if (PORTDbits.RD2 == 0) {
+
+
+            repOperateur = 1;
+            *autom = 0;
+            *prog = 0;
+            *testAct = 1;
+        }
+
+        if (*order == 'a') {
+
+            repOperateur = 1;
+            *autom = 1;
+            *prog = 0;
+            *testAct = 1;
+
+        }
+
+
     }
 
 }
