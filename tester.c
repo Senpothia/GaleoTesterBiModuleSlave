@@ -218,120 +218,6 @@ void ledProgession(bool active) {
     }
 }
 
-void attenteDemarrage(bool *autom, bool *testAct) {
-
-
-    unsigned char reception;
-    bool repOperateur = false;
-
-    if (!*autom) {
-
-        while (IN3_GetValue() == 1 && !*autom) {
-
-            if (IN3_GetValue() == 0) {
-
-                if (!*testAct) {
-
-                    printf("-> TEST MANUEL EN COURS\r\n");
-
-                } else {
-
-                    printf("-> FIN TEST MANUEL\r\n");
-                }
-
-            }
-
-            if (0) {
-
-                *autom = true;
-
-
-                switch (reception) // check command  
-                {
-
-
-
-                    case '1':
-                    {
-                        printf("-> TEST ON\r\n");
-                        *autom = true;
-                        __delay_ms(50);
-                        repOperateur = true;
-                        break;
-                    }
-
-                    case '0':
-                    {
-                        printf("-> TEST OFF\r\n");
-                        __delay_ms(50);
-                        repOperateur = true;
-                        *autom = false;
-                        break;
-                    }
-
-                    case '4':
-                    {
-                        printf("-> TEST ACQUITTE\r\n");
-                        __delay_ms(50);
-                        repOperateur = false;
-                        *autom = false;
-                        break;
-                    }
-                }
-            }
-
-        }
-        repOperateur = true;
-    }
-
-    if (*autom) {
-
-        while (!repOperateur) {
-
-
-            // Réception RX
-
-
-            if (0) {
-                *autom = true;
-
-
-                switch (reception) // check command  
-                {
-                    case '1':
-                    {
-                        printf("-> TEST ON\r\n");
-                        __delay_ms(50);
-                        repOperateur = true;
-                        *autom = true;
-                        break;
-                    }
-
-                    case '0':
-                    {
-                        printf("-> TEST OFF\r\n");
-                        __delay_ms(50);
-                        repOperateur = true;
-                        *autom = false;
-                        break;
-                    }
-
-                    case '4':
-                    {
-                        printf("-> TEST ACQUITTE\r\n");
-                        __delay_ms(50);
-                        repOperateur = true;
-                        *autom = false;
-                        break;
-                    }
-                }
-
-            }
-        }
-
-    }
-
-}
 
 void alerteDefaut(char etape[], bool *testAct, bool *testVoy) {
 
@@ -397,23 +283,7 @@ bool reponseOperateur(bool automatique) {
                         break;
                     }
 
-                        /*
-                     
-                          case '7': //  lancement programmation
-                        {
-
-                            __delay_ms(50);
-                            reponse = true;
-                            repOperateur = true;
-                            REL8_SetHigh();
-                            break;
-                        }
-                     
-                     
-                         */
-
-
-
+                       
                     case '9': // fin de programmation
                     {
 
@@ -475,10 +345,7 @@ void setP2(bool active) {
 
 void initialConditions(bool *testAct, bool *testVoy, bool *autom, bool *prog) {
 
-    if (!*autom) {
-
-        printf("-> FIN TEST MANUEL\r\n");
-    }
+   
     *testAct = false;
     *testVoy = false;
     *autom = false;
@@ -550,8 +417,6 @@ void errorAlert(void) {
 
 void okAlert(void) {
 
-
-    printf("-> TEST CONFORME - ATTENTE ACQUITTEMENT\r\n");
     for (int i = 0; i < 2; i++) {
 
         startAlert();
@@ -561,117 +426,7 @@ void okAlert(void) {
 
 }
 
-void attenteDemarrage3(bool *autom, bool *testAct, bool *prog) {
 
-    unsigned char reception;
-    bool repOperateur = false;
-
-    while (!repOperateur) {
-
-
-        if (IN3_GetValue() == 0) {
-
-            // if(master){printf("-> TEST MANUEL EN COURS\r\n");}
-            repOperateur = true;
-            *autom = false;
-            *prog = false;
-            *testAct = true;
-        }
-
-        /*
-        if (0) {
-
-            //reception = EUSART_Read(); // read a byte for RX
-
-            switch (reception) // check command  
-            {
-
-                case '0':
-                {
-                    RESET();
-
-                }
-
-                case '1':
-                {
-                    printf("-> TEST ON\r\n");
-         *autom = true;
-         *testAct = true;
-         *prog = false;
-                    __delay_ms(50);
-                    repOperateur = true;
-                    break;
-                }
-                
-                   case '6':
-                {
-                    printf("-> ERREUR PROGRAMMATION\r\n");
-                    displayManager(TITRE, LIGNE_VIDE, ERREUR_PROGRAMMATION, LIGNE_VIDE);
-         *autom = true;
-                    __delay_ms(50);
-                    repOperateur = true;
-         *testAct = false;
-                    REL8_SetLow();
-                    break;
-                }
-
-                case '7':
-                {
-                    printf("-> PROGRAMMATION EN COURS\r\n");
-                    displayManager(TITRE, LIGNE_VIDE, EN_PROG, LIGNE_VIDE);
-         *autom = true;
-         *testAct = false;
-         *prog = false;
-                    __delay_ms(50);
-                    repOperateur = true;
-                    REL8_SetHigh();
-                    break;
-                }
-
-                case '9':
-                {
-                    printf("-> PROGRAMMATION TERMINEE\r\n");
-                    displayManager(TITRE, LIGNE_VIDE, FIN_PROG, LIGNE_VIDE);
-         *autom = true;
-                    __delay_ms(50);
-                    repOperateur = true;
-         *testAct = false;
-                    REL8_SetLow();
-                    break;
-                }
-
-                case '8':
-                {
-                    printf("-> EFFACEMENT EN COURS\r\n");
-                    displayManager(TITRE, LIGNE_VIDE, EN_EFFACEMENT, LIGNE_VIDE);
-         *autom = true;
-         *testAct = false;
-         *prog = true;
-                    __delay_ms(50);
-                    repOperateur = true;
-                    REL8_SetHigh();
-                    break;
-                }
-
-                case '5':
-                {
-                    printf("-> EFFACEMENT TERMINE\r\n");
-                    displayManager(TITRE, LIGNE_VIDE, FIN_EFFACEMENT, LIGNE_VIDE);
-         *autom = true;
-         *testAct = false;
-         *prog = true;
-                    __delay_ms(50);
-                    repOperateur = true;
-                    REL8_SetLow();
-                    break;
-                }
-
-            }
-        }
-         */
-    }
-
-}
 
 void attenteDemarrageSlave(bool *autom, bool *testAct, bool *prog, char *order) {
 
@@ -714,7 +469,6 @@ void attenteAquittement(bool *autom, bool *testAct) {
 
         if (IN3_GetValue() == 0) {
 
-            printf("-> FIN TEST MANUEL\r\n");
             repOperateur = true;
             *autom = false;
             *testAct = false;
@@ -735,7 +489,7 @@ void attenteAquittement(bool *autom, bool *testAct) {
 
                 case '4':
                 {
-                    printf("-> TEST ACQUITTE\r\n");
+                   
                     *autom = false;
                     *testAct = false;
                     __delay_ms(50);
@@ -808,7 +562,7 @@ void alerteDefautEtape16(char etape[], bool *testAct, bool *testVoy, bool *autom
 void marchePAP() {
 
     bool repOperateur = false;
-    printf("-> Appuyer sur OK\r\n");
+   
     while (!repOperateur) {
 
 

@@ -5790,11 +5790,12 @@ void writeSlave(char code);
 
 
 char ordre;
+char slaveSummary = 'z';
 
 void main(void) {
 
     SYSTEM_Initialize();
-# 95 "main.c"
+# 96 "main.c"
     _Bool testActif = 0;
     _Bool testVoyants = 0;
     int lectureAN1;
@@ -5805,6 +5806,8 @@ void main(void) {
     _Bool programmation = 1;
     _Bool master = 1;
     char slaveStatus;
+
+
 
 
 
@@ -5865,7 +5868,7 @@ void main(void) {
             _delay((unsigned long)((100)*(16000000/4000.0)));
 
         }
-# 175 "main.c"
+# 178 "main.c"
         while (!testActif) {
 
             attenteDemarrageSlave(&automatique, &testActif, &programmation, &ordre);
@@ -5890,7 +5893,8 @@ void main(void) {
         } else {
             _delay((unsigned long)((100)*(16000000/4000.0)));
         }
-# 300 "main.c"
+
+
         pressBP1(1);
         pressBP2(1);
         _delay((unsigned long)((1000)*(16000000/4000.0)));
@@ -5902,7 +5906,8 @@ void main(void) {
         if (testR1(1) && testR2(1) && testR3(1)) {
 
 
-            printf("-> TEST:1:1");
+
+            slaveSummary = 'A';
 
 
 
@@ -5913,6 +5918,8 @@ void main(void) {
             pressBP2(0);
             alerteDefaut("ETAPE 1", &testActif, &testVoyants);
             sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+            slaveSummary = 'a';
+
 
         }
 
@@ -5940,7 +5947,9 @@ void main(void) {
             if (!testR1(1) && !testR2(1) && !testR3(1)) {
 
 
-                printf("-> TEST:2:1");
+
+                slaveSummary = 'B';
+
 
 
 
@@ -5949,6 +5958,8 @@ void main(void) {
                 testActif = 0;
                 alerteDefaut("ETAPE 2", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'b';
+
 
             }
         }
@@ -5979,10 +5990,14 @@ void main(void) {
                     testActif = 0;
                     alerteDefaut("ETAPE 3", &testActif, &testVoyants);
                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                    slaveSummary = 'c';
+
 
                 } else {
 
-                    printf("-> TEST:3:1");
+
+                    slaveSummary = 'C';
+
                 }
             }
 
@@ -6012,11 +6027,15 @@ void main(void) {
                     testActif = 0;
                     alerteDefaut("ETAPE 4", &testActif, &testVoyants);
                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                    slaveSummary = 'd';
+
 
                 } else {
 
 
-                    printf("-> TEST:4:1");
+
+                    slaveSummary = 'D';
+
 
                 }
             }
@@ -6047,11 +6066,13 @@ void main(void) {
                     testActif = 0;
                     alerteDefaut("ETAPE 5", &testActif, &testVoyants);
                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                    slaveSummary = 'e';
+
 
                 } else {
 
+                    slaveSummary = 'E';
 
-                    printf("-> TEST:5:1");
 
                 }
             }
@@ -6079,8 +6100,7 @@ void main(void) {
 
             if (testR1(1)) {
 
-
-                printf("-> TEST:6:1");
+                slaveSummary = 'F';
 
 
             } else {
@@ -6088,6 +6108,8 @@ void main(void) {
                 testActif = 0;
                 alerteDefaut("ETAPE 6", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'f';
+
 
             }
 
@@ -6112,15 +6134,15 @@ void main(void) {
 
             if (testR1(0) && testR2(1)) {
 
-
-                printf("-> TEST:7:1");
-
+                slaveSummary = 'G';
 
             } else {
 
                 testActif = 0;
                 alerteDefaut("ETAPE 7", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'g';
+
             }
 
         }
@@ -6143,8 +6165,7 @@ void main(void) {
 
             if (testR2(0) && testR3(1)) {
 
-
-                printf("-> TEST:8:1");
+                slaveSummary = 'I';
 
 
             } else {
@@ -6152,6 +6173,8 @@ void main(void) {
                 testActif = 0;
                 alerteDefaut("ETAPE 8", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'i';
+
             }
 
         }
@@ -6178,10 +6201,7 @@ void main(void) {
             int buffer = sprintf(slectureAN1, "%d", lectureAN1);
             if (lectureAN1 < 800) {
 
-
-
-
-                printf("-> TEST:9:1");
+                slaveSummary = 'J';
 
 
             } else {
@@ -6194,6 +6214,7 @@ void main(void) {
                 }
                 do { LATAbits.LATA7 = 0; } while(0);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'j';
 
             }
 
@@ -6225,11 +6246,7 @@ void main(void) {
 
             if (lectureAN1 < 700) {
 
-
-
-
-                printf("-> TEST:10:1");
-
+                slaveSummary = 'K';
 
             } else {
 
@@ -6241,6 +6258,7 @@ void main(void) {
                 }
                 do { LATAbits.LATA7 = 1; } while(0);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'k';
 
             }
             _delay((unsigned long)((2000)*(16000000/4000.0)));
@@ -6273,8 +6291,7 @@ void main(void) {
 
             if (testR1(1) && testR2(1) && testR3(0)) {
 
-                printf("-> TEST:12:1");
-
+                slaveSummary = 'L';
 
             } else {
 
@@ -6283,6 +6300,7 @@ void main(void) {
                 pressBP2(0);
                 alerteDefaut("ETAPE 12", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'l';
 
             }
 
@@ -6317,11 +6335,13 @@ void main(void) {
                 testActif = 0;
                 alerteDefaut("ETAPE 13", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'm';
+
 
             } else {
 
+                slaveSummary = 'M';
 
-                printf("-> TEST:13:1");
 
             }
         }
@@ -6343,21 +6363,18 @@ void main(void) {
 
             if (testR1(1) && testR2(1) && testR3(1)) {
 
-
-                printf("-> TEST:14:1");
-
+                slaveSummary = 'N';
 
             } else {
 
                 testActif = 0;
                 alerteDefaut("ETAPE 14", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'n';
 
             }
 
         }
-
-
 
 
 
@@ -6375,8 +6392,7 @@ void main(void) {
 
             if (testR1(0) && testR2(0) && testR3(0)) {
 
-
-                printf("-> TEST:15:1");
+                slaveSummary = 'O';
 
 
             } else {
@@ -6384,6 +6400,7 @@ void main(void) {
                 testActif = 0;
                 alerteDefaut("ETAPE 15", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'o';
 
             }
 
@@ -6406,13 +6423,13 @@ void main(void) {
             _delay((unsigned long)((500)*(16000000/4000.0)));
             if (testR1(1) && testR2(1) && testR3(1)) {
 
-
-                printf("-> TEST:16:1");
-
+                slaveSummary = 'P';
 
             } else {
 
                 alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation);
+                slaveSummary = 'p';
+
 
             }
 
@@ -6436,8 +6453,7 @@ void main(void) {
 
             if (testR1(0) && testR2(0) && testR3(0)) {
 
-
-                printf("-> TEST:17:1");
+                slaveSummary = 'Q';
 
 
             } else {
@@ -6445,6 +6461,7 @@ void main(void) {
                 testActif = 0;
                 alerteDefaut("ETAPE 17", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'q';
 
             }
 
@@ -6470,12 +6487,14 @@ void main(void) {
                 testActif = 0;
                 alerteDefaut("ETAPE 18", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'r';
+
 
                 _delay((unsigned long)((2000)*(16000000/4000.0)));
             } else {
 
+                slaveSummary = 'R';
 
-                printf("-> TEST:18:1");
 
             }
         }
@@ -6493,8 +6512,11 @@ void main(void) {
             ledConforme(1);
             alimenter(0);
             okAlert();
+            slaveSummary = 'S';
             attenteAquittement(&automatique, &testActif);
             initialConditions(&testActif, &testVoyants, &automatique, &programmation);
+            slaveSummary = 'z';
+
             _delay((unsigned long)((2000)*(16000000/4000.0)));
 
         }
@@ -6554,8 +6576,18 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
             if (ordre == 'a') {
 
-                SSPBUF = 'x';
+                SSPBUF = 'a';
+                ordre = '0';
             }
+
+            if (ordre == '?') {
+
+                SSPBUF = slaveSummary;
+                ordre = '0';
+
+            }
+
+
 
             CKP = 1;
 
@@ -6569,19 +6601,12 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
             unsigned char temp = SSPBUF;
 
             CKP = 1;
-            if (temp == 88) {
-
-            }
-
-            if (temp == 77) {
 
 
-            }
 
+            if (temp == '?') {
 
-            if (temp == 25) {
-
-                ordre = 25;
+                ordre = '?';
 
             }
 
@@ -6619,7 +6644,8 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
 
             }
-# 1037 "main.c"
+
+
         }
     }
 }

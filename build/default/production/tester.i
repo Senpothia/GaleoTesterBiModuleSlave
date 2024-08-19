@@ -6042,120 +6042,6 @@ void ledProgession(_Bool active) {
     }
 }
 
-void attenteDemarrage(_Bool *autom, _Bool *testAct) {
-
-
-    unsigned char reception;
-    _Bool repOperateur = 0;
-
-    if (!*autom) {
-
-        while (PORTDbits.RD2 == 1 && !*autom) {
-
-            if (PORTDbits.RD2 == 0) {
-
-                if (!*testAct) {
-
-                    printf("-> TEST MANUEL EN COURS\r\n");
-
-                } else {
-
-                    printf("-> FIN TEST MANUEL\r\n");
-                }
-
-            }
-
-            if (0) {
-
-                *autom = 1;
-
-
-                switch (reception)
-                {
-
-
-
-                    case '1':
-                    {
-                        printf("-> TEST ON\r\n");
-                        *autom = 1;
-                        _delay((unsigned long)((50)*(16000000/4000.0)));
-                        repOperateur = 1;
-                        break;
-                    }
-
-                    case '0':
-                    {
-                        printf("-> TEST OFF\r\n");
-                        _delay((unsigned long)((50)*(16000000/4000.0)));
-                        repOperateur = 1;
-                        *autom = 0;
-                        break;
-                    }
-
-                    case '4':
-                    {
-                        printf("-> TEST ACQUITTE\r\n");
-                        _delay((unsigned long)((50)*(16000000/4000.0)));
-                        repOperateur = 0;
-                        *autom = 0;
-                        break;
-                    }
-                }
-            }
-
-        }
-        repOperateur = 1;
-    }
-
-    if (*autom) {
-
-        while (!repOperateur) {
-
-
-
-
-
-            if (0) {
-                *autom = 1;
-
-
-                switch (reception)
-                {
-                    case '1':
-                    {
-                        printf("-> TEST ON\r\n");
-                        _delay((unsigned long)((50)*(16000000/4000.0)));
-                        repOperateur = 1;
-                        *autom = 1;
-                        break;
-                    }
-
-                    case '0':
-                    {
-                        printf("-> TEST OFF\r\n");
-                        _delay((unsigned long)((50)*(16000000/4000.0)));
-                        repOperateur = 1;
-                        *autom = 0;
-                        break;
-                    }
-
-                    case '4':
-                    {
-                        printf("-> TEST ACQUITTE\r\n");
-                        _delay((unsigned long)((50)*(16000000/4000.0)));
-                        repOperateur = 1;
-                        *autom = 0;
-                        break;
-                    }
-                }
-
-            }
-        }
-
-    }
-
-}
 
 void alerteDefaut(char etape[], _Bool *testAct, _Bool *testVoy) {
 
@@ -6220,7 +6106,8 @@ _Bool reponseOperateur(_Bool automatique) {
                         repOperateur = 1;
                         break;
                     }
-# 417 "tester.c"
+
+
                     case '9':
                     {
 
@@ -6282,10 +6169,7 @@ void setP2(_Bool active) {
 
 void initialConditions(_Bool *testAct, _Bool *testVoy, _Bool *autom, _Bool *prog) {
 
-    if (!*autom) {
 
-        printf("-> FIN TEST MANUEL\r\n");
-    }
     *testAct = 0;
     *testVoy = 0;
     *autom = 0;
@@ -6357,8 +6241,6 @@ void errorAlert(void) {
 
 void okAlert(void) {
 
-
-    printf("-> TEST CONFORME - ATTENTE ACQUITTEMENT\r\n");
     for (int i = 0; i < 2; i++) {
 
         startAlert();
@@ -6368,26 +6250,7 @@ void okAlert(void) {
 
 }
 
-void attenteDemarrage3(_Bool *autom, _Bool *testAct, _Bool *prog) {
 
-    unsigned char reception;
-    _Bool repOperateur = 0;
-
-    while (!repOperateur) {
-
-
-        if (PORTDbits.RD2 == 0) {
-
-
-            repOperateur = 1;
-            *autom = 0;
-            *prog = 0;
-            *testAct = 1;
-        }
-# 672 "tester.c"
-    }
-
-}
 
 void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order) {
 
@@ -6430,7 +6293,6 @@ void attenteAquittement(_Bool *autom, _Bool *testAct) {
 
         if (PORTDbits.RD2 == 0) {
 
-            printf("-> FIN TEST MANUEL\r\n");
             repOperateur = 1;
             *autom = 0;
             *testAct = 0;
@@ -6451,7 +6313,7 @@ void attenteAquittement(_Bool *autom, _Bool *testAct) {
 
                 case '4':
                 {
-                    printf("-> TEST ACQUITTE\r\n");
+
                     *autom = 0;
                     *testAct = 0;
                     _delay((unsigned long)((50)*(16000000/4000.0)));
@@ -6524,7 +6386,7 @@ void alerteDefautEtape16(char etape[], _Bool *testAct, _Bool *testVoy, _Bool *au
 void marchePAP() {
 
     _Bool repOperateur = 0;
-    printf("-> Appuyer sur OK\r\n");
+
     while (!repOperateur) {
 
 

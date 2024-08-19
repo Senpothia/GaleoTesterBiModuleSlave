@@ -71,6 +71,7 @@
  */
 
 char ordre;
+char slaveSummary = 'z';
 
 void main(void) {
     // initialize the device
@@ -102,6 +103,8 @@ void main(void) {
     bool programmation = true;
     bool master = true;
     char slaveStatus;
+
+
 
     // Détermination mode de fonctionnement: master/slave
     // Affichage message d'accueil
@@ -196,106 +199,7 @@ void main(void) {
         } else {
             __delay_ms(100);
         }
-        // Méthode 1
-        /*
-         
-        I2C_Master_Start(); // Condition Start
-        I2C_Master_Write(50); // Adresse de l'esclave (par exemple 0x50)
-        I2C_Master_Write(88); // Envoyer des données (par exemple 0x00)
-        I2C_Master_Stop(); // Condition Stop
-         
-         */
-
-        // Méthode 2
-
-        // Trame d'écriture
-
-        /*
-        SSPCON2bits.SEN = 1; // Génération START
-        while (SSPCON2bits.SEN); // Attente fin de START
-        SSPBUF = 50; // Adresse du périphérique en mode écriture 
-        while (SSPSTATbits.BF); // Attente fin de transmission
-        while (SSPSTATbits.R_nW); // Attente ACK
-        SSPBUF = 88;
-        while (SSPSTATbits.BF); // Attente fin de transmission
-        while (SSPSTATbits.R_nW); // Attente ACK
-        SSPCON2bits.PEN = 1; //Génération STOP
-        while (SSPCON2bits.PEN); //Attente fin de STOP
-         */
-
-        // Trame de lecture
-
-        /*
-        SSPCON2bits.SEN = 1; // Génération START
-        while (SSPCON2bits.SEN); // Attente fin de START
-        SSPBUF = 50; // Adresse du périphérique en mode écriture 
-        while (SSPSTATbits.BF); // Attente fin de transmission
-        while (SSPSTATbits.R_nW); // Attente ACK
-        SSPBUF = 25; // Adresse du périphérique en mode écriture 
-        while (SSPSTATbits.BF); // Attente fin de transmission
-        while (SSPSTATbits.R_nW); // Attente ACK
-        SSPCON2bits.RSEN = 1; // Génération RESTART
-        while (SSPCON2bits.RSEN); // Attente fin de RESTART
-        SSPBUF = 51; // Adresse du périphérique en mode lecture
-        while (SSPSTATbits.BF); // Attente fin de transmission
-        while (SSPSTATbits.R_nW); // Attente ACK
-        SSPCON2bits.RCEN = 1; // Maitre en mode de réception
-        while (!SSPSTATbits.BF); // Attente fin de réception
-        slaveBUF = SSPBUF; // sauvegarde réception
-        SSPCON2bits.ACKDT = 1; // Configuration génération NACK
-        SSPCON2bits.ACKEN = 1; // Génération NACK
-        while (SSPCON2bits.ACKEN); // Attente fin génération NACK
-        SSPCON2bits.PEN = 1; //Génération STOP
-        while (SSPCON2bits.PEN); //Attente fin de STOP
         
-         */
-
-        //slaveStatus = getSlaveStatus(25);
-        //  Résultat de reception
-
-        /*
-                if (slaveStatus == 0x55) {
-
-                    /*
-         * Premier test
-         * 
-                     //C4_SetHigh();
-                     //C2_SetHigh();
-                     //C3_SetHigh();
-                     startAlert();
-                     startAlert();
-                     startAlert();
-                     startAlert();
-                     startAlert();
-                     startAlert();
-                     startAlert();
-                     startAlert();
-                     startAlert();
-             
-
-                }
-         *  
-         *      */
-
-
-        /*
-        __delay_ms(10000);
-        startAlert();
-        RESET();
-         * /
-        // Fin test I2C vers esclave
-        // entrée dans la séquence de test
-        
-        // DEMARRAGE SEQUENCE DE TEST
-         * 
-        // ETAPE 1
-
-        /*
-        if (pap) {
-
-            marchePAP();
-        }
-         * */
 
         pressBP1(true);
         pressBP2(true);
@@ -308,7 +212,8 @@ void main(void) {
         if (testR1(true) && testR2(true) && testR3(true)) {
 
 
-            printf("-> TEST:1:1");
+           
+            slaveSummary = 'A';
 
 
 
@@ -319,6 +224,8 @@ void main(void) {
             pressBP2(false);
             alerteDefaut("ETAPE 1", &testActif, &testVoyants);
             sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+            slaveSummary = 'a';
+
 
         }
 
@@ -346,7 +253,9 @@ void main(void) {
             if (!testR1(true) && !testR2(true) && !testR3(true)) {
 
 
-                printf("-> TEST:2:1");
+             
+                slaveSummary = 'B';
+
 
 
 
@@ -355,6 +264,8 @@ void main(void) {
                 testActif = false;
                 alerteDefaut("ETAPE 2", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'b';
+
 
             }
         }
@@ -385,10 +296,14 @@ void main(void) {
                     testActif = false;
                     alerteDefaut("ETAPE 3", &testActif, &testVoyants);
                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                    slaveSummary = 'c';
+
 
                 } else {
 
-                    printf("-> TEST:3:1");
+                 
+                    slaveSummary = 'C';
+
                 }
             }
 
@@ -418,11 +333,15 @@ void main(void) {
                     testActif = false;
                     alerteDefaut("ETAPE 4", &testActif, &testVoyants);
                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                    slaveSummary = 'd';
+
 
                 } else {
 
 
-                    printf("-> TEST:4:1");
+                 
+                    slaveSummary = 'D';
+
 
                 }
             }
@@ -453,11 +372,13 @@ void main(void) {
                     testActif = false;
                     alerteDefaut("ETAPE 5", &testActif, &testVoyants);
                     sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                    slaveSummary = 'e';
+
 
                 } else {
 
+                    slaveSummary = 'E';
 
-                    printf("-> TEST:5:1");
 
                 }
             }
@@ -485,8 +406,7 @@ void main(void) {
 
             if (testR1(true)) {
 
-
-                printf("-> TEST:6:1");
+                slaveSummary = 'F';
 
 
             } else {
@@ -494,6 +414,8 @@ void main(void) {
                 testActif = false;
                 alerteDefaut("ETAPE 6", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'f';
+
 
             }
 
@@ -518,15 +440,15 @@ void main(void) {
 
             if (testR1(false) && testR2(true)) {
 
-
-                printf("-> TEST:7:1");
-
+                slaveSummary = 'G';
 
             } else {
 
                 testActif = false;
                 alerteDefaut("ETAPE 7", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'g';
+
             }
 
         }
@@ -549,8 +471,7 @@ void main(void) {
 
             if (testR2(false) && testR3(true)) {
 
-
-                printf("-> TEST:8:1");
+                slaveSummary = 'I';
 
 
             } else {
@@ -558,6 +479,8 @@ void main(void) {
                 testActif = false;
                 alerteDefaut("ETAPE 8", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'i';
+
             }
 
         }
@@ -584,10 +507,7 @@ void main(void) {
             int buffer = sprintf(slectureAN1, "%d", lectureAN1);
             if (lectureAN1 < LIM_H) {
 
-
-
-
-                printf("-> TEST:9:1");
+                slaveSummary = 'J';
 
 
             } else {
@@ -600,6 +520,7 @@ void main(void) {
                 }// Ligne de test: affichage valeur de mesure analogique
                 REL8_SetLow();
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'j';
 
             }
 
@@ -631,11 +552,7 @@ void main(void) {
 
             if (lectureAN1 < LIM_L) {
 
-
-
-
-                printf("-> TEST:10:1");
-
+                slaveSummary = 'K';
 
             } else {
 
@@ -647,6 +564,7 @@ void main(void) {
                 } // Ligne de test: affichage valeur de mesure analogique
                 REL8_SetHigh();
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'k';
 
             }
             __delay_ms(2000);
@@ -679,8 +597,7 @@ void main(void) {
 
             if (testR1(true) && testR2(true) && testR3(false)) {
 
-                printf("-> TEST:12:1");
-
+                slaveSummary = 'L';
 
             } else {
 
@@ -689,6 +606,7 @@ void main(void) {
                 pressBP2(false);
                 alerteDefaut("ETAPE 12", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'l';
 
             }
 
@@ -723,11 +641,13 @@ void main(void) {
                 testActif = false;
                 alerteDefaut("ETAPE 13", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'm';
+
 
             } else {
 
+                slaveSummary = 'M';
 
-                printf("-> TEST:13:1");
 
             }
         }
@@ -749,23 +669,20 @@ void main(void) {
 
             if (testR1(true) && testR2(true) && testR3(true)) {
 
-
-                printf("-> TEST:14:1");
-
+                slaveSummary = 'N';
 
             } else {
 
                 testActif = false;
                 alerteDefaut("ETAPE 14", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'n';
 
             }
 
         }
 
         // ETAPE 15
-
-
 
         if (testActif) {
 
@@ -781,8 +698,7 @@ void main(void) {
 
             if (testR1(false) && testR2(false) && testR3(false)) {
 
-
-                printf("-> TEST:15:1");
+                slaveSummary = 'O';
 
 
             } else {
@@ -790,6 +706,7 @@ void main(void) {
                 testActif = false;
                 alerteDefaut("ETAPE 15", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'o';
 
             }
 
@@ -812,13 +729,13 @@ void main(void) {
             __delay_ms(500);
             if (testR1(true) && testR2(true) && testR3(true)) {
 
-
-                printf("-> TEST:16:1");
-
+                slaveSummary = 'P';
 
             } else {
 
                 alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation);
+                slaveSummary = 'p';
+
 
             }
 
@@ -841,9 +758,8 @@ void main(void) {
             __delay_ms(500);
 
             if (testR1(false) && testR2(false) && testR3(false)) {
-
-
-                printf("-> TEST:17:1");
+                
+                slaveSummary = 'Q';
 
 
             } else {
@@ -851,6 +767,7 @@ void main(void) {
                 testActif = false;
                 alerteDefaut("ETAPE 17", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'q';
 
             }
 
@@ -876,12 +793,14 @@ void main(void) {
                 testActif = false;
                 alerteDefaut("ETAPE 18", &testActif, &testVoyants);
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
+                slaveSummary = 'r';
+
                 //initialConditions(&testActif, &testVoyants, &automatique);
                 __delay_ms(2000);
             } else {
 
+                slaveSummary = 'R';
 
-                printf("-> TEST:18:1");
 
             }
         }
@@ -899,8 +818,11 @@ void main(void) {
             ledConforme(true);
             alimenter(false);
             okAlert();
+            slaveSummary = 'S';
             attenteAquittement(&automatique, &testActif);
             initialConditions(&testActif, &testVoyants, &automatique, &programmation);
+            slaveSummary = 'z';
+
             __delay_ms(2000);
 
         }
@@ -961,7 +883,17 @@ void __interrupt() I2C_Slave_Read_Write() {
             if (ordre == 'a') {
 
                 SSPBUF = 'a'; // Load the buffer with the data to be sent
+                ordre = '0';
             }
+
+            if (ordre == '?') {
+
+                SSPBUF = slaveSummary; // Load the buffer with the data to be sent
+                ordre = '0';
+
+            }
+
+
 
             CKP = 1; // Release the clock
 
@@ -975,19 +907,12 @@ void __interrupt() I2C_Slave_Read_Write() {
             unsigned char temp = SSPBUF; // Read the buffer to clear BF
 
             CKP = 1; // Release the clock
-            if (temp == 88) {
 
-            }
-
-            if (temp == 77) {
-
-
-            }
 
             // Réception ordre de démarrage
-            if (temp == 25) {
+            if (temp == '?') {
 
-                ordre = 25;
+                ordre = '?';
 
             }
 
@@ -1025,7 +950,7 @@ void __interrupt() I2C_Slave_Read_Write() {
                 //SSPBUF = 0x55; // Load the buffer with the data to be sent
                 //CKP = 1; // Release the clock
             }
-          
+
 
         }
     }
