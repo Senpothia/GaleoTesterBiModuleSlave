@@ -5756,8 +5756,9 @@ void ledConforme(_Bool active);
 void ledProgession(_Bool active);
 void attenteDemarrage(_Bool *, _Bool *);
 void alerteDefaut(char etape[], _Bool *, _Bool *);
-void alerteDefautEtape16(char etape[], _Bool *, _Bool *, _Bool *, _Bool *);
-_Bool reponseOperateur(_Bool automatique);
+void alerteDefautEtape16(char etape[], _Bool *, _Bool *, _Bool *, _Bool *, char *ordre);
+_Bool reponseOperateur(_Bool automatique, char ordre);
+_Bool reponseOperateur2(_Bool automatique, char *ordre);
 _Bool controlVisuel();
 void setHorloge(_Bool active);
 void setP1(_Bool active);
@@ -5770,6 +5771,7 @@ void okAlert(void);
 void attenteDemarrage3(_Bool *, _Bool *, _Bool *);
 void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order);
 void attenteAquittement(_Bool *, _Bool *);
+void attenteAquittement2(_Bool *, _Bool *, char ordre);
 void sortieErreur(_Bool *, _Bool *, _Bool *, _Bool *);
 void marchePAP();
 # 12 "tester.c" 2
@@ -6042,7 +6044,6 @@ void ledProgession(_Bool active) {
     }
 }
 
-
 void alerteDefaut(char etape[], _Bool *testAct, _Bool *testVoy) {
 
     char error[20] = "-> ERREUR: ";
@@ -6065,7 +6066,7 @@ void alerteDefaut(char etape[], _Bool *testAct, _Bool *testVoy) {
 
 }
 
-_Bool reponseOperateur(_Bool automatique) {
+_Bool reponseOperateur(_Bool automatique, char ordre) {
 
     _Bool reponse = 0;
     _Bool repOperateur = 0;
@@ -6075,52 +6076,82 @@ _Bool reponseOperateur(_Bool automatique) {
 
         while (!repOperateur) {
 
-            if (0) {
+            if (ordre == 'u') {
 
-
-
-                switch (reception)
-                {
-
-
-                    case '0':
-                    {
-                        __asm("reset");
-
-                    }
-
-                    case '2':
-                    {
-
-                        _delay((unsigned long)((50)*(16000000/4000.0)));
-                        reponse = 1;
-                        repOperateur = 1;
-                        break;
-                    }
-
-                    case '3':
-                    {
-
-                        _delay((unsigned long)((50)*(16000000/4000.0)));
-                        reponse = 0;
-                        repOperateur = 1;
-                        break;
-                    }
-
-
-                    case '9':
-                    {
-
-                        _delay((unsigned long)((50)*(16000000/4000.0)));
-                        reponse = 1;
-                        repOperateur = 1;
-                        do { LATAbits.LATA7 = 0; } while(0);
-                        break;
-                    }
-                }
+                reponse = 1;
+                repOperateur = 1;
 
             }
 
+            if (ordre == 'v') {
+
+                reponse = 0;
+                repOperateur = 1;
+
+            }
+
+
+        }
+
+    }
+
+    if (!automatique) {
+
+        while (!repOperateur) {
+
+            if (testNOK(1)) {
+                reponse = 0;
+                repOperateur = 1;
+            }
+            if (testOK(1)) {
+                reponse = 1;
+                repOperateur = 1;
+            }
+        }
+
+    }
+
+    return reponse;
+
+}
+
+_Bool reponseOperateur2(_Bool automatique, char *ordre) {
+
+    _Bool reponse = 0;
+    _Bool repOperateur = 0;
+
+
+    if (automatique) {
+
+        while (!repOperateur) {
+
+            switch (*ordre)
+            {
+
+                case 'u':
+                {
+                    repOperateur = 1;
+                    return 1;
+                    *ordre = '0';
+                    break;
+
+                }
+
+                case 'v':
+                {
+
+
+                    repOperateur = 1;
+                    return 0;
+                    *ordre = '0';
+                    break;
+                }
+
+
+                default:
+                    break;
+
+            }
         }
 
     }
@@ -6250,8 +6281,6 @@ void okAlert(void) {
 
 }
 
-
-
 void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order) {
 
 
@@ -6275,6 +6304,7 @@ void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *orde
             *autom = 1;
             *prog = 0;
             *testAct = 1;
+
 
         }
 
@@ -6326,6 +6356,40 @@ void attenteAquittement(_Bool *autom, _Bool *testAct) {
 
 }
 
+void attenteAquittement2(_Bool *autom, _Bool *testAct, char ordre) {
+
+    unsigned char reception;
+    _Bool repOperateur = 0;
+
+    while (!repOperateur) {
+
+
+        if (PORTDbits.RD2 == 0) {
+
+            repOperateur = 1;
+            *autom = 0;
+            *testAct = 0;
+        }
+
+
+        switch (ordre)
+        {
+
+            case 'w':
+            {
+
+                *autom = 0;
+                *testAct = 0;
+                _delay((unsigned long)((50)*(16000000/4000.0)));
+                repOperateur = 1;
+                break;
+            }
+        }
+
+    }
+
+}
+
 void sortieErreur(_Bool *autom, _Bool *testAct, _Bool *testVoy, _Bool *prog) {
 
     attenteAquittement(*autom, *testAct);
@@ -6334,7 +6398,7 @@ void sortieErreur(_Bool *autom, _Bool *testAct, _Bool *testVoy, _Bool *prog) {
 
 }
 
-void alerteDefautEtape16(char etape[], _Bool *testAct, _Bool *testVoy, _Bool *autom, _Bool *prog) {
+void alerteDefautEtape16(char etape[], _Bool *testAct, _Bool *testVoy, _Bool *autom, _Bool *prog, char *ordre) {
 
     char error[20] = "-> ERREUR: ";
     char eol[10] = "\r\n";
@@ -6346,7 +6410,7 @@ void alerteDefautEtape16(char etape[], _Bool *testAct, _Bool *testVoy, _Bool *au
     printf(strcat(strcat(error, etape), eol));
     errorAlert();
 
-    _Bool reponse = reponseOperateur(*autom);
+    _Bool reponse = reponseOperateur2(*autom, *ordre);
     _delay((unsigned long)((500)*(16000000/4000.0)));
     if (reponse) {
 

@@ -218,7 +218,6 @@ void ledProgession(bool active) {
     }
 }
 
-
 void alerteDefaut(char etape[], bool *testAct, bool *testVoy) {
 
     char error[20] = "-> ERREUR: ";
@@ -241,7 +240,7 @@ void alerteDefaut(char etape[], bool *testAct, bool *testVoy) {
 
 }
 
-bool reponseOperateur(bool automatique) {
+bool reponseOperateur(bool automatique, char ordre) {
 
     bool reponse = false;
     bool repOperateur = false;
@@ -251,52 +250,82 @@ bool reponseOperateur(bool automatique) {
 
         while (!repOperateur) {
 
-            if (0) {
+            if (ordre == 'u') {
 
-
-
-                switch (reception) // check command  
-                {
-
-
-                    case '0':
-                    {
-                        RESET();
-
-                    }
-
-                    case '2':
-                    {
-
-                        __delay_ms(50);
-                        reponse = true;
-                        repOperateur = true;
-                        break;
-                    }
-
-                    case '3':
-                    {
-
-                        __delay_ms(50);
-                        reponse = false;
-                        repOperateur = true;
-                        break;
-                    }
-
-                       
-                    case '9': // fin de programmation
-                    {
-
-                        __delay_ms(50);
-                        reponse = true;
-                        repOperateur = true;
-                        REL8_SetLow();
-                        break;
-                    }
-                }
+                reponse = true;
+                repOperateur = true;
 
             }
 
+            if (ordre == 'v') {
+
+                reponse = false;
+                repOperateur = true;
+
+            }
+
+
+        }
+
+    }
+
+    if (!automatique) {
+
+        while (!repOperateur) {
+
+            if (testNOK(true)) {
+                reponse = false;
+                repOperateur = true;
+            }
+            if (testOK(true)) {
+                reponse = true;
+                repOperateur = true;
+            }
+        }
+
+    }
+
+    return reponse;
+
+}
+
+bool reponseOperateur2(bool automatique, char *ordre) {
+
+    bool reponse = false;
+    bool repOperateur = false;
+
+
+    if (automatique) {
+
+        while (!repOperateur) {
+
+            switch (*ordre) // check command  
+            {
+
+                case 'u':
+                {
+                    repOperateur = true;
+                    return true;
+                    *ordre = '0';
+                    break;
+
+                }
+
+                case 'v':
+                {
+
+
+                    repOperateur = true;
+                    return false;
+                    *ordre = '0';
+                    break;
+                }
+
+
+                default:
+                    break;
+
+            }
         }
 
     }
@@ -345,7 +374,7 @@ void setP2(bool active) {
 
 void initialConditions(bool *testAct, bool *testVoy, bool *autom, bool *prog) {
 
-   
+
     *testAct = false;
     *testVoy = false;
     *autom = false;
@@ -426,11 +455,9 @@ void okAlert(void) {
 
 }
 
-
-
 void attenteDemarrageSlave(bool *autom, bool *testAct, bool *prog, char *order) {
 
-   
+
     bool repOperateur = false;
 
     while (!repOperateur) {
@@ -451,6 +478,7 @@ void attenteDemarrageSlave(bool *autom, bool *testAct, bool *prog, char *order) 
             *autom = true;
             *prog = false;
             *testAct = true;
+           // *order = '0';
 
         }
 
@@ -489,7 +517,7 @@ void attenteAquittement(bool *autom, bool *testAct) {
 
                 case '4':
                 {
-                   
+
                     *autom = false;
                     *testAct = false;
                     __delay_ms(50);
@@ -502,6 +530,40 @@ void attenteAquittement(bool *autom, bool *testAct) {
 
 }
 
+void attenteAquittement2(bool *autom, bool *testAct, char ordre) {
+
+    unsigned char reception;
+    bool repOperateur = false;
+
+    while (!repOperateur) {
+
+
+        if (IN3_GetValue() == 0) {
+
+            repOperateur = true;
+            *autom = false;
+            *testAct = false;
+        }
+
+
+        switch (ordre) // check command  
+        {
+
+            case 'w':
+            {
+
+                *autom = false;
+                *testAct = false;
+                __delay_ms(50);
+                repOperateur = true;
+                break;
+            }
+        }
+
+    }
+
+}
+
 void sortieErreur(bool *autom, bool *testAct, bool *testVoy, bool *prog) {
 
     attenteAquittement(*autom, *testAct);
@@ -510,7 +572,7 @@ void sortieErreur(bool *autom, bool *testAct, bool *testVoy, bool *prog) {
 
 }
 
-void alerteDefautEtape16(char etape[], bool *testAct, bool *testVoy, bool *autom, bool *prog) {
+void alerteDefautEtape16(char etape[], bool *testAct, bool *testVoy, bool *autom, bool *prog, char *ordre) {
 
     char error[20] = "-> ERREUR: ";
     char eol[10] = "\r\n";
@@ -522,7 +584,7 @@ void alerteDefautEtape16(char etape[], bool *testAct, bool *testVoy, bool *autom
     printf(strcat(strcat(error, etape), eol));
     errorAlert();
 
-    bool reponse = reponseOperateur(*autom);
+    bool reponse = reponseOperateur2(*autom, *ordre);
     __delay_ms(500);
     if (reponse) {
 
@@ -562,7 +624,7 @@ void alerteDefautEtape16(char etape[], bool *testAct, bool *testVoy, bool *autom
 void marchePAP() {
 
     bool repOperateur = false;
-   
+
     while (!repOperateur) {
 
 

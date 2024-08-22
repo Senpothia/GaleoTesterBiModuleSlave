@@ -5749,8 +5749,9 @@ void ledConforme(_Bool active);
 void ledProgession(_Bool active);
 void attenteDemarrage(_Bool *, _Bool *);
 void alerteDefaut(char etape[], _Bool *, _Bool *);
-void alerteDefautEtape16(char etape[], _Bool *, _Bool *, _Bool *, _Bool *);
-_Bool reponseOperateur(_Bool automatique);
+void alerteDefautEtape16(char etape[], _Bool *, _Bool *, _Bool *, _Bool *, char *ordre);
+_Bool reponseOperateur(_Bool automatique, char ordre);
+_Bool reponseOperateur2(_Bool automatique, char *ordre);
 _Bool controlVisuel();
 void setHorloge(_Bool active);
 void setP1(_Bool active);
@@ -5763,6 +5764,7 @@ void okAlert(void);
 void attenteDemarrage3(_Bool *, _Bool *, _Bool *);
 void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order);
 void attenteAquittement(_Bool *, _Bool *);
+void attenteAquittement2(_Bool *, _Bool *, char ordre);
 void sortieErreur(_Bool *, _Bool *, _Bool *, _Bool *);
 void marchePAP();
 # 62 "main.c" 2
@@ -5844,13 +5846,7 @@ void main(void) {
 
         pap = 0;
     }
-
-    if (master) {
-        do { LATAbits.LATA7 = 0; } while(0);
-    } else {
-        do { LATAbits.LATA7 = 1; } while(0);
-    }
-
+# 154 "main.c"
     _delay((unsigned long)((1000)*(16000000/4000.0)));
 
 
@@ -5868,7 +5864,7 @@ void main(void) {
             _delay((unsigned long)((100)*(16000000/4000.0)));
 
         }
-# 178 "main.c"
+# 181 "main.c"
         while (!testActif) {
 
             attenteDemarrageSlave(&automatique, &testActif, &programmation, &ordre);
@@ -5984,7 +5980,7 @@ void main(void) {
 
                 printf("Attente validation led rouge\r\n");
 
-                testVoyants = reponseOperateur(automatique);
+                testVoyants = reponseOperateur2(automatique, &ordre);
                 if (!testVoyants) {
 
                     testActif = 0;
@@ -6021,7 +6017,7 @@ void main(void) {
             pressBP1(0);
             if (testLeds) {
 
-                testVoyants = reponseOperateur(automatique);
+                testVoyants = reponseOperateur2(automatique, &ordre);
                 if (!testVoyants) {
 
                     testActif = 0;
@@ -6060,7 +6056,7 @@ void main(void) {
             pressBP1(0);
             if (testLeds) {
 
-                testVoyants = reponseOperateur(automatique);
+                testVoyants = reponseOperateur2(automatique, &ordre);
                 if (!testVoyants) {
 
                     testActif = 0;
@@ -6329,7 +6325,7 @@ void main(void) {
 
             printf("ATTENTE VALIDATION LEDS\r\n");
 
-            testVoyants = reponseOperateur(automatique);
+            testVoyants = reponseOperateur2(automatique, &ordre);
             if (!testVoyants) {
 
                 testActif = 0;
@@ -6427,7 +6423,7 @@ void main(void) {
 
             } else {
 
-                alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation);
+                alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation, &ordre);
                 slaveSummary = 'p';
 
 
@@ -6481,7 +6477,7 @@ void main(void) {
             }
             activerTouche();
 
-            testVoyants = reponseOperateur(automatique);
+            testVoyants = reponseOperateur2(automatique, &ordre);
             if (!testVoyants) {
 
                 testActif = 0;
@@ -6513,7 +6509,7 @@ void main(void) {
             alimenter(0);
             okAlert();
             slaveSummary = 'S';
-            attenteAquittement(&automatique, &testActif);
+            attenteAquittement2(&automatique, &testActif, ordre);
             initialConditions(&testActif, &testVoyants, &automatique, &programmation);
             slaveSummary = 'z';
 
@@ -6536,7 +6532,7 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
 
 
-    do { LATAbits.LATA7 = 1; } while(0);
+
 
     if (SSPIF) {
 
@@ -6568,28 +6564,40 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
             unsigned char temp = SSPBUF;
 
-            if (ordre == 25) {
-
-                SSPBUF = 0x55;
-            }
-
-
             if (ordre == 'a') {
 
                 SSPBUF = 'a';
-                ordre = '0';
+
             }
 
             if (ordre == '?') {
 
                 SSPBUF = slaveSummary;
-                ordre = '0';
+
+
+            }
+
+            if (ordre == 'u') {
+
+                SSPBUF = 'u';
 
             }
 
 
+            if (ordre == 'v') {
+
+                SSPBUF = 'v';
+
+            }
+
+            if (ordre == 'w') {
+
+                SSPBUF = 'w';
+
+            }
 
             CKP = 1;
+
 
 
 
@@ -6604,15 +6612,39 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
 
 
+
             if (temp == '?') {
 
                 ordre = '?';
 
             }
 
+
+
             if (temp == 'a') {
 
                 ordre = 'a';
+
+            }
+
+
+            if (temp == 'u') {
+
+                ordre = 'u';
+
+            }
+
+
+            if (temp == 'v') {
+
+                ordre = 'v';
+
+            }
+
+
+            if (temp == 'w') {
+
+                ordre = 'w';
 
             }
 

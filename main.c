@@ -142,11 +142,14 @@ void main(void) {
         pap = false;
     }
 
+    /*
     if (master) {
         REL8_SetLow(); // Pour test  - Coupure alimentation du programmateur STM32
     } else {
         REL8_SetHigh();
     }
+     */
+
 
     __delay_ms(1000);
 
@@ -199,7 +202,7 @@ void main(void) {
         } else {
             __delay_ms(100);
         }
-        
+
 
         pressBP1(true);
         pressBP2(true);
@@ -212,7 +215,7 @@ void main(void) {
         if (testR1(true) && testR2(true) && testR3(true)) {
 
 
-           
+
             slaveSummary = 'A';
 
 
@@ -253,7 +256,7 @@ void main(void) {
             if (!testR1(true) && !testR2(true) && !testR3(true)) {
 
 
-             
+
                 slaveSummary = 'B';
 
 
@@ -290,7 +293,7 @@ void main(void) {
 
                 printf("Attente validation led rouge\r\n");
 
-                testVoyants = reponseOperateur(automatique);
+                testVoyants = reponseOperateur2(automatique, &ordre);
                 if (!testVoyants) {
 
                     testActif = false;
@@ -301,7 +304,7 @@ void main(void) {
 
                 } else {
 
-                 
+
                     slaveSummary = 'C';
 
                 }
@@ -327,7 +330,7 @@ void main(void) {
             pressBP1(false);
             if (testLeds) {
 
-                testVoyants = reponseOperateur(automatique);
+                testVoyants = reponseOperateur2(automatique, &ordre);
                 if (!testVoyants) {
 
                     testActif = false;
@@ -339,7 +342,7 @@ void main(void) {
                 } else {
 
 
-                 
+
                     slaveSummary = 'D';
 
 
@@ -366,7 +369,7 @@ void main(void) {
             pressBP1(false);
             if (testLeds) {
 
-                testVoyants = reponseOperateur(automatique);
+                testVoyants = reponseOperateur2(automatique, &ordre);
                 if (!testVoyants) {
 
                     testActif = false;
@@ -635,7 +638,7 @@ void main(void) {
 
             printf("ATTENTE VALIDATION LEDS\r\n");
 
-            testVoyants = reponseOperateur(automatique);
+            testVoyants = reponseOperateur2(automatique, &ordre);
             if (!testVoyants) {
 
                 testActif = false;
@@ -733,7 +736,7 @@ void main(void) {
 
             } else {
 
-                alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation);
+                alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation, &ordre);
                 slaveSummary = 'p';
 
 
@@ -758,7 +761,7 @@ void main(void) {
             __delay_ms(500);
 
             if (testR1(false) && testR2(false) && testR3(false)) {
-                
+
                 slaveSummary = 'Q';
 
 
@@ -787,7 +790,7 @@ void main(void) {
             }
             activerTouche();
             //printf("ATTENTE VALIDATION BLUETOOTH\r\n");
-            testVoyants = reponseOperateur(automatique);
+            testVoyants = reponseOperateur2(automatique, &ordre);
             if (!testVoyants) {
 
                 testActif = false;
@@ -819,7 +822,7 @@ void main(void) {
             alimenter(false);
             okAlert();
             slaveSummary = 'S';
-            attenteAquittement(&automatique, &testActif);
+            attenteAquittement2(&automatique, &testActif, ordre);
             initialConditions(&testActif, &testVoyants, &automatique, &programmation);
             slaveSummary = 'z';
 
@@ -842,7 +845,7 @@ void __interrupt() I2C_Slave_Read_Write() {
 
 
     // entrée en interruption
-    REL8_SetHigh();
+
 
     if (SSPIF) {
 
@@ -874,28 +877,40 @@ void __interrupt() I2C_Slave_Read_Write() {
             // Accusés réception aux ordres du maitre
             unsigned char temp = SSPBUF; // Read the buffer to clear BF
 
-            if (ordre == 25) {
-
-                SSPBUF = 0x55; // Load the buffer with the data to be sent
-            }
-
-
             if (ordre == 'a') {
 
                 SSPBUF = 'a'; // Load the buffer with the data to be sent
-                ordre = '0';
+              
             }
 
             if (ordre == '?') {
 
                 SSPBUF = slaveSummary; // Load the buffer with the data to be sent
-                ordre = '0';
+              
 
             }
 
+            if (ordre == 'u') {
 
+                SSPBUF = 'u'; // Load the buffer with the data to be sent
+               
+            }
+
+
+            if (ordre == 'v') {
+
+                SSPBUF = 'v'; // Load the buffer with the data to be sent
+               
+            }
+
+            if (ordre == 'w') {
+
+                SSPBUF = 'w'; // Load the buffer with the data to be sent
+                
+            }
 
             CKP = 1; // Release the clock
+           
 
             //-------------------------------------------------------------------------------
             // Donnée + écriture R/W=0
@@ -909,12 +924,15 @@ void __interrupt() I2C_Slave_Read_Write() {
             CKP = 1; // Release the clock
 
 
-            // Réception ordre de démarrage
+            // Réception ordre d'interrogation status
+
             if (temp == '?') {
 
                 ordre = '?';
 
             }
+
+            // Réception ordre de démarrage
 
             if (temp == 'a') {
 
@@ -922,10 +940,31 @@ void __interrupt() I2C_Slave_Read_Write() {
 
             }
 
+            // Réception ordre OK
+            if (temp == 'u') {
+
+                ordre = 'u';
+
+            }
+
+            // Réception ordre KO
+            if (temp == 'v') {
+
+                ordre = 'v';
+
+            }
+
+            // Réception ordre ACQ
+            if (temp == 'w') {
+
+                ordre = 'w';
+
+            }
+
             //-------------------------------------------------------------------------------
             // Donnée + ecriture R/W=1
             // Traitement des ordres 
-
+            // --- NON UTILISEE --------
 
         } else if (D_nA && R_nW) // If data byte + lecture
         {
