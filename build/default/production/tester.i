@@ -5771,7 +5771,7 @@ void okAlert(void);
 void attenteDemarrage3(_Bool *, _Bool *, _Bool *);
 void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order);
 void attenteAquittement(_Bool *, _Bool *);
-void attenteAquittement2(_Bool *, _Bool *, char ordre);
+void attenteAquittement2(_Bool *, _Bool *, char *ordre);
 void sortieErreur(_Bool *, _Bool *, _Bool *, _Bool *);
 void marchePAP();
 # 12 "tester.c" 2
@@ -6356,7 +6356,7 @@ void attenteAquittement(_Bool *autom, _Bool *testAct) {
 
 }
 
-void attenteAquittement2(_Bool *autom, _Bool *testAct, char ordre) {
+void attenteAquittement2(_Bool *autom, _Bool *testAct, char *ordre) {
 
     unsigned char reception;
     _Bool repOperateur = 0;
@@ -6372,7 +6372,7 @@ void attenteAquittement2(_Bool *autom, _Bool *testAct, char ordre) {
         }
 
 
-        switch (ordre)
+        switch (*ordre)
         {
 
             case 'w':
@@ -6382,6 +6382,7 @@ void attenteAquittement2(_Bool *autom, _Bool *testAct, char ordre) {
                 *testAct = 0;
                 _delay((unsigned long)((50)*(16000000/4000.0)));
                 repOperateur = 1;
+                *ordre='z';
                 break;
             }
         }

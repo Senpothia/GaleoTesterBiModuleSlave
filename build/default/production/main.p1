@@ -114,8 +114,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./tester.h: 29: void okAlert(void);
 [v _okAlert `(v ~T0 @X0 0 ef ]
 "33
-[; ;./tester.h: 33: void attenteAquittement2(_Bool *, _Bool *, char ordre);
-[v _attenteAquittement2 `(v ~T0 @X0 0 ef3`*a`*a`uc ]
+[; ;./tester.h: 33: void attenteAquittement2(_Bool *, _Bool *, char *ordre);
+[v _attenteAquittement2 `(v ~T0 @X0 0 ef3`*a`*a`*uc ]
 "4
 [; ;./tester.h: 4: void initialConditions(_Bool *, _Bool *, _Bool *, _Bool *);
 [v _initialConditions `(v ~T0 @X0 0 ef4`*a`*a`*a`*a ]
@@ -2195,8 +2195,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 824:             slaveSummary = 'S';
 [e = _slaveSummary -> -> 83 `ui `uc ]
 "825
-[; ;main.c: 825:             attenteAquittement2(&automatique, &testActif, ordre);
-[e ( _attenteAquittement2 (3 , , &U _automatique &U _testActif _ordre ]
+[; ;main.c: 825:             attenteAquittement2(&automatique, &testActif, &ordre);
+[e ( _attenteAquittement2 (3 , , &U _automatique &U _testActif &U _ordre ]
 "826
 [; ;main.c: 826:             initialConditions(&testActif, &testVoyants, &automatique, &programmation);
 [e ( _initialConditions (4 , , , &U _testActif &U _testVoyants &U _automatique &U _programmation ]

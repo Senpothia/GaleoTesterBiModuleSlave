@@ -30,7 +30,7 @@ void okAlert(void);
 void attenteDemarrage3(bool *, bool *, bool *);
 void attenteDemarrageSlave(bool *autom, bool *testAct, bool *prog, char *order);
 void attenteAquittement(bool *, bool *);
-void attenteAquittement2(bool *, bool *, char ordre);
+void attenteAquittement2(bool *, bool *, char *ordre);
 void sortieErreur(bool *, bool *, bool *, bool *);
 void marchePAP();
 

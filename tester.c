@@ -530,7 +530,7 @@ void attenteAquittement(bool *autom, bool *testAct) {
 
 }
 
-void attenteAquittement2(bool *autom, bool *testAct, char ordre) {
+void attenteAquittement2(bool *autom, bool *testAct, char *ordre) {
 
     unsigned char reception;
     bool repOperateur = false;
@@ -546,7 +546,7 @@ void attenteAquittement2(bool *autom, bool *testAct, char ordre) {
         }
 
 
-        switch (ordre) // check command  
+        switch (*ordre) // check command  
         {
 
             case 'w':
@@ -556,6 +556,7 @@ void attenteAquittement2(bool *autom, bool *testAct, char ordre) {
                 *testAct = false;
                 __delay_ms(50);
                 repOperateur = true;
+                *ordre='z';
                 break;
             }
         }

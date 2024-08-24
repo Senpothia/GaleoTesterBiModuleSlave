@@ -5764,7 +5764,7 @@ void okAlert(void);
 void attenteDemarrage3(_Bool *, _Bool *, _Bool *);
 void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order);
 void attenteAquittement(_Bool *, _Bool *);
-void attenteAquittement2(_Bool *, _Bool *, char ordre);
+void attenteAquittement2(_Bool *, _Bool *, char *ordre);
 void sortieErreur(_Bool *, _Bool *, _Bool *, _Bool *);
 void marchePAP();
 # 62 "main.c" 2
@@ -6509,7 +6509,7 @@ void main(void) {
             alimenter(0);
             okAlert();
             slaveSummary = 'S';
-            attenteAquittement2(&automatique, &testActif, ordre);
+            attenteAquittement2(&automatique, &testActif, &ordre);
             initialConditions(&testActif, &testVoyants, &automatique, &programmation);
             slaveSummary = 'z';
 

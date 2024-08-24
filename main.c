@@ -822,7 +822,7 @@ void main(void) {
             alimenter(false);
             okAlert();
             slaveSummary = 'S';
-            attenteAquittement2(&automatique, &testActif, ordre);
+            attenteAquittement2(&automatique, &testActif, &ordre);
             initialConditions(&testActif, &testVoyants, &automatique, &programmation);
             slaveSummary = 'z';
 
