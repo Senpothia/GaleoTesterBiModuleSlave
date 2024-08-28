@@ -481,6 +481,28 @@ void attenteDemarrageSlave(bool *autom, bool *testAct, bool *prog, char *order) 
            // *order = '0';
 
         }
+        
+         if (*order == '=') {
+
+            repOperateur = false;
+            *autom = false;
+            *prog = true;
+            *testAct = false;
+            REL8_SetHigh();
+           // *order = '0';
+
+        }
+        
+         if (*order == '*') {
+
+            repOperateur = true;
+            *autom = false;
+            *prog = false;
+            *testAct = false;
+            REL8_SetLow();
+           // *order = '0';
+
+        }
 
 
     }

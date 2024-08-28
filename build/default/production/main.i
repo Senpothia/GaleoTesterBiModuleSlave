@@ -5870,7 +5870,7 @@ void main(void) {
             attenteDemarrageSlave(&automatique, &testActif, &programmation, &ordre);
         }
 
-
+        do { LATAbits.LATA7 = 0; } while(0);
         programmation = 0;
         startAlert();
         testActif = 1;
@@ -6208,7 +6208,7 @@ void main(void) {
                 } else {
                     _delay((unsigned long)((100)*(16000000/4000.0)));
                 }
-                do { LATAbits.LATA7 = 0; } while(0);
+
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
                 slaveSummary = 'j';
 
@@ -6252,7 +6252,7 @@ void main(void) {
                 } else {
                     _delay((unsigned long)((100)*(16000000/4000.0)));
                 }
-                do { LATAbits.LATA7 = 1; } while(0);
+
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
                 slaveSummary = 'k';
 
@@ -6596,6 +6596,18 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
 
             }
 
+             if (ordre == '=') {
+
+                SSPBUF = '=';
+
+            }
+
+             if (ordre == '*') {
+
+                SSPBUF = '*';
+
+            }
+
             CKP = 1;
 
 
@@ -6645,6 +6657,20 @@ void __attribute__((picinterrupt(("")))) I2C_Slave_Read_Write() {
             if (temp == 'w') {
 
                 ordre = 'w';
+
+            }
+
+
+            if (temp == '=') {
+
+                ordre = '=';
+
+            }
+
+
+            if (temp == '*') {
+
+                ordre = '*';
 
             }
 

@@ -183,7 +183,7 @@ void main(void) {
             attenteDemarrageSlave(&automatique, &testActif, &programmation, &ordre);
         }
 
-
+        REL8_SetLow();
         programmation = false;
         startAlert();
         testActif = true;
@@ -521,7 +521,7 @@ void main(void) {
                 } else {
                     __delay_ms(100);
                 }// Ligne de test: affichage valeur de mesure analogique
-                REL8_SetLow();
+                //REL8_SetLow();
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
                 slaveSummary = 'j';
 
@@ -565,7 +565,7 @@ void main(void) {
                 } else {
                     __delay_ms(100);
                 } // Ligne de test: affichage valeur de mesure analogique
-                REL8_SetHigh();
+                //REL8_SetHigh();
                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
                 slaveSummary = 'k';
 
@@ -880,37 +880,49 @@ void __interrupt() I2C_Slave_Read_Write() {
             if (ordre == 'a') {
 
                 SSPBUF = 'a'; // Load the buffer with the data to be sent
-              
+
             }
 
             if (ordre == '?') {
 
                 SSPBUF = slaveSummary; // Load the buffer with the data to be sent
-              
+
 
             }
 
             if (ordre == 'u') {
 
                 SSPBUF = 'u'; // Load the buffer with the data to be sent
-               
+
             }
 
 
             if (ordre == 'v') {
 
                 SSPBUF = 'v'; // Load the buffer with the data to be sent
-               
+
             }
 
             if (ordre == 'w') {
 
                 SSPBUF = 'w'; // Load the buffer with the data to be sent
-                
+
+            }
+            
+             if (ordre == '=') {
+
+                SSPBUF = '='; // Load the buffer with the data to be sent
+
+            }
+            
+             if (ordre == '*') {
+
+                SSPBUF = '*'; // Load the buffer with the data to be sent
+
             }
 
             CKP = 1; // Release the clock
-           
+
 
             //-------------------------------------------------------------------------------
             // Donnée + écriture R/W=0
@@ -958,6 +970,20 @@ void __interrupt() I2C_Slave_Read_Write() {
             if (temp == 'w') {
 
                 ordre = 'w';
+
+            }
+            
+            // Démarrage programmation
+            if (temp == '=') {
+
+                ordre = '=';
+
+            }
+            
+             // Fin programmation
+            if (temp == '*') {
+
+                ordre = '*';
 
             }
 

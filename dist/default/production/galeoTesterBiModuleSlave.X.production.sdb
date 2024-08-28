@@ -183,13 +183,13 @@ channel_FVR 31
 [v _okAlert okAlert `(v  1 e 1 0 ]
 "458
 [v _attenteDemarrageSlave attenteDemarrageSlave `(v  1 e 1 0 ]
-"490
+"512
 [v _attenteAquittement attenteAquittement `(v  1 e 1 0 ]
-"533
+"555
 [v _attenteAquittement2 attenteAquittement2 `(v  1 e 1 0 ]
-"568
+"590
 [v _sortieErreur sortieErreur `(v  1 e 1 0 ]
-"576
+"598
 [v _alerteDefautEtape16 alerteDefautEtape16 `(v  1 e 1 0 ]
 [s S319 . 1 `uc 1 IOCIF 1 0 :1:0 
 `uc 1 INTF 1 0 :1:1 
@@ -296,7 +296,7 @@ channel_FVR 31
 [v _ADCON1 ADCON1 `VEuc  1 e 1 @158 ]
 "2358
 [v _LATA LATA `VEuc  1 e 1 @268 ]
-[s S581 . 1 `uc 1 LATA0 1 0 :1:0 
+[s S491 . 1 `uc 1 LATA0 1 0 :1:0 
 `uc 1 LATA1 1 0 :1:1 
 `uc 1 LATA2 1 0 :1:2 
 `uc 1 LATA3 1 0 :1:3 
@@ -306,8 +306,8 @@ channel_FVR 31
 `uc 1 LATA7 1 0 :1:7 
 ]
 "2375
-[u S590 . 1 `S581 1 . 1 0 ]
-[v _LATAbits LATAbits `VES590  1 e 1 @268 ]
+[u S500 . 1 `S491 1 . 1 0 ]
+[v _LATAbits LATAbits `VES500  1 e 1 @268 ]
 "2420
 [v _LATB LATB `VEuc  1 e 1 @269 ]
 [s S941 . 1 `uc 1 LATB0 1 0 :1:0 
@@ -479,10 +479,10 @@ channel_FVR 31
 [v main@testVoyants testVoyants `a  1 a 1 16 ]
 "101
 [v main@automatique automatique `a  1 a 1 15 ]
-"104
-[v main@master master `a  1 a 1 14 ]
 "103
-[v main@programmation programmation `a  1 a 1 13 ]
+[v main@programmation programmation `a  1 a 1 14 ]
+"104
+[v main@master master `a  1 a 1 13 ]
 "100
 [v main@testLeds testLeds `a  1 a 1 10 ]
 "102
@@ -543,32 +543,32 @@ channel_FVR 31
 [v attenteDemarrageSlave@order order `*.4uc  1 p 1 5 ]
 "461
 [v attenteDemarrageSlave@autom autom `*.5a  1 a 1 7 ]
-"488
+"510
 } 0
-"533
+"555
 [v _attenteAquittement2 attenteAquittement2 `(v  1 e 1 0 ]
 {
 [v attenteAquittement2@autom autom `*.5a  1 a 1 wreg ]
-"536
+"558
 [v attenteAquittement2@repOperateur repOperateur `a  1 a 1 0 ]
-"533
+"555
 [v attenteAquittement2@autom autom `*.5a  1 a 1 wreg ]
 [v attenteAquittement2@testAct testAct `*.5a  1 p 1 3 ]
 [v attenteAquittement2@ordre ordre `*.4uc  1 p 1 4 ]
-"536
+"558
 [v attenteAquittement2@autom autom `*.5a  1 a 1 1 ]
-"566
+"588
 } 0
-"576
+"598
 [v _alerteDefautEtape16 alerteDefautEtape16 `(v  1 e 1 0 ]
 {
-"578
+"600
 [v alerteDefautEtape16@error error `[20]uc  1 a 20 10 ]
-"579
+"601
 [v alerteDefautEtape16@eol eol `[10]uc  1 a 10 0 ]
-"588
+"610
 [v alerteDefautEtape16@reponse reponse `a  1 a 1 32 ]
-"576
+"598
 [v alerteDefautEtape16@etape etape `*.25uc  1 p 2 44 ]
 [v alerteDefautEtape16@testAct testAct `*.5a  1 p 1 46 ]
 [v alerteDefautEtape16@testVoy testVoy `*.5a  1 p 1 47 ]
@@ -576,9 +576,9 @@ channel_FVR 31
 [v alerteDefautEtape16@prog prog `*.5a  1 p 1 49 ]
 [v alerteDefautEtape16@ordre ordre `*.4uc  1 p 1 50 ]
 [v alerteDefautEtape16@F3777 F3777 `[20]uc  1 s 20 F3777 ]
-"578
+"600
 [v alerteDefautEtape16@F3779 F3779 `[10]uc  1 s 10 F3779 ]
-"623
+"645
 } 0
 "103
 [v _testR3 testR3 `(a  1 e 1 0 ]
@@ -616,14 +616,14 @@ channel_FVR 31
 [v testR1@active active `a  1 a 1 4 ]
 "79
 } 0
-"568
+"590
 [v _sortieErreur sortieErreur `(v  1 e 1 0 ]
 {
 [v sortieErreur@autom autom `*.39a  1 p 2 8 ]
 [v sortieErreur@testAct testAct `*.39a  1 p 2 10 ]
 [v sortieErreur@testVoy testVoy `*.39a  1 p 2 12 ]
 [v sortieErreur@prog prog `*.39a  1 p 2 14 ]
-"574
+"596
 } 0
 "375
 [v _initialConditions initialConditions `(v  1 e 1 0 ]
@@ -670,15 +670,15 @@ channel_FVR 31
 [v pressBP1@active active `a  1 a 1 3 ]
 "35
 } 0
-"490
+"512
 [v _attenteAquittement attenteAquittement `(v  1 e 1 0 ]
 {
-"493
+"515
 [v attenteAquittement@repOperateur repOperateur `a  1 a 1 7 ]
-"490
+"512
 [v attenteAquittement@autom autom `*.39a  1 p 2 3 ]
 [v attenteAquittement@testAct testAct `*.39a  1 p 2 5 ]
-"531
+"553
 } 0
 "292
 [v _reponseOperateur2 reponseOperateur2 `(a  1 e 1 0 ]
@@ -1107,9 +1107,9 @@ channel_FVR 31
 "844 C:\Users\Michel\MPLABXProjects\galeoTesterBiModuleSlave.X\main.c
 [v _I2C_Slave_Read_Write I2C_Slave_Read_Write `II(v  1 e 1 0 ]
 {
-"972
+"998
 [v I2C_Slave_Read_Write@temp_810 temp `uc  1 a 1 1 ]
-"922
+"934
 [v I2C_Slave_Read_Write@temp_809 temp `uc  1 a 1 2 ]
-"996
+"1022
 } 0

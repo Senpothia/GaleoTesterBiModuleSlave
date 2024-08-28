@@ -34,7 +34,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "31 ./tester.h
 [; ;./tester.h: 31: void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *order);
 [v _attenteDemarrageSlave `(v ~T0 @X0 0 ef4`*a`*a`*a`*uc ]
-"27
+"2364 C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h
+[; ;C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h: 2364:     struct {
+[s S119 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S119 . LATA0 LATA1 LATA2 LATA3 LATA4 LATA5 LATA6 LATA7 ]
+"2363
+[; ;C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h: 2363: typedef union {
+[u S118 `S119 1 ]
+[n S118 . . ]
+"2375
+[; ;C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h: 2375: extern volatile LATAbits_t LATAbits __attribute__((address(0x10C)));
+[v _LATAbits `VS118 ~T0 @X0 0 e@268 ]
+"27 ./tester.h
 [; ;./tester.h: 27: void startAlert(void);
 [v _startAlert `(v ~T0 @X0 0 ef ]
 "14
@@ -84,17 +95,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 [v _ADC_GetConversion `(us ~T0 @X0 0 ef1`E3374 ]
 "113 C:\Program Files\Microchip\xc8\v2.32\pic\include\c99\stdio.h
 [v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
-"2364 C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h
-[; ;C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h: 2364:     struct {
-[s S119 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S119 . LATA0 LATA1 LATA2 LATA3 LATA4 LATA5 LATA6 LATA7 ]
-"2363
-[; ;C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h: 2363: typedef union {
-[u S118 `S119 1 ]
-[n S118 . . ]
-"2375
-[; ;C:\Program Files\Microchip\xc8\v2.32\pic\include\proc\pic16lf1939.h: 2375: extern volatile LATAbits_t LATAbits __attribute__((address(0x10C)));
-[v _LATAbits `VS118 ~T0 @X0 0 e@268 ]
 "22 ./tester.h
 [; ;./tester.h: 22: void setHorloge(_Bool active);
 [v _setHorloge `(v ~T0 @X0 0 ef1`a ]
@@ -838,6 +838,13 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 181:         while (!testActif) {
 [e $ ! != -> _testActif `i -> 0 `i 394  ]
 [e :U 395 ]
+"186
+[; ;main.c: 186:         do { LATAbits.LATA7 = 0; } while(0);
+[e :U 398 ]
+{
+[e = . . _LATAbits 0 7 -> -> 0 `i `uc ]
+}
+[e :U 397 ]
 "187
 [; ;main.c: 187:         programmation = 0;
 [e = _programmation -> -> 0 `i `a ]
@@ -861,7 +868,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 100 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "200
 [; ;main.c: 200:         if (master) {
-[e $ ! != -> _master `i -> 0 `i 396  ]
+[e $ ! != -> _master `i -> 0 `i 399  ]
 {
 "201
 [; ;main.c: 201:             displayManager("ETAPE 1", "TEST 3 RELAIS ON", "", "");
@@ -869,8 +876,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "202
 [; ;main.c: 202:         } else {
 }
-[e $U 397  ]
-[e :U 396 ]
+[e $U 400  ]
+[e :U 399 ]
 {
 "203
 [; ;main.c: 203:             _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -878,7 +885,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "204
 [; ;main.c: 204:         }
 }
-[e :U 397 ]
+[e :U 400 ]
 "207
 [; ;main.c: 207:         pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -896,7 +903,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "215
 [; ;main.c: 215:         if (testR1(1) && testR2(1) && testR3(1)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 398  ]
+[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 401  ]
 {
 "219
 [; ;main.c: 219:             slaveSummary = 'A';
@@ -904,8 +911,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "223
 [; ;main.c: 223:         } else {
 }
-[e $U 399  ]
-[e :U 398 ]
+[e $U 402  ]
+[e :U 401 ]
 {
 "225
 [; ;main.c: 225:             testActif = 0;
@@ -928,7 +935,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "233
 [; ;main.c: 233:         }
 }
-[e :U 399 ]
+[e :U 402 ]
 "235
 [; ;main.c: 235:         _delay((unsigned long)((1000)*(16000000/4000.0)));
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
@@ -940,11 +947,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _pressBP2 (1 -> -> 0 `i `a ]
 "245
 [; ;main.c: 245:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 400  ]
+[e $ ! != -> _testActif `i -> 0 `i 403  ]
 {
 "247
 [; ;main.c: 247:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 401  ]
+[e $ ! != -> _master `i -> 0 `i 404  ]
 {
 "248
 [; ;main.c: 248:                 displayManager("ETAPE 2", "TEST 3 RELAIS OFF", "", "");
@@ -952,8 +959,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "249
 [; ;main.c: 249:             } else {
 }
-[e $U 402  ]
-[e :U 401 ]
+[e $U 405  ]
+[e :U 404 ]
 {
 "250
 [; ;main.c: 250:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -961,7 +968,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "251
 [; ;main.c: 251:             }
 }
-[e :U 402 ]
+[e :U 405 ]
 "253
 [; ;main.c: 253:             pressBP1(0);
 [e ( _pressBP1 (1 -> -> 0 `i `a ]
@@ -973,7 +980,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "256
 [; ;main.c: 256:             if (!testR1(1) && !testR2(1) && !testR3(1)) {
-[e $ ! && && ! != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i ! != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i ! != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 403  ]
+[e $ ! && && ! != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i ! != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i ! != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 406  ]
 {
 "260
 [; ;main.c: 260:                 slaveSummary = 'B';
@@ -981,8 +988,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "265
 [; ;main.c: 265:             } else {
 }
-[e $U 404  ]
-[e :U 403 ]
+[e $U 407  ]
+[e :U 406 ]
 {
 "267
 [; ;main.c: 267:                 testActif = 0;
@@ -999,18 +1006,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "273
 [; ;main.c: 273:             }
 }
-[e :U 404 ]
+[e :U 407 ]
 "274
 [; ;main.c: 274:         }
 }
-[e :U 400 ]
+[e :U 403 ]
 "280
 [; ;main.c: 280:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 405  ]
+[e $ ! != -> _testActif `i -> 0 `i 408  ]
 {
 "282
 [; ;main.c: 282:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 406  ]
+[e $ ! != -> _master `i -> 0 `i 409  ]
 {
 "283
 [; ;main.c: 283:                 displayManager("ETAPE 3", "TEST LED ROUGE", "", "");
@@ -1018,8 +1025,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "284
 [; ;main.c: 284:             } else {
 }
-[e $U 407  ]
-[e :U 406 ]
+[e $U 410  ]
+[e :U 409 ]
 {
 "285
 [; ;main.c: 285:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1027,7 +1034,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "286
 [; ;main.c: 286:             }
 }
-[e :U 407 ]
+[e :U 410 ]
 "288
 [; ;main.c: 288:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -1039,7 +1046,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _pressBP1 (1 -> -> 0 `i `a ]
 "291
 [; ;main.c: 291:             if (testLeds) {
-[e $ ! != -> _testLeds `i -> 0 `i 408  ]
+[e $ ! != -> _testLeds `i -> 0 `i 411  ]
 {
 "294
 [; ;main.c: 294:                 printf("Attente validation led rouge\r\n");
@@ -1049,7 +1056,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _testVoyants ( _reponseOperateur2 (2 , _automatique &U _ordre ]
 "297
 [; ;main.c: 297:                 if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 409  ]
+[e $ ! ! != -> _testVoyants `i -> 0 `i 412  ]
 {
 "299
 [; ;main.c: 299:                     testActif = 0;
@@ -1066,8 +1073,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "305
 [; ;main.c: 305:                 } else {
 }
-[e $U 410  ]
-[e :U 409 ]
+[e $U 413  ]
+[e :U 412 ]
 {
 "308
 [; ;main.c: 308:                     slaveSummary = 'C';
@@ -1075,22 +1082,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 "310
 [; ;main.c: 310:                 }
 }
-[e :U 410 ]
+[e :U 413 ]
 "311
 [; ;main.c: 311:             }
 }
-[e :U 408 ]
+[e :U 411 ]
 "314
 [; ;main.c: 314:         }
 }
-[e :U 405 ]
+[e :U 408 ]
 "320
 [; ;main.c: 320:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 411  ]
+[e $ ! != -> _testActif `i -> 0 `i 414  ]
 {
 "322
 [; ;main.c: 322:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 412  ]
+[e $ ! != -> _master `i -> 0 `i 415  ]
 {
 "323
 [; ;main.c: 323:                 displayManager("ETAPE 4", "TEST LED BLEUE", "", "");
@@ -1098,8 +1105,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "324
 [; ;main.c: 324:             } else {
 }
-[e $U 413  ]
-[e :U 412 ]
+[e $U 416  ]
+[e :U 415 ]
 {
 "325
 [; ;main.c: 325:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1107,7 +1114,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "326
 [; ;main.c: 326:             }
 }
-[e :U 413 ]
+[e :U 416 ]
 "328
 [; ;main.c: 328:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -1119,14 +1126,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _pressBP1 (1 -> -> 0 `i `a ]
 "331
 [; ;main.c: 331:             if (testLeds) {
-[e $ ! != -> _testLeds `i -> 0 `i 414  ]
+[e $ ! != -> _testLeds `i -> 0 `i 417  ]
 {
 "333
 [; ;main.c: 333:                 testVoyants = reponseOperateur2(automatique, &ordre);
 [e = _testVoyants ( _reponseOperateur2 (2 , _automatique &U _ordre ]
 "334
 [; ;main.c: 334:                 if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 415  ]
+[e $ ! ! != -> _testVoyants `i -> 0 `i 418  ]
 {
 "336
 [; ;main.c: 336:                     testActif = 0;
@@ -1143,8 +1150,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "342
 [; ;main.c: 342:                 } else {
 }
-[e $U 416  ]
-[e :U 415 ]
+[e $U 419  ]
+[e :U 418 ]
 {
 "346
 [; ;main.c: 346:                     slaveSummary = 'D';
@@ -1152,22 +1159,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 "349
 [; ;main.c: 349:                 }
 }
-[e :U 416 ]
+[e :U 419 ]
 "350
 [; ;main.c: 350:             }
 }
-[e :U 414 ]
+[e :U 417 ]
 "353
 [; ;main.c: 353:         }
 }
-[e :U 411 ]
+[e :U 414 ]
 "359
 [; ;main.c: 359:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 417  ]
+[e $ ! != -> _testActif `i -> 0 `i 420  ]
 {
 "361
 [; ;main.c: 361:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 418  ]
+[e $ ! != -> _master `i -> 0 `i 421  ]
 {
 "362
 [; ;main.c: 362:                 displayManager("ETAPE 5", "TEST LED VERTE", "", "");
@@ -1175,8 +1182,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "363
 [; ;main.c: 363:             } else {
 }
-[e $U 419  ]
-[e :U 418 ]
+[e $U 422  ]
+[e :U 421 ]
 {
 "364
 [; ;main.c: 364:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1184,7 +1191,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "365
 [; ;main.c: 365:             }
 }
-[e :U 419 ]
+[e :U 422 ]
 "367
 [; ;main.c: 367:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -1196,14 +1203,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( _pressBP1 (1 -> -> 0 `i `a ]
 "370
 [; ;main.c: 370:             if (testLeds) {
-[e $ ! != -> _testLeds `i -> 0 `i 420  ]
+[e $ ! != -> _testLeds `i -> 0 `i 423  ]
 {
 "372
 [; ;main.c: 372:                 testVoyants = reponseOperateur2(automatique, &ordre);
 [e = _testVoyants ( _reponseOperateur2 (2 , _automatique &U _ordre ]
 "373
 [; ;main.c: 373:                 if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 421  ]
+[e $ ! ! != -> _testVoyants `i -> 0 `i 424  ]
 {
 "375
 [; ;main.c: 375:                     testActif = 0;
@@ -1220,8 +1227,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "381
 [; ;main.c: 381:                 } else {
 }
-[e $U 422  ]
-[e :U 421 ]
+[e $U 425  ]
+[e :U 424 ]
 {
 "383
 [; ;main.c: 383:                     slaveSummary = 'E';
@@ -1229,22 +1236,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 "386
 [; ;main.c: 386:                 }
 }
-[e :U 422 ]
+[e :U 425 ]
 "387
 [; ;main.c: 387:             }
 }
-[e :U 420 ]
+[e :U 423 ]
 "389
 [; ;main.c: 389:         }
 }
-[e :U 417 ]
+[e :U 420 ]
 "397
 [; ;main.c: 397:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 423  ]
+[e $ ! != -> _testActif `i -> 0 `i 426  ]
 {
 "399
 [; ;main.c: 399:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 424  ]
+[e $ ! != -> _master `i -> 0 `i 427  ]
 {
 "400
 [; ;main.c: 400:                 displayManager("ETAPE 6", "TEST R1 ON", "", "");
@@ -1252,8 +1259,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "401
 [; ;main.c: 401:             } else {
 }
-[e $U 425  ]
-[e :U 424 ]
+[e $U 428  ]
+[e :U 427 ]
 {
 "402
 [; ;main.c: 402:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1261,7 +1268,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "403
 [; ;main.c: 403:             }
 }
-[e :U 425 ]
+[e :U 428 ]
 "404
 [; ;main.c: 404:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -1276,7 +1283,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "410
 [; ;main.c: 410:             if (testR1(1)) {
-[e $ ! != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i 426  ]
+[e $ ! != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i 429  ]
 {
 "412
 [; ;main.c: 412:                 slaveSummary = 'F';
@@ -1284,8 +1291,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "415
 [; ;main.c: 415:             } else {
 }
-[e $U 427  ]
-[e :U 426 ]
+[e $U 430  ]
+[e :U 429 ]
 {
 "417
 [; ;main.c: 417:                 testActif = 0;
@@ -1302,18 +1309,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "423
 [; ;main.c: 423:             }
 }
-[e :U 427 ]
+[e :U 430 ]
 "425
 [; ;main.c: 425:         }
 }
-[e :U 423 ]
+[e :U 426 ]
 "431
 [; ;main.c: 431:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 428  ]
+[e $ ! != -> _testActif `i -> 0 `i 431  ]
 {
 "433
 [; ;main.c: 433:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 429  ]
+[e $ ! != -> _master `i -> 0 `i 432  ]
 {
 "434
 [; ;main.c: 434:                 displayManager("ETAPE 7", "TEST R1 OFF - R2 ON", "", "");
@@ -1321,8 +1328,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "435
 [; ;main.c: 435:             } else {
 }
-[e $U 430  ]
-[e :U 429 ]
+[e $U 433  ]
+[e :U 432 ]
 {
 "436
 [; ;main.c: 436:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1330,7 +1337,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "437
 [; ;main.c: 437:             }
 }
-[e :U 430 ]
+[e :U 433 ]
 "438
 [; ;main.c: 438:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -1345,7 +1352,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "444
 [; ;main.c: 444:             if (testR1(0) && testR2(1)) {
-[e $ ! && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i 431  ]
+[e $ ! && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i 434  ]
 {
 "446
 [; ;main.c: 446:                 slaveSummary = 'G';
@@ -1353,8 +1360,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "448
 [; ;main.c: 448:             } else {
 }
-[e $U 432  ]
-[e :U 431 ]
+[e $U 435  ]
+[e :U 434 ]
 {
 "450
 [; ;main.c: 450:                 testActif = 0;
@@ -1371,18 +1378,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "455
 [; ;main.c: 455:             }
 }
-[e :U 432 ]
+[e :U 435 ]
 "457
 [; ;main.c: 457:         }
 }
-[e :U 428 ]
+[e :U 431 ]
 "462
 [; ;main.c: 462:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 433  ]
+[e $ ! != -> _testActif `i -> 0 `i 436  ]
 {
 "464
 [; ;main.c: 464:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 434  ]
+[e $ ! != -> _master `i -> 0 `i 437  ]
 {
 "465
 [; ;main.c: 465:                 displayManager("ETAPE 8", "TEST R2 OFF - R3 ON", "", "");
@@ -1390,8 +1397,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "466
 [; ;main.c: 466:             } else {
 }
-[e $U 435  ]
-[e :U 434 ]
+[e $U 438  ]
+[e :U 437 ]
 {
 "467
 [; ;main.c: 467:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1399,7 +1406,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "468
 [; ;main.c: 468:             }
 }
-[e :U 435 ]
+[e :U 438 ]
 "469
 [; ;main.c: 469:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -1414,7 +1421,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "475
 [; ;main.c: 475:             if (testR2(0) && testR3(1)) {
-[e $ ! && != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 436  ]
+[e $ ! && != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 439  ]
 {
 "477
 [; ;main.c: 477:                 slaveSummary = 'I';
@@ -1422,8 +1429,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "480
 [; ;main.c: 480:             } else {
 }
-[e $U 437  ]
-[e :U 436 ]
+[e $U 440  ]
+[e :U 439 ]
 {
 "482
 [; ;main.c: 482:                 testActif = 0;
@@ -1440,18 +1447,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "487
 [; ;main.c: 487:             }
 }
-[e :U 437 ]
+[e :U 440 ]
 "489
 [; ;main.c: 489:         }
 }
-[e :U 433 ]
+[e :U 436 ]
 "494
 [; ;main.c: 494:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 438  ]
+[e $ ! != -> _testActif `i -> 0 `i 441  ]
 {
 "496
 [; ;main.c: 496:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 439  ]
+[e $ ! != -> _master `i -> 0 `i 442  ]
 {
 "497
 [; ;main.c: 497:                 displayManager("ETAPE 9", "TEST LED CLAVIER", "CLAVIER ECLAIRE?", "");
@@ -1459,8 +1466,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "498
 [; ;main.c: 498:             } else {
 }
-[e $U 440  ]
-[e :U 439 ]
+[e $U 443  ]
+[e :U 442 ]
 {
 "499
 [; ;main.c: 499:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1468,7 +1475,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "500
 [; ;main.c: 500:             }
 }
-[e :U 440 ]
+[e :U 443 ]
 "501
 [; ;main.c: 501:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -1490,7 +1497,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _buffer ( _sprintf (1 , (. , &U _slectureAN1 :s 54C _lectureAN1 ]
 "511
 [; ;main.c: 511:             if (lectureAN1 < 800) {
-[e $ ! < _lectureAN1 -> 800 `i 441  ]
+[e $ ! < _lectureAN1 -> 800 `i 444  ]
 {
 "513
 [; ;main.c: 513:                 slaveSummary = 'J';
@@ -1498,15 +1505,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "516
 [; ;main.c: 516:             } else {
 }
-[e $U 442  ]
-[e :U 441 ]
+[e $U 445  ]
+[e :U 444 ]
 {
 "518
 [; ;main.c: 518:                 alerteDefaut("ETAPE 9", &testActif, &testVoyants);
 [e ( _alerteDefaut (3 , , :s 55C &U _testActif &U _testVoyants ]
 "519
 [; ;main.c: 519:                 if (master) {
-[e $ ! != -> _master `i -> 0 `i 443  ]
+[e $ ! != -> _master `i -> 0 `i 446  ]
 {
 "520
 [; ;main.c: 520:                     displayManager("ETAPE 9", "TEST LED CLAVIER", slectureAN1, "");
@@ -1514,8 +1521,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "521
 [; ;main.c: 521:                 } else {
 }
-[e $U 444  ]
-[e :U 443 ]
+[e $U 447  ]
+[e :U 446 ]
 {
 "522
 [; ;main.c: 522:                     _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1523,14 +1530,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "523
 [; ;main.c: 523:                 }
 }
-[e :U 444 ]
-"524
-[; ;main.c: 524:                 do { LATAbits.LATA7 = 0; } while(0);
 [e :U 447 ]
-{
-[e = . . _LATAbits 0 7 -> -> 0 `i `uc ]
-}
-[e :U 446 ]
 "525
 [; ;main.c: 525:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 [e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
@@ -1540,14 +1540,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 "528
 [; ;main.c: 528:             }
 }
-[e :U 442 ]
+[e :U 445 ]
 "530
 [; ;main.c: 530:             _delay((unsigned long)((2000)*(16000000/4000.0)));
 [e ( __delay (1 -> * -> -> 2000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "532
 [; ;main.c: 532:         }
 }
-[e :U 438 ]
+[e :U 441 ]
 "538
 [; ;main.c: 538:         if (testActif) {
 [e $ ! != -> _testActif `i -> 0 `i 448  ]
@@ -1627,13 +1627,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 567:                 }
 }
 [e :U 454 ]
-"568
-[; ;main.c: 568:                 do { LATAbits.LATA7 = 1; } while(0);
-[e :U 457 ]
-{
-[e = . . _LATAbits 0 7 -> -> 1 `i `uc ]
-}
-[e :U 456 ]
 "569
 [; ;main.c: 569:                 sortieErreur(&automatique, &testActif, &testVoyants, &programmation);
 [e ( _sortieErreur (4 , , , &U _automatique &U _testActif &U _testVoyants &U _programmation ]
@@ -1653,11 +1646,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :U 448 ]
 "582
 [; ;main.c: 582:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 458  ]
+[e $ ! != -> _testActif `i -> 0 `i 455  ]
 {
 "584
 [; ;main.c: 584:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 459  ]
+[e $ ! != -> _master `i -> 0 `i 456  ]
 {
 "585
 [; ;main.c: 585:                 displayManager("ETAPE 12", "TEST SFLASH", "", "");
@@ -1665,8 +1658,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "586
 [; ;main.c: 586:             } else {
 }
-[e $U 460  ]
-[e :U 459 ]
+[e $U 457  ]
+[e :U 456 ]
 {
 "587
 [; ;main.c: 587:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1674,7 +1667,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "588
 [; ;main.c: 588:             }
 }
-[e :U 460 ]
+[e :U 457 ]
 "589
 [; ;main.c: 589:             _delay((unsigned long)((500)*(16000000/4000.0)));
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
@@ -1704,7 +1697,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 750 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "601
 [; ;main.c: 601:             if (testR1(1) && testR2(1) && testR3(0)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 461  ]
+[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 458  ]
 {
 "603
 [; ;main.c: 603:                 slaveSummary = 'L';
@@ -1712,8 +1705,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "605
 [; ;main.c: 605:             } else {
 }
-[e $U 462  ]
-[e :U 461 ]
+[e $U 459  ]
+[e :U 458 ]
 {
 "607
 [; ;main.c: 607:                 testActif = 0;
@@ -1736,7 +1729,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "614
 [; ;main.c: 614:             }
 }
-[e :U 462 ]
+[e :U 459 ]
 "616
 [; ;main.c: 616:             _delay((unsigned long)((1000)*(16000000/4000.0)));
 [e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
@@ -1749,14 +1742,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 "621
 [; ;main.c: 621:         }
 }
-[e :U 458 ]
+[e :U 455 ]
 "627
 [; ;main.c: 627:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 463  ]
+[e $ ! != -> _testActif `i -> 0 `i 460  ]
 {
 "629
 [; ;main.c: 629:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 464  ]
+[e $ ! != -> _master `i -> 0 `i 461  ]
 {
 "630
 [; ;main.c: 630:                 displayManager("ETAPE 13", "TEST LEDS CARTE", "LEDS ALLUMEES", "PRESSER OK / NOK");
@@ -1764,8 +1757,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "631
 [; ;main.c: 631:             } else {
 }
-[e $U 465  ]
-[e :U 464 ]
+[e $U 462  ]
+[e :U 461 ]
 {
 "632
 [; ;main.c: 632:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1773,7 +1766,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "633
 [; ;main.c: 633:             }
 }
-[e :U 465 ]
+[e :U 462 ]
 "634
 [; ;main.c: 634:             pressBP1(1);
 [e ( _pressBP1 (1 -> -> 1 `i `a ]
@@ -1791,7 +1784,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _testVoyants ( _reponseOperateur2 (2 , _automatique &U _ordre ]
 "642
 [; ;main.c: 642:             if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 466  ]
+[e $ ! ! != -> _testVoyants `i -> 0 `i 463  ]
 {
 "644
 [; ;main.c: 644:                 testActif = 0;
@@ -1808,8 +1801,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "650
 [; ;main.c: 650:             } else {
 }
-[e $U 467  ]
-[e :U 466 ]
+[e $U 464  ]
+[e :U 463 ]
 {
 "652
 [; ;main.c: 652:                 slaveSummary = 'M';
@@ -1817,18 +1810,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "655
 [; ;main.c: 655:             }
 }
-[e :U 467 ]
+[e :U 464 ]
 "656
 [; ;main.c: 656:         }
 }
-[e :U 463 ]
+[e :U 460 ]
 "661
 [; ;main.c: 661:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 468  ]
+[e $ ! != -> _testActif `i -> 0 `i 465  ]
 {
 "663
 [; ;main.c: 663:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 469  ]
+[e $ ! != -> _master `i -> 0 `i 466  ]
 {
 "664
 [; ;main.c: 664:                 displayManager("ETAPE 14", "TEST BP2", "", "");
@@ -1836,8 +1829,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "665
 [; ;main.c: 665:             } else {
 }
-[e $U 470  ]
-[e :U 469 ]
+[e $U 467  ]
+[e :U 466 ]
 {
 "666
 [; ;main.c: 666:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1845,7 +1838,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "667
 [; ;main.c: 667:             }
 }
-[e :U 470 ]
+[e :U 467 ]
 "668
 [; ;main.c: 668:             pressBP2(1);
 [e ( _pressBP2 (1 -> -> 1 `i `a ]
@@ -1860,7 +1853,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "673
 [; ;main.c: 673:             if (testR1(1) && testR2(1) && testR3(1)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 471  ]
+[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 468  ]
 {
 "675
 [; ;main.c: 675:                 slaveSummary = 'N';
@@ -1868,8 +1861,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "677
 [; ;main.c: 677:             } else {
 }
-[e $U 472  ]
-[e :U 471 ]
+[e $U 469  ]
+[e :U 468 ]
 {
 "679
 [; ;main.c: 679:                 testActif = 0;
@@ -1886,18 +1879,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "684
 [; ;main.c: 684:             }
 }
-[e :U 472 ]
+[e :U 469 ]
 "686
 [; ;main.c: 686:         }
 }
-[e :U 468 ]
+[e :U 465 ]
 "690
 [; ;main.c: 690:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 473  ]
+[e $ ! != -> _testActif `i -> 0 `i 470  ]
 {
 "692
 [; ;main.c: 692:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 474  ]
+[e $ ! != -> _master `i -> 0 `i 471  ]
 {
 "693
 [; ;main.c: 693:                 displayManager("ETAPE 15", "TEST HORLOGE", "", "");
@@ -1905,8 +1898,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "694
 [; ;main.c: 694:             } else {
 }
-[e $U 475  ]
-[e :U 474 ]
+[e $U 472  ]
+[e :U 471 ]
 {
 "695
 [; ;main.c: 695:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1914,7 +1907,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "696
 [; ;main.c: 696:             }
 }
-[e :U 475 ]
+[e :U 472 ]
 "697
 [; ;main.c: 697:             setHorloge(1);
 [e ( _setHorloge (1 -> -> 1 `i `a ]
@@ -1929,7 +1922,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "702
 [; ;main.c: 702:             if (testR1(0) && testR2(0) && testR3(0)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 476  ]
+[e $ ! && && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 473  ]
 {
 "704
 [; ;main.c: 704:                 slaveSummary = 'O';
@@ -1937,8 +1930,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "707
 [; ;main.c: 707:             } else {
 }
-[e $U 477  ]
-[e :U 476 ]
+[e $U 474  ]
+[e :U 473 ]
 {
 "709
 [; ;main.c: 709:                 testActif = 0;
@@ -1955,18 +1948,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "714
 [; ;main.c: 714:             }
 }
-[e :U 477 ]
+[e :U 474 ]
 "716
 [; ;main.c: 716:         }
 }
-[e :U 473 ]
+[e :U 470 ]
 "721
 [; ;main.c: 721:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 478  ]
+[e $ ! != -> _testActif `i -> 0 `i 475  ]
 {
 "723
 [; ;main.c: 723:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 479  ]
+[e $ ! != -> _master `i -> 0 `i 476  ]
 {
 "724
 [; ;main.c: 724:                 displayManager("ETAPE 16", "TEST P1", "", "");
@@ -1974,8 +1967,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "725
 [; ;main.c: 725:             } else {
 }
-[e $U 480  ]
-[e :U 479 ]
+[e $U 477  ]
+[e :U 476 ]
 {
 "726
 [; ;main.c: 726:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -1983,7 +1976,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "727
 [; ;main.c: 727:             }
 }
-[e :U 480 ]
+[e :U 477 ]
 "728
 [; ;main.c: 728:             setP1(1);
 [e ( _setP1 (1 -> -> 1 `i `a ]
@@ -1998,7 +1991,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "733
 [; ;main.c: 733:             if (testR1(1) && testR2(1) && testR3(1)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 481  ]
+[e $ ! && && != -> ( _testR1 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 1 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 1 `i `a `i -> 0 `i 478  ]
 {
 "735
 [; ;main.c: 735:                 slaveSummary = 'P';
@@ -2006,8 +1999,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "737
 [; ;main.c: 737:             } else {
 }
-[e $U 482  ]
-[e :U 481 ]
+[e $U 479  ]
+[e :U 478 ]
 {
 "739
 [; ;main.c: 739:                 alerteDefautEtape16("ETAPE 16", &testActif, &testVoyants, &automatique, &programmation, &ordre);
@@ -2018,18 +2011,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "743
 [; ;main.c: 743:             }
 }
-[e :U 482 ]
+[e :U 479 ]
 "745
 [; ;main.c: 745:         }
 }
-[e :U 478 ]
+[e :U 475 ]
 "751
 [; ;main.c: 751:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 483  ]
+[e $ ! != -> _testActif `i -> 0 `i 480  ]
 {
 "753
 [; ;main.c: 753:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 484  ]
+[e $ ! != -> _master `i -> 0 `i 481  ]
 {
 "754
 [; ;main.c: 754:                 displayManager("ETAPE 17", "TEST P2", "", "");
@@ -2037,8 +2030,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "755
 [; ;main.c: 755:             } else {
 }
-[e $U 485  ]
-[e :U 484 ]
+[e $U 482  ]
+[e :U 481 ]
 {
 "756
 [; ;main.c: 756:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -2046,7 +2039,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "757
 [; ;main.c: 757:             }
 }
-[e :U 485 ]
+[e :U 482 ]
 "758
 [; ;main.c: 758:             setP2(1);
 [e ( _setP2 (1 -> -> 1 `i `a ]
@@ -2061,7 +2054,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e ( __delay (1 -> * -> -> 500 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "763
 [; ;main.c: 763:             if (testR1(0) && testR2(0) && testR3(0)) {
-[e $ ! && && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 486  ]
+[e $ ! && && != -> ( _testR1 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR2 (1 -> -> 0 `i `a `i -> 0 `i != -> ( _testR3 (1 -> -> 0 `i `a `i -> 0 `i 483  ]
 {
 "765
 [; ;main.c: 765:                 slaveSummary = 'Q';
@@ -2069,8 +2062,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "768
 [; ;main.c: 768:             } else {
 }
-[e $U 487  ]
-[e :U 486 ]
+[e $U 484  ]
+[e :U 483 ]
 {
 "770
 [; ;main.c: 770:                 testActif = 0;
@@ -2087,18 +2080,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "775
 [; ;main.c: 775:             }
 }
-[e :U 487 ]
+[e :U 484 ]
 "777
 [; ;main.c: 777:         }
 }
-[e :U 483 ]
+[e :U 480 ]
 "784
 [; ;main.c: 784:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 488  ]
+[e $ ! != -> _testActif `i -> 0 `i 485  ]
 {
 "786
 [; ;main.c: 786:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 489  ]
+[e $ ! != -> _master `i -> 0 `i 486  ]
 {
 "787
 [; ;main.c: 787:                 displayManager("ETAPE 18", "TEST BLUETOOTH", "VOIR APPLI", "PRESSER OK / NOK");
@@ -2106,8 +2099,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "788
 [; ;main.c: 788:             } else {
 }
-[e $U 490  ]
-[e :U 489 ]
+[e $U 487  ]
+[e :U 486 ]
 {
 "789
 [; ;main.c: 789:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -2115,7 +2108,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "790
 [; ;main.c: 790:             }
 }
-[e :U 490 ]
+[e :U 487 ]
 "791
 [; ;main.c: 791:             activerTouche();
 [e ( _activerTouche ..  ]
@@ -2124,7 +2117,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _testVoyants ( _reponseOperateur2 (2 , _automatique &U _ordre ]
 "794
 [; ;main.c: 794:             if (!testVoyants) {
-[e $ ! ! != -> _testVoyants `i -> 0 `i 491  ]
+[e $ ! ! != -> _testVoyants `i -> 0 `i 488  ]
 {
 "796
 [; ;main.c: 796:                 testActif = 0;
@@ -2144,8 +2137,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "803
 [; ;main.c: 803:             } else {
 }
-[e $U 492  ]
-[e :U 491 ]
+[e $U 489  ]
+[e :U 488 ]
 {
 "805
 [; ;main.c: 805:                 slaveSummary = 'R';
@@ -2153,18 +2146,18 @@ Version 4.0 HI-TECH Software Intermediate Code
 "808
 [; ;main.c: 808:             }
 }
-[e :U 492 ]
+[e :U 489 ]
 "809
 [; ;main.c: 809:         }
 }
-[e :U 488 ]
+[e :U 485 ]
 "814
 [; ;main.c: 814:         if (testActif) {
-[e $ ! != -> _testActif `i -> 0 `i 493  ]
+[e $ ! != -> _testActif `i -> 0 `i 490  ]
 {
 "816
 [; ;main.c: 816:             if (master) {
-[e $ ! != -> _master `i -> 0 `i 494  ]
+[e $ ! != -> _master `i -> 0 `i 491  ]
 {
 "817
 [; ;main.c: 817:                 displayManager("FIN DE TEST", "CONFORME", "RETIRER CARTE", "ATTENTE ACQUITTEMENT");
@@ -2172,8 +2165,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "818
 [; ;main.c: 818:             } else {
 }
-[e $U 495  ]
-[e :U 494 ]
+[e $U 492  ]
+[e :U 491 ]
 {
 "819
 [; ;main.c: 819:                 _delay((unsigned long)((100)*(16000000/4000.0)));
@@ -2181,7 +2174,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "820
 [; ;main.c: 820:             }
 }
-[e :U 495 ]
+[e :U 492 ]
 "821
 [; ;main.c: 821:             ledConforme(1);
 [e ( _ledConforme (1 -> -> 1 `i `a ]
@@ -2209,7 +2202,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 "831
 [; ;main.c: 831:         }
 }
-[e :U 493 ]
+[e :U 490 ]
 "833
 [; ;main.c: 833:     }
 }
@@ -2229,14 +2222,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [f ]
 "850
 [; ;main.c: 850:     if (SSPIF) {
-[e $ ! _SSPIF 497  ]
+[e $ ! _SSPIF 494  ]
 {
 "852
 [; ;main.c: 852:         SSPIF = 0;
 [e = _SSPIF -> -> 0 `i `b ]
 "856
 [; ;main.c: 856:         if (SSPOV || WCOL) {
-[e $ ! || _SSPOV _WCOL 498  ]
+[e $ ! || _SSPOV _WCOL 495  ]
 {
 "857
 [; ;main.c: 857:             SSPOV = 0;
@@ -2246,14 +2239,14 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _WCOL -> -> 0 `i `b ]
 "859
 [; ;main.c: 859:             return;
-[e $UE 496  ]
+[e $UE 493  ]
 "860
 [; ;main.c: 860:         }
 }
-[e :U 498 ]
+[e :U 495 ]
 "864
 [; ;main.c: 864:         if (!D_nA && !R_nW)
-[e $ ! && ! _D_nA ! _R_nW 499  ]
+[e $ ! && ! _D_nA ! _R_nW 496  ]
 "865
 [; ;main.c: 865:         {
 {
@@ -2267,9 +2260,9 @@ Version 4.0 HI-TECH Software Intermediate Code
 "872
 [; ;main.c: 872:         } else if (!D_nA && R_nW)
 }
-[e $U 500  ]
-[e :U 499 ]
-[e $ ! && ! _D_nA _R_nW 501  ]
+[e $U 497  ]
+[e :U 496 ]
+[e $ ! && ! _D_nA _R_nW 498  ]
 "873
 [; ;main.c: 873:         {
 {
@@ -2279,7 +2272,7 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e = _temp _SSPBUF ]
 "880
 [; ;main.c: 880:             if (ordre == 'a') {
-[e $ ! == -> _ordre `ui -> 97 `ui 502  ]
+[e $ ! == -> _ordre `ui -> 97 `ui 499  ]
 {
 "882
 [; ;main.c: 882:                 SSPBUF = 'a';
@@ -2287,10 +2280,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "884
 [; ;main.c: 884:             }
 }
-[e :U 502 ]
+[e :U 499 ]
 "886
 [; ;main.c: 886:             if (ordre == '?') {
-[e $ ! == -> _ordre `ui -> 63 `ui 503  ]
+[e $ ! == -> _ordre `ui -> 63 `ui 500  ]
 {
 "888
 [; ;main.c: 888:                 SSPBUF = slaveSummary;
@@ -2298,10 +2291,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "891
 [; ;main.c: 891:             }
 }
-[e :U 503 ]
+[e :U 500 ]
 "893
 [; ;main.c: 893:             if (ordre == 'u') {
-[e $ ! == -> _ordre `ui -> 117 `ui 504  ]
+[e $ ! == -> _ordre `ui -> 117 `ui 501  ]
 {
 "895
 [; ;main.c: 895:                 SSPBUF = 'u';
@@ -2309,10 +2302,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "897
 [; ;main.c: 897:             }
 }
-[e :U 504 ]
+[e :U 501 ]
 "900
 [; ;main.c: 900:             if (ordre == 'v') {
-[e $ ! == -> _ordre `ui -> 118 `ui 505  ]
+[e $ ! == -> _ordre `ui -> 118 `ui 502  ]
 {
 "902
 [; ;main.c: 902:                 SSPBUF = 'v';
@@ -2320,10 +2313,10 @@ Version 4.0 HI-TECH Software Intermediate Code
 "904
 [; ;main.c: 904:             }
 }
-[e :U 505 ]
+[e :U 502 ]
 "906
 [; ;main.c: 906:             if (ordre == 'w') {
-[e $ ! == -> _ordre `ui -> 119 `ui 506  ]
+[e $ ! == -> _ordre `ui -> 119 `ui 503  ]
 {
 "908
 [; ;main.c: 908:                 SSPBUF = 'w';
@@ -2331,141 +2324,185 @@ Version 4.0 HI-TECH Software Intermediate Code
 "910
 [; ;main.c: 910:             }
 }
-[e :U 506 ]
+[e :U 503 ]
 "912
-[; ;main.c: 912:             CKP = 1;
-[e = _CKP -> -> 1 `i `b ]
-"919
-[; ;main.c: 919:         } else if (D_nA && !R_nW)
-}
-[e $U 507  ]
-[e :U 501 ]
-[e $ ! && _D_nA ! _R_nW 508  ]
-"920
-[; ;main.c: 920:         {
+[; ;main.c: 912:              if (ordre == '=') {
+[e $ ! == -> _ordre `ui -> 61 `ui 504  ]
 {
+"914
+[; ;main.c: 914:                 SSPBUF = '=';
+[e = _SSPBUF -> -> 61 `ui `uc ]
+"916
+[; ;main.c: 916:             }
+}
+[e :U 504 ]
+"918
+[; ;main.c: 918:              if (ordre == '*') {
+[e $ ! == -> _ordre `ui -> 42 `ui 505  ]
+{
+"920
+[; ;main.c: 920:                 SSPBUF = '*';
+[e = _SSPBUF -> -> 42 `ui `uc ]
 "922
-[; ;main.c: 922:             unsigned char temp = SSPBUF;
-[v _temp `uc ~T0 @X0 1 a ]
-[e = _temp _SSPBUF ]
+[; ;main.c: 922:             }
+}
+[e :U 505 ]
 "924
 [; ;main.c: 924:             CKP = 1;
 [e = _CKP -> -> 1 `i `b ]
-"929
-[; ;main.c: 929:             if (temp == '?') {
-[e $ ! == -> _temp `ui -> 63 `ui 509  ]
-{
 "931
-[; ;main.c: 931:                 ordre = '?';
-[e = _ordre -> -> 63 `ui `uc ]
-"933
-[; ;main.c: 933:             }
+[; ;main.c: 931:         } else if (D_nA && !R_nW)
 }
-[e :U 509 ]
-"937
-[; ;main.c: 937:             if (temp == 'a') {
-[e $ ! == -> _temp `ui -> 97 `ui 510  ]
+[e $U 506  ]
+[e :U 498 ]
+[e $ ! && _D_nA ! _R_nW 507  ]
+"932
+[; ;main.c: 932:         {
 {
-"939
-[; ;main.c: 939:                 ordre = 'a';
-[e = _ordre -> -> 97 `ui `uc ]
-"941
-[; ;main.c: 941:             }
-}
-[e :U 510 ]
-"944
-[; ;main.c: 944:             if (temp == 'u') {
-[e $ ! == -> _temp `ui -> 117 `ui 511  ]
-{
-"946
-[; ;main.c: 946:                 ordre = 'u';
-[e = _ordre -> -> 117 `ui `uc ]
-"948
-[; ;main.c: 948:             }
-}
-[e :U 511 ]
-"951
-[; ;main.c: 951:             if (temp == 'v') {
-[e $ ! == -> _temp `ui -> 118 `ui 512  ]
-{
-"953
-[; ;main.c: 953:                 ordre = 'v';
-[e = _ordre -> -> 118 `ui `uc ]
-"955
-[; ;main.c: 955:             }
-}
-[e :U 512 ]
-"958
-[; ;main.c: 958:             if (temp == 'w') {
-[e $ ! == -> _temp `ui -> 119 `ui 513  ]
-{
-"960
-[; ;main.c: 960:                 ordre = 'w';
-[e = _ordre -> -> 119 `ui `uc ]
-"962
-[; ;main.c: 962:             }
-}
-[e :U 513 ]
-"969
-[; ;main.c: 969:         } else if (D_nA && R_nW)
-}
-[e $U 514  ]
-[e :U 508 ]
-[e $ ! && _D_nA _R_nW 515  ]
-"970
-[; ;main.c: 970:         {
-{
-"972
-[; ;main.c: 972:             unsigned char temp = SSPBUF;
+"934
+[; ;main.c: 934:             unsigned char temp = SSPBUF;
 [v _temp `uc ~T0 @X0 1 a ]
 [e = _temp _SSPBUF ]
-"974
-[; ;main.c: 974:             CKP = 1;
+"936
+[; ;main.c: 936:             CKP = 1;
 [e = _CKP -> -> 1 `i `b ]
-"975
-[; ;main.c: 975:             if (temp == 88) {
-[e $ ! == -> _temp `i -> 88 `i 516  ]
+"941
+[; ;main.c: 941:             if (temp == '?') {
+[e $ ! == -> _temp `ui -> 63 `ui 508  ]
 {
-"977
-[; ;main.c: 977:                 SSPBUF = 0x22;
-[e = _SSPBUF -> -> 34 `i `uc ]
-"979
-[; ;main.c: 979:             }
+"943
+[; ;main.c: 943:                 ordre = '?';
+[e = _ordre -> -> 63 `ui `uc ]
+"945
+[; ;main.c: 945:             }
 }
-[e :U 516 ]
-"981
-[; ;main.c: 981:             if (temp == 77) {
-[e $ ! == -> _temp `i -> 77 `i 517  ]
+[e :U 508 ]
+"949
+[; ;main.c: 949:             if (temp == 'a') {
+[e $ ! == -> _temp `ui -> 97 `ui 509  ]
 {
-"983
-[; ;main.c: 983:                 SSPBUF = 0x99;
-[e = _SSPBUF -> -> 153 `i `uc ]
-"985
-[; ;main.c: 985:             }
+"951
+[; ;main.c: 951:                 ordre = 'a';
+[e = _ordre -> -> 97 `ui `uc ]
+"953
+[; ;main.c: 953:             }
+}
+[e :U 509 ]
+"956
+[; ;main.c: 956:             if (temp == 'u') {
+[e $ ! == -> _temp `ui -> 117 `ui 510  ]
+{
+"958
+[; ;main.c: 958:                 ordre = 'u';
+[e = _ordre -> -> 117 `ui `uc ]
+"960
+[; ;main.c: 960:             }
+}
+[e :U 510 ]
+"963
+[; ;main.c: 963:             if (temp == 'v') {
+[e $ ! == -> _temp `ui -> 118 `ui 511  ]
+{
+"965
+[; ;main.c: 965:                 ordre = 'v';
+[e = _ordre -> -> 118 `ui `uc ]
+"967
+[; ;main.c: 967:             }
+}
+[e :U 511 ]
+"970
+[; ;main.c: 970:             if (temp == 'w') {
+[e $ ! == -> _temp `ui -> 119 `ui 512  ]
+{
+"972
+[; ;main.c: 972:                 ordre = 'w';
+[e = _ordre -> -> 119 `ui `uc ]
+"974
+[; ;main.c: 974:             }
+}
+[e :U 512 ]
+"977
+[; ;main.c: 977:             if (temp == '=') {
+[e $ ! == -> _temp `ui -> 61 `ui 513  ]
+{
+"979
+[; ;main.c: 979:                 ordre = '=';
+[e = _ordre -> -> 61 `ui `uc ]
+"981
+[; ;main.c: 981:             }
+}
+[e :U 513 ]
+"984
+[; ;main.c: 984:             if (temp == '*') {
+[e $ ! == -> _temp `ui -> 42 `ui 514  ]
+{
+"986
+[; ;main.c: 986:                 ordre = '*';
+[e = _ordre -> -> 42 `ui `uc ]
+"988
+[; ;main.c: 988:             }
+}
+[e :U 514 ]
+"995
+[; ;main.c: 995:         } else if (D_nA && R_nW)
+}
+[e $U 515  ]
+[e :U 507 ]
+[e $ ! && _D_nA _R_nW 516  ]
+"996
+[; ;main.c: 996:         {
+{
+"998
+[; ;main.c: 998:             unsigned char temp = SSPBUF;
+[v _temp `uc ~T0 @X0 1 a ]
+[e = _temp _SSPBUF ]
+"1000
+[; ;main.c: 1000:             CKP = 1;
+[e = _CKP -> -> 1 `i `b ]
+"1001
+[; ;main.c: 1001:             if (temp == 88) {
+[e $ ! == -> _temp `i -> 88 `i 517  ]
+{
+"1003
+[; ;main.c: 1003:                 SSPBUF = 0x22;
+[e = _SSPBUF -> -> 34 `i `uc ]
+"1005
+[; ;main.c: 1005:             }
 }
 [e :U 517 ]
-"987
-[; ;main.c: 987:             if (temp == 25) {
-[e $ ! == -> _temp `i -> 25 `i 518  ]
+"1007
+[; ;main.c: 1007:             if (temp == 77) {
+[e $ ! == -> _temp `i -> 77 `i 518  ]
 {
-"991
-[; ;main.c: 991:             }
+"1009
+[; ;main.c: 1009:                 SSPBUF = 0x99;
+[e = _SSPBUF -> -> 153 `i `uc ]
+"1011
+[; ;main.c: 1011:             }
 }
 [e :U 518 ]
-"994
-[; ;main.c: 994:         }
+"1013
+[; ;main.c: 1013:             if (temp == 25) {
+[e $ ! == -> _temp `i -> 25 `i 519  ]
+{
+"1017
+[; ;main.c: 1017:             }
 }
+[e :U 519 ]
+"1020
+[; ;main.c: 1020:         }
+}
+[e :U 516 ]
 [e :U 515 ]
-[e :U 514 ]
-[e :U 507 ]
-[e :U 500 ]
-"995
-[; ;main.c: 995:     }
-}
+[e :U 506 ]
 [e :U 497 ]
-"996
-[; ;main.c: 996: }
-[e :UE 496 ]
+"1021
+[; ;main.c: 1021:     }
+}
+[e :U 494 ]
+"1022
+[; ;main.c: 1022: }
+[e :UE 493 ]
 }
 [p f _printf 8388608 ]
 [p f _sprintf 8388736 ]

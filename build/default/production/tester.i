@@ -6308,6 +6308,28 @@ void attenteDemarrageSlave(_Bool *autom, _Bool *testAct, _Bool *prog, char *orde
 
         }
 
+         if (*order == '=') {
+
+            repOperateur = 0;
+            *autom = 0;
+            *prog = 1;
+            *testAct = 0;
+            do { LATAbits.LATA7 = 1; } while(0);
+
+
+        }
+
+         if (*order == '*') {
+
+            repOperateur = 1;
+            *autom = 0;
+            *prog = 0;
+            *testAct = 0;
+            do { LATAbits.LATA7 = 0; } while(0);
+
+
+        }
+
 
     }
 
